@@ -4,8 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-  url      = "../"
+  url      = env("DATABASE_URL")
 }
 
 enum ContentType {
@@ -13,57 +12,23 @@ enum ContentType {
   NEWS
   ARTICLE
 }
+
 model Language {
-  id        String @id @default(cuid())
-  code      String @unique
-  name      String
-
-  createdAt DateTime @default(now())
-}
-model Product {
-  id            String @id @default(cuid())
-
-  slug          String @unique
-
-  imageUrl      String
-
-  categoryId    String
-  subCategoryId String?
-  published Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  category    Category
-  subCategory SubCategory?
-
-  translations ProductTranslation[]
-}
-model ProductTranslation {
-  id String @id @default(cuid())
-
-  productId String
-
-  languageId String
-
+  id   String @id @default(cuid())
+  code String @unique
   name String
+  enabled Boolean @default(true)
 
-  description String @db.Text
+  sortOrder Int @default(0)
+  createdAt DateTime @default(now())
 
-  specifications String @db.Text
-  slug String
-
-  seoTitle String?
-
-  seoDescription String?
-
-  seoKeywords String?
-
-  product Product @relation(fields: [productId], references: [id])
-
-  language Language @relation(fields: [languageId], references: [id])
-
-  @@unique([productId, languageId])
+  productTranslations     ProductTranslation[]
+  categoryTranslations    CategoryTranslation[]
+  subCategoryTranslations SubCategoryTranslation[]
+  contentTranslations     ContentTranslation[]
+  tickerTranslations      PriceTickerTranslation[]
 }
+
 model Category {
   id String @id @default(cuid())
 
@@ -71,14 +36,20 @@ model Category {
 
   imageUrl String
 
+  published Boolean @default(true)
+
   createdAt DateTime @default(now())
-  published Boolean @default(false)
+  updatedAt DateTime @updatedAt
+
   products Product[]
+
+  subCategories SubCategory[]
 
   translations CategoryTranslation[]
 
-  subCategories SubCategory[]
+  @@index([published])
 }
+
 model CategoryTranslation {
   id String @id @default(cuid())
 
@@ -92,12 +63,15 @@ model CategoryTranslation {
 
   seoDescription String?
 
-  category Category @relation(fields: [categoryId], references: [id])
+  seoKeywords String?
 
-  language Language @relation(fields: [languageId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  language Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
 
   @@unique([categoryId, languageId])
 }
+
 model SubCategory {
   id String @id @default(cuid())
 
@@ -106,14 +80,21 @@ model SubCategory {
   slug String @unique
 
   imageUrl String
-  published Boolean @default(false)
-  category Category @relation(fields: [categoryId], references: [id])
+
+  published Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   products Product[]
 
   translations SubCategoryTranslation[]
-  
+
+  @@index([categoryId])
 }
+
 model SubCategoryTranslation {
   id String @id @default(cuid())
 
@@ -127,29 +108,90 @@ model SubCategoryTranslation {
 
   seoDescription String?
 
-  category Category @relation(fields: [subCategoryId], references: [id])
+  seoKeywords String?
 
-  language Language @relation(fields: [languageId], references: [id])
+  subCategory SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+
+  language Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
 
   @@unique([subCategoryId, languageId])
 }
+
+model Product {
+  id String @id @default(cuid())
+
+  slug String @unique
+
+  imageUrl String
+
+  categoryId String
+
+  subCategoryId String?
+
+  published Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  subCategory SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: SetNull)
+
+  translations ProductTranslation[]
+
+  @@index([categoryId])
+  @@index([subCategoryId])
+  @@index([published])
+}
+
+model ProductTranslation {
+  id String @id @default(cuid())
+
+  productId String
+
+  languageId String
+
+  name String
+
+  description String
+
+  specifications String
+
+  seoTitle String?
+
+  seoDescription String?
+
+  seoKeywords String?
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  language Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, languageId])
+}
+
 model Content {
   id String @id @default(cuid())
 
   slug String @unique
 
+  type ContentType
+
   coverImage String
 
-  type ContentType
-  
   published Boolean @default(false)
 
   publishedAt DateTime?
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   translations ContentTranslation[]
+
+  @@index([type])
+  @@index([published])
 }
+
 model ContentTranslation {
   id String @id @default(cuid())
 
@@ -161,7 +203,7 @@ model ContentTranslation {
 
   excerpt String?
 
-  body String @db.Text
+  body String
 
   seoTitle String?
 
@@ -169,23 +211,29 @@ model ContentTranslation {
 
   seoKeywords String?
 
-  content Content @relation(fields: [contentId], references: [id])
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
 
-  language Language @relation(fields: [languageId], references: [id])
+  language Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
 
   @@unique([contentId, languageId])
 }
+
 model PriceTicker {
   id String @id @default(cuid())
 
-  sortOrder Int @default(0)
-
   active Boolean @default(true)
 
+  sortOrder Int @default(0)
+
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   translations PriceTickerTranslation[]
+
+  @@index([active])
+  @@index([sortOrder])
 }
+
 model PriceTickerTranslation {
   id String @id @default(cuid())
 
@@ -197,9 +245,9 @@ model PriceTickerTranslation {
 
   price String
 
-  ticker PriceTicker @relation(fields: [tickerId], references: [id])
+  ticker PriceTicker @relation(fields: [tickerId], references: [id], onDelete: Cascade)
 
-  language Language @relation(fields: [languageId], references: [id])
+  language Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
 
   @@unique([tickerId, languageId])
 }
