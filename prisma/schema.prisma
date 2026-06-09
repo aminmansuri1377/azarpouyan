@@ -29,7 +29,7 @@ model Product {
 
   categoryId    String
   subCategoryId String?
-
+  published Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -50,6 +50,7 @@ model ProductTranslation {
   description String @db.Text
 
   specifications String @db.Text
+  slug String
 
   seoTitle String?
 
@@ -71,7 +72,7 @@ model Category {
   imageUrl String
 
   createdAt DateTime @default(now())
-
+  published Boolean @default(false)
   products Product[]
 
   translations CategoryTranslation[]
@@ -105,7 +106,7 @@ model SubCategory {
   slug String @unique
 
   imageUrl String
-
+  published Boolean @default(false)
   category Category @relation(fields: [categoryId], references: [id])
 
   products Product[]
@@ -140,7 +141,7 @@ model Content {
   coverImage String
 
   type ContentType
-
+  
   published Boolean @default(false)
 
   publishedAt DateTime?
