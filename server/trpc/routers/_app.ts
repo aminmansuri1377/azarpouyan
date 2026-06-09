@@ -1,12 +1,12 @@
-import { createTRPCRouter, publicProcedure } from "../init";
+import { router } from "../trpc";
 
-export const appRouter = createTRPCRouter({
-  health: publicProcedure.query(() => {
-    return {
-      status: "ok",
-      timestamp: Date.now(),
-    };
-  }),
+import { healthRouter } from "./health";
+import { languageRouter } from "./language";
+
+export const appRouter = router({
+  health: healthRouter,
+
+  language: languageRouter,
 });
 
 export type AppRouter = typeof appRouter;
