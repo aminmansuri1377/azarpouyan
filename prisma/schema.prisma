@@ -70,6 +70,7 @@ model SubCategoryTranslation {
   subCategoryId  String
   languageId     String
   name           String
+  slug           String
   seoTitle       String?
   seoDescription String?
   seoKeywords    String?
@@ -102,6 +103,7 @@ model ProductTranslation {
   productId      String
   languageId     String
   name           String
+  slug           String
   description    String
   specifications String
   seoTitle       String?
