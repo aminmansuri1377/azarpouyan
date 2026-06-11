@@ -14,9 +14,7 @@ export default function SubCategoriesPage() {
     },
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div style={{ padding: 20 }}>
@@ -28,11 +26,10 @@ export default function SubCategoriesPage() {
         }}
       >
         <h1>Sub Categories</h1>
-
         <Link href="/panel/subcategories/create">Create SubCategory</Link>
       </div>
 
-      <table border={1} cellPadding={10}>
+      <table border={1} cellPadding={10} style={{ width: "100%" }}>
         <thead>
           <tr>
             <th>Name</th>
@@ -41,33 +38,21 @@ export default function SubCategoriesPage() {
             <th>Actions</th>
           </tr>
         </thead>
-
         <tbody>
           {data?.map((item) => (
             <tr key={item.id}>
               <td>{item.translations?.[0]?.name ?? "-"}</td>
-
               <td>
                 {item.category?.translations?.[0]?.name ?? item.categoryId}
               </td>
-
               <td>{item.published ? "Yes" : "No"}</td>
-
               <td>
                 <Link href={`/panel/subcategories/${item.id}`}>Edit</Link>
-
                 {" | "}
-
                 <button
                   onClick={() => {
-                    if (
-                      confirm(
-                        "Are you sure you want to delete this subcategory?",
-                      )
-                    ) {
-                      deleteMutation.mutate({
-                        id: item.id,
-                      });
+                    if (confirm("Delete this subcategory?")) {
+                      deleteMutation.mutate({ id: item.id });
                     }
                   }}
                 >
