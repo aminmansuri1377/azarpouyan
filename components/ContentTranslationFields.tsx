@@ -27,6 +27,8 @@ export function ContentTranslationFields({
 
       <div>
         <input placeholder="Title" {...register(`${prefix}.title`)} />
+        <input placeholder="Slug" {...register(`${prefix}.slug`)} />
+
         {errors?.title && (
           <span style={{ color: "red", fontSize: 12 }}>
             {errors.title.message}

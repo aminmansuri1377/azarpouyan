@@ -5,6 +5,7 @@ import { ContentType } from "@prisma/client";
 const translationInput = z.object({
   languageId: z.string(),
   title: z.string(),
+  slug: z.string(),
   excerpt: z.string().optional(),
   body: z.string(),
   seoTitle: z.string().optional(),
@@ -96,6 +97,7 @@ export const contentRouter = router({
           },
           update: {
             title: translation.title,
+            slug: translation.slug,
             excerpt: translation.excerpt,
             body: translation.body,
             seoTitle: translation.seoTitle,

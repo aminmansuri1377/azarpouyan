@@ -19,6 +19,7 @@ interface ContentFormProps {
 const buildEmptyTranslation = (languageId: string) => ({
   languageId,
   title: "",
+  slug: "",
   excerpt: "",
   body: "",
   seoTitle: "",

@@ -135,6 +135,7 @@ model ContentTranslation {
   contentId      String
   languageId     String
   title          String
+  slug           String
   excerpt        String?
   body           String
   seoTitle       String?

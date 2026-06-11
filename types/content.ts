@@ -5,6 +5,7 @@ export const contentTranslationSchema = z.object({
   languageId: z.string().min(1, "Required"),
   title: z.string().min(1, "Title is required"),
   excerpt: z.string().optional(),
+  slug: z.string().min(1),
   body: z.string().min(1, "Body is required"),
   seoTitle: z.string().optional(),
   seoDescription: z.string().optional(),
