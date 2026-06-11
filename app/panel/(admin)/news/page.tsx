@@ -1,3 +1,6 @@
-export default function Page() {
-  return <h2>news</h2>;
+"use client";
+import { ContentListPage } from "@/components/ContentList";
+
+export default function NewsPage() {
+  return <ContentListPage type="NEWS" basePath="/panel/news" />;
 }

@@ -7,6 +7,8 @@ import { adminAuthRouter } from "./admin-auth";
 import { subCategoryRouter } from "./subCategory";
 import { productRouter } from "./product";
 import { publicRouter } from "./public";
+import { contentRouter } from "./content";
+import { priceTickerRouter } from "./priceTicker";
 export const appRouter = router({
   health: healthRouter,
   adminAuth: adminAuthRouter,
@@ -15,6 +17,8 @@ export const appRouter = router({
   subCategory: subCategoryRouter,
   product: productRouter,
   public: publicRouter,
+  content: contentRouter,
+  priceTicker: priceTickerRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -1,3 +1,6 @@
-export default function Page() {
-  return <h2>blog</h2>;
+"use client";
+import { ContentListPage } from "@/components/ContentList";
+
+export default function BlogsPage() {
+  return <ContentListPage type="BLOG" basePath="/panel/blogs" />;
 }
