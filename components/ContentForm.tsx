@@ -45,6 +45,8 @@ export function ContentForm({
     defaultValues: defaultValues ?? {
       slug: "",
       coverImage: "",
+      images: [],
+
       published: false,
       publishedAt: "",
       translations: [],
@@ -55,7 +57,14 @@ export function ContentForm({
     control,
     name: "translations",
   });
-
+  const {
+    fields: imageFields,
+    append: appendImage,
+    remove: removeImage,
+  } = useFieldArray({
+    control,
+    name: "images",
+  });
   // create mode: initialize translations وقتی languages لود شد
   useEffect(() => {
     if (!languages.length) return;
@@ -104,7 +113,23 @@ export function ContentForm({
           </span>
         )}
       </div>
+      <h3>Gallery Images</h3>
       <br />
+      {imageFields.map((field, index) => (
+        <div key={field.id}>
+          <input
+            placeholder="Gallery Image URL"
+            {...register(`images.${index}`)}
+          />
+
+          <button type="button" onClick={() => removeImage(index)}>
+            Delete
+          </button>
+        </div>
+      ))}
+      <button type="button" onClick={() => appendImage("")}>
+        Add Image
+      </button>
 
       <div>
         <label>Published At</label>

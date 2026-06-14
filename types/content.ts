@@ -15,6 +15,7 @@ export const contentTranslationSchema = z.object({
 export const contentSchema = z.object({
   slug: z.string().min(1, "Slug is required"),
   coverImage: z.string().min(1, "Cover image is required"),
+  images: z.array(z.string()).default([]),
   published: z.boolean(),
   publishedAt: z.string().nullable().optional(),
   translations: z.array(contentTranslationSchema),

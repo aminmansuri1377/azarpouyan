@@ -13,10 +13,17 @@ export const translationSchema = z.object({
 
 export const productSchema = z.object({
   slug: z.string().min(1),
+
   imageUrl: z.string().min(1),
+
+  images: z.array(z.string()).default([]),
+
   categoryId: z.string().min(1),
+
   subCategoryId: z.string().nullable().optional(),
+
   published: z.boolean(),
+
   translations: z.array(translationSchema),
 });
 

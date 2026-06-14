@@ -47,6 +47,8 @@ export const contentRouter = router({
         slug: z.string(),
         type: z.nativeEnum(ContentType),
         coverImage: z.string(),
+        images: z.array(z.string()).default([]),
+
         published: z.boolean(),
         publishedAt: z.string().nullable().optional(),
         translations: z.array(translationInput),
@@ -71,6 +73,8 @@ export const contentRouter = router({
         id: z.string(),
         slug: z.string(),
         coverImage: z.string(),
+        images: z.array(z.string()).default([]),
+
         published: z.boolean(),
         publishedAt: z.string().nullable().optional(),
         translations: z.array(translationInput),

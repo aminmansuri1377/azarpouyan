@@ -30,6 +30,8 @@ export default function EditNewsPage() {
     return {
       slug: data.slug,
       coverImage: data.coverImage,
+      images: Array.isArray(data.images) ? (data.images as string[]) : [],
+
       published: data.published,
       publishedAt: data.publishedAt
         ? new Date(data.publishedAt).toISOString().slice(0, 16)
@@ -37,6 +39,7 @@ export default function EditNewsPage() {
       translations: data.translations.map((t) => ({
         languageId: t.languageId,
         title: t.title,
+        slug: t.slug,
         excerpt: t.excerpt ?? "",
         body: t.body,
         seoTitle: t.seoTitle ?? "",

@@ -17,10 +17,7 @@ export default function CreateProductPage() {
   });
 
   const handleSubmit = (values: ProductFormValues) => {
-    createMutation.mutate({
-      ...values,
-      subCategoryId: values.subCategoryId || undefined,
-    });
+    createMutation.mutate(values);
   };
 
   return (

@@ -57,6 +57,7 @@ export const productRouter = router({
         slug: z.string(),
 
         imageUrl: z.string(),
+        images: z.array(z.string()).default([]),
 
         categoryId: z.string(),
 
@@ -90,6 +91,7 @@ export const productRouter = router({
           slug: input.slug,
 
           imageUrl: input.imageUrl,
+          images: input.images,
 
           categoryId: input.categoryId,
 
@@ -112,6 +114,7 @@ export const productRouter = router({
         slug: z.string(),
 
         imageUrl: z.string(),
+        images: z.array(z.string()).default([]),
 
         categoryId: z.string(),
 

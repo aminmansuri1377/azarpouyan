@@ -33,6 +33,7 @@ export function ProductForm({
     defaultValues: defaultValues ?? {
       slug: "",
       imageUrl: "",
+      images: [],
       categoryId: "",
       subCategoryId: null,
       published: true,
@@ -52,7 +53,14 @@ export function ProductForm({
     control,
     name: "translations",
   });
-
+  const {
+    fields: imageFields,
+    append: appendImage,
+    remove: removeImage,
+  } = useFieldArray({
+    control,
+    name: "images",
+  });
   // وقتی زبان‌ها لود شدن، برای هر زبان یک ترنسلیشن ایجاد کن
   // (اگر edit mode هست، مقادیر موجود رو حفظ کن)
   useEffect(() => {
@@ -105,7 +113,26 @@ export function ProductForm({
             <span style={{ color: "red" }}>{errors.imageUrl.message}</span>
           )}
         </div>
+        <hr />
 
+        <h3>Gallery Images</h3>
+
+        {imageFields.map((field, index) => (
+          <div key={field.id}>
+            <input
+              placeholder="Gallery Image URL"
+              {...register(`images.${index}`)}
+            />
+
+            <button type="button" onClick={() => removeImage(index)}>
+              Delete
+            </button>
+          </div>
+        ))}
+
+        <button type="button" onClick={() => appendImage("")}>
+          Add Image
+        </button>
         <br />
 
         <select {...register("categoryId")}>
@@ -123,8 +150,13 @@ export function ProductForm({
         <br />
         <br />
 
-        <select {...register("subCategoryId")}>
+        <select
+          {...register("subCategoryId", {
+            setValueAs: (value) => value || null,
+          })}
+        >
           <option value="">No SubCategory</option>
+
           {subCategories?.map((s) => (
             <option key={s.id} value={s.id}>
               {s.translations?.[0]?.name}

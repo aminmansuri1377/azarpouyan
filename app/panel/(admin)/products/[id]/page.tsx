@@ -27,7 +27,6 @@ export default function EditProductPage() {
     updateMutation.mutate({
       id,
       ...values,
-      subCategoryId: values.subCategoryId || undefined,
     });
   };
 
@@ -38,6 +37,7 @@ export default function EditProductPage() {
     ? {
         slug: data.slug,
         imageUrl: data.imageUrl,
+        images: Array.isArray(data.images) ? (data.images as string[]) : [],
         categoryId: data.categoryId,
         subCategoryId: data.subCategoryId ?? null,
         published: data.published,
