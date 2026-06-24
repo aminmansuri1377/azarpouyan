@@ -38,6 +38,10 @@ const links = [
     label: "Price Ticker",
   },
   {
+    href: "/panel/contact-requests",
+    label: "contact-requests",
+  },
+  {
     href: "/panel/settings",
     label: "Settings",
   },

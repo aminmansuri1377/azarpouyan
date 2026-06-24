@@ -14,6 +14,7 @@ const en = {
   changeLanguage: "Change Language",
 
   footer: "All rights reserved",
+  contactus: "contact Us",
 };
 
 export default en;

@@ -14,6 +14,7 @@ const fa = {
   changeLanguage: "تغییر زبان",
 
   footer: "تمام حقوق محفوظ است",
+  contactus: "ارتباط با ما",
 };
 
 export default fa;

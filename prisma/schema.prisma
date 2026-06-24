@@ -173,7 +173,24 @@ model PriceTickerTranslation {
 
   @@unique([tickerId, languageId])
 }
+model ContactRequest {
+  id String @id @default(cuid())
 
+  fullName String
+  phone     String?
+  email     String?
+
+  subject String?
+
+  message String @db.Text
+
+  isRead Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([isRead])
+  @@index([createdAt])
+}
 enum ContentType {
   BLOG
   NEWS

@@ -28,6 +28,7 @@ export function Header({ locale, messages }: Props) {
         }}
       >
         <Link href={`/${locale}/blog`}>{messages.blogs}</Link>
+        <Link href={`/${locale}/contact`}>{messages.contactus}</Link>
 
         <Link href={`/${locale}/news`}>{messages.news}</Link>
 
