@@ -48,6 +48,11 @@ export function ContactForm() {
       <br />
       <br />
 
+      <input placeholder="نام شرکت" {...register("companyName")} />
+
+      <br />
+      <br />
+
       <input placeholder="شماره تماس" {...register("phone")} />
 
       <br />

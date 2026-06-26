@@ -45,6 +45,9 @@ export default function ContactRequestPage() {
       <p>
         <b>Phone:</b> {data.phone}
       </p>
+      <p>
+        <b>company:</b> {data.companyName}
+      </p>
 
       <p>
         <b>Email:</b> {data.email}

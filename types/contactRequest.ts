@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const contactRequestSchema = z.object({
   fullName: z.string().min(2, "نام الزامی است"),
+  companyName: z.string().optional(),
 
   phone: z.string().optional(),
 

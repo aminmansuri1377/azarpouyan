@@ -8,6 +8,7 @@ export const contactRequestRouter = router({
       z.object({
         fullName: z.string(),
         phone: z.string().optional(),
+        companyName: z.string().optional(),
         email: z.string().optional(),
         subject: z.string().optional(),
         message: z.string(),
