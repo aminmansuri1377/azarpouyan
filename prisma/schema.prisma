@@ -8,33 +8,38 @@ datasource db {
 }
 
 model Language {
-  id                      String                   @id @default(cuid())
-  code                    String                   @unique
-  name                    String
-  enabled                 Boolean                  @default(true)
-  sortOrder               Int                      @default(0)
-  createdAt               DateTime                 @default(now())
-  categoryTranslations    CategoryTranslation[]
-  contentTranslations     ContentTranslation[]
-  tickerTranslations      PriceTickerTranslation[]
-  productTranslations     ProductTranslation[]
-  subCategoryTranslations SubCategoryTranslation[]
+  id                   String                @id @default(cuid())
+  code                 String                @unique
+  name                 String
+  enabled              Boolean               @default(true)
+  sortOrder            Int                   @default(0)
+  createdAt            DateTime              @default(now())
+  categoryTranslations CategoryTranslation[]
+  contentTranslations  ContentTranslation[]
+  tickerTranslations   PriceTickerTranslation[]
+  productTranslations  ProductTranslation[]
 }
 
 model Category {
-  id            String                @id @default(cuid())
-  slug          String                @unique
-  imageUrl      String
-  published     Boolean               @default(true)
-  createdAt     DateTime              @default(now())
-  updatedAt     DateTime              @updatedAt
-  translations  CategoryTranslation[]
-  products      Product[]
-  subCategories SubCategory[]
+  id           String                @id @default(cuid())
+  slug         String                @unique
+  imageUrl     String
+  published    Boolean               @default(true)
+  sortOrder    Int                   @default(0)
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  // --- درخت خودارجاع ---
+  parentId     String?
+  parent       Category?             @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children     Category[]            @relation("CategoryTree")
+
+  translations CategoryTranslation[]
+  products     Product[]
 
   @@index([published])
+  @@index([parentId])
 }
-
 model CategoryTranslation {
   id             String   @id @default(cuid())
   categoryId     String
@@ -50,52 +55,19 @@ model CategoryTranslation {
   @@unique([categoryId, languageId])
 }
 
-model SubCategory {
-  id           String                   @id @default(cuid())
-  categoryId   String
-  slug         String                   @unique
-  imageUrl     String
-  published    Boolean                  @default(true)
-  createdAt    DateTime                 @default(now())
-  updatedAt    DateTime                 @updatedAt
-  products     Product[]
-  category     Category                 @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  translations SubCategoryTranslation[]
-
-  @@index([categoryId])
-}
-
-model SubCategoryTranslation {
-  id             String      @id @default(cuid())
-  subCategoryId  String
-  languageId     String
-  name           String
-  slug           String
-  seoTitle       String?
-  seoDescription String?
-  seoKeywords    String?
-  language       Language    @relation(fields: [languageId], references: [id], onDelete: Cascade)
-  subCategory    SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-
-  @@unique([subCategoryId, languageId])
-}
-
 model Product {
-  id            String               @id @default(cuid())
-  slug          String               @unique
-  imageUrl      String
-  images Json?
-  categoryId    String
-  subCategoryId String?
-  published     Boolean              @default(true)
-  createdAt     DateTime             @default(now())
-  updatedAt     DateTime             @updatedAt
-  category      Category             @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  subCategory   SubCategory?         @relation(fields: [subCategoryId], references: [id])
-  translations  ProductTranslation[]
+  id           String               @id @default(cuid())
+  slug         String               @unique
+  imageUrl     String
+  images       Json?
+  categoryId   String
+  published    Boolean              @default(true)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  category     Category             @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  translations ProductTranslation[]
 
   @@index([categoryId])
-  @@index([subCategoryId])
   @@index([published])
 }
 

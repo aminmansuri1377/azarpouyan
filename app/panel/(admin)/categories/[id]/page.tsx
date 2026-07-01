@@ -15,25 +15,26 @@ export default function EditCategoryPage() {
     { id },
     { enabled: !!id },
   );
-
   const { data: languages = [] } = trpc.language.getAll.useQuery();
+  const { data: allCategories = [] } = trpc.category.getAll.useQuery();
 
   const updateMutation = trpc.category.update.useMutation({
     onSuccess: async () => {
+      await utils.category.getTree.invalidate();
       await utils.category.getAll.invalidate();
       await utils.category.getById.invalidate({ id });
       router.push("/panel/categories");
     },
   });
 
-  // defaultValues فقط وقتی data آماده است ساخته می‌شود
   const defaultValues = useMemo<CategoryFormValues | undefined>(() => {
     if (!data) return undefined;
-
     return {
+      parentId: data.parentId,
       slug: data.slug,
       imageUrl: data.imageUrl,
       published: data.published,
+      sortOrder: (data as any).sortOrder ?? 0,
       translations: data.translations.map((t) => ({
         languageId: t.languageId,
         name: t.name,
@@ -49,19 +50,21 @@ export default function EditCategoryPage() {
     updateMutation.mutate({ id, ...values });
   };
 
-  if (!id) return <div>Invalid Category ID</div>;
+  if (!id) return <div>Invalid ID</div>;
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
-      <h1 style={{ padding: "20px 20px 0" }}>Edit Category</h1>
+      <h1 style={{ padding: "20px 20px 0" }}>ویرایش کتگوری</h1>
       <CategoryForm
-        key={data?.id} // ← مهم: باعث می‌شود فرم هنگام لود data دوباره mount شود
+        key={data?.id}
         defaultValues={defaultValues}
         languages={languages}
+        allCategories={allCategories}
+        excludeId={id}
         onSubmit={handleSubmit}
         isSubmitting={updateMutation.isPending}
-        submitLabel="Update"
+        submitLabel="بروزرسانی"
       />
     </>
   );

@@ -19,8 +19,10 @@ CREATE TABLE "public"."Category" (
     "slug" TEXT NOT NULL,
     "imageUrl" TEXT NOT NULL,
     "published" BOOLEAN NOT NULL DEFAULT true,
+    "sortOrder" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "parentId" TEXT,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
@@ -31,6 +33,7 @@ CREATE TABLE "public"."CategoryTranslation" (
     "categoryId" TEXT NOT NULL,
     "languageId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "seoTitle" TEXT,
     "seoDescription" TEXT,
     "seoKeywords" TEXT,
@@ -39,38 +42,12 @@ CREATE TABLE "public"."CategoryTranslation" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."SubCategory" (
-    "id" TEXT NOT NULL,
-    "categoryId" TEXT NOT NULL,
-    "slug" TEXT NOT NULL,
-    "imageUrl" TEXT NOT NULL,
-    "published" BOOLEAN NOT NULL DEFAULT true,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "SubCategory_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "public"."SubCategoryTranslation" (
-    "id" TEXT NOT NULL,
-    "subCategoryId" TEXT NOT NULL,
-    "languageId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "seoTitle" TEXT,
-    "seoDescription" TEXT,
-    "seoKeywords" TEXT,
-
-    CONSTRAINT "SubCategoryTranslation_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "public"."Product" (
     "id" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "imageUrl" TEXT NOT NULL,
+    "images" JSONB,
     "categoryId" TEXT NOT NULL,
-    "subCategoryId" TEXT,
     "published" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -84,6 +61,7 @@ CREATE TABLE "public"."ProductTranslation" (
     "productId" TEXT NOT NULL,
     "languageId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "specifications" TEXT NOT NULL,
     "seoTitle" TEXT,
@@ -99,6 +77,7 @@ CREATE TABLE "public"."Content" (
     "slug" TEXT NOT NULL,
     "type" "public"."ContentType" NOT NULL,
     "coverImage" TEXT NOT NULL,
+    "images" JSONB,
     "published" BOOLEAN NOT NULL DEFAULT false,
     "publishedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -113,6 +92,7 @@ CREATE TABLE "public"."ContentTranslation" (
     "contentId" TEXT NOT NULL,
     "languageId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "excerpt" TEXT,
     "body" TEXT NOT NULL,
     "seoTitle" TEXT,
@@ -126,6 +106,7 @@ CREATE TABLE "public"."ContentTranslation" (
 CREATE TABLE "public"."PriceTicker" (
     "id" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL DEFAULT true,
+    "imageUrl" TEXT,
     "sortOrder" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -144,6 +125,21 @@ CREATE TABLE "public"."PriceTickerTranslation" (
     CONSTRAINT "PriceTickerTranslation_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "public"."ContactRequest" (
+    "id" TEXT NOT NULL,
+    "fullName" TEXT NOT NULL,
+    "companyName" TEXT,
+    "phone" TEXT,
+    "email" TEXT,
+    "subject" TEXT,
+    "message" TEXT NOT NULL,
+    "isRead" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "ContactRequest_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Language_code_key" ON "public"."Language"("code");
 
@@ -154,25 +150,16 @@ CREATE UNIQUE INDEX "Category_slug_key" ON "public"."Category"("slug");
 CREATE INDEX "Category_published_idx" ON "public"."Category"("published");
 
 -- CreateIndex
+CREATE INDEX "Category_parentId_idx" ON "public"."Category"("parentId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "CategoryTranslation_categoryId_languageId_key" ON "public"."CategoryTranslation"("categoryId", "languageId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "SubCategory_slug_key" ON "public"."SubCategory"("slug");
-
--- CreateIndex
-CREATE INDEX "SubCategory_categoryId_idx" ON "public"."SubCategory"("categoryId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "SubCategoryTranslation_subCategoryId_languageId_key" ON "public"."SubCategoryTranslation"("subCategoryId", "languageId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_slug_key" ON "public"."Product"("slug");
 
 -- CreateIndex
 CREATE INDEX "Product_categoryId_idx" ON "public"."Product"("categoryId");
-
--- CreateIndex
-CREATE INDEX "Product_subCategoryId_idx" ON "public"."Product"("subCategoryId");
 
 -- CreateIndex
 CREATE INDEX "Product_published_idx" ON "public"."Product"("published");
@@ -201,6 +188,15 @@ CREATE INDEX "PriceTicker_sortOrder_idx" ON "public"."PriceTicker"("sortOrder");
 -- CreateIndex
 CREATE UNIQUE INDEX "PriceTickerTranslation_tickerId_languageId_key" ON "public"."PriceTickerTranslation"("tickerId", "languageId");
 
+-- CreateIndex
+CREATE INDEX "ContactRequest_isRead_idx" ON "public"."ContactRequest"("isRead");
+
+-- CreateIndex
+CREATE INDEX "ContactRequest_createdAt_idx" ON "public"."ContactRequest"("createdAt");
+
+-- AddForeignKey
+ALTER TABLE "public"."Category" ADD CONSTRAINT "Category_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "public"."Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
 -- AddForeignKey
 ALTER TABLE "public"."CategoryTranslation" ADD CONSTRAINT "CategoryTranslation_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "public"."Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -208,25 +204,13 @@ ALTER TABLE "public"."CategoryTranslation" ADD CONSTRAINT "CategoryTranslation_c
 ALTER TABLE "public"."CategoryTranslation" ADD CONSTRAINT "CategoryTranslation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "public"."Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."SubCategory" ADD CONSTRAINT "SubCategory_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "public"."Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "public"."SubCategoryTranslation" ADD CONSTRAINT "SubCategoryTranslation_subCategoryId_fkey" FOREIGN KEY ("subCategoryId") REFERENCES "public"."SubCategory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "public"."SubCategoryTranslation" ADD CONSTRAINT "SubCategoryTranslation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "public"."Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "public"."Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "public"."Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "public"."Product" ADD CONSTRAINT "Product_subCategoryId_fkey" FOREIGN KEY ("subCategoryId") REFERENCES "public"."SubCategory"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "public"."ProductTranslation" ADD CONSTRAINT "ProductTranslation_productId_fkey" FOREIGN KEY ("productId") REFERENCES "public"."Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "public"."Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."ProductTranslation" ADD CONSTRAINT "ProductTranslation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "public"."Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "public"."ProductTranslation" ADD CONSTRAINT "ProductTranslation_productId_fkey" FOREIGN KEY ("productId") REFERENCES "public"."Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."ContentTranslation" ADD CONSTRAINT "ContentTranslation_contentId_fkey" FOREIGN KEY ("contentId") REFERENCES "public"."Content"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -235,7 +219,7 @@ ALTER TABLE "public"."ContentTranslation" ADD CONSTRAINT "ContentTranslation_con
 ALTER TABLE "public"."ContentTranslation" ADD CONSTRAINT "ContentTranslation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "public"."Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."PriceTickerTranslation" ADD CONSTRAINT "PriceTickerTranslation_tickerId_fkey" FOREIGN KEY ("tickerId") REFERENCES "public"."PriceTicker"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."PriceTickerTranslation" ADD CONSTRAINT "PriceTickerTranslation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "public"."Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."PriceTickerTranslation" ADD CONSTRAINT "PriceTickerTranslation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "public"."Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."PriceTickerTranslation" ADD CONSTRAINT "PriceTickerTranslation_tickerId_fkey" FOREIGN KEY ("tickerId") REFERENCES "public"."PriceTicker"("id") ON DELETE CASCADE ON UPDATE CASCADE;
