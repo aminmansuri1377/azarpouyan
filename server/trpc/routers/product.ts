@@ -20,24 +20,62 @@ export const productRouter = router({
       z
         .object({
           categoryId: z.string().optional(),
+          search: z.string().optional(),
         })
         .optional(),
     )
     .query(async ({ ctx, input }) => {
-      const where = input?.categoryId
-        ? {
-            categoryId: {
-              in: await collectIdsInSubtree(ctx.prisma, input.categoryId),
+      const filters: any[] = [];
+
+      if (input?.categoryId) {
+        const categoryIds = await collectIdsInSubtree(
+          ctx.prisma,
+          input.categoryId,
+        );
+
+        filters.push({
+          categoryId: {
+            in: categoryIds,
+          },
+        });
+      }
+
+      if (input?.search?.trim()) {
+        filters.push({
+          translations: {
+            some: {
+              name: {
+                contains: input.search.trim(),
+                mode: "insensitive",
+              },
             },
-          }
-        : {};
+          },
+        });
+      }
 
       return ctx.prisma.product.findMany({
-        where,
-        orderBy: { createdAt: "desc" },
+        where: filters.length
+          ? {
+              AND: filters,
+            }
+          : undefined,
+
+        orderBy: {
+          createdAt: "desc",
+        },
+
         include: {
-          category: { include: { translations: true } },
-          translations: { include: { language: true } },
+          category: {
+            include: {
+              translations: true,
+            },
+          },
+
+          translations: {
+            include: {
+              language: true,
+            },
+          },
         },
       });
     }),

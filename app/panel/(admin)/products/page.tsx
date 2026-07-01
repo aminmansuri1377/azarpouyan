@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { trpc } from "@/lib/trpc/client";
 import { CategoryFilterCascade } from "@/components/CategoryFilterCascade";
+import { useDebounce } from "@/hooks/useDebounce";
+import { ProductSearch } from "@/components/ProductSearch";
 
 export default function ProductsPage() {
   const utils = trpc.useUtils();
@@ -11,11 +13,13 @@ export default function ProductsPage() {
   const [categoryFilter, setCategoryFilter] = useState<string | undefined>(
     undefined,
   );
-
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 500);
   const { data: categories = [] } = trpc.category.getAll.useQuery();
 
-  const { data, isLoading } = trpc.product.getAll.useQuery({
+  const { data, isLoading, isFetching } = trpc.product.getAll.useQuery({
     categoryId: categoryFilter,
+    search: debouncedSearch,
   });
 
   const deleteMutation = trpc.product.delete.useMutation({
@@ -37,15 +41,41 @@ export default function ProductsPage() {
 
         <Link href="/panel/products/create">Create Product</Link>
       </div>
-
-      <div style={{ marginBottom: 20 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 12,
+          marginBottom: 20,
+          alignItems: "center",
+        }}
+      >
         <CategoryFilterCascade
           categories={categories}
           value={categoryFilter}
           onChange={setCategoryFilter}
         />
-      </div>
 
+        <ProductSearch value={search} onChange={setSearch} />
+      </div>
+      {isFetching && (
+        <span
+          style={{
+            fontSize: 13,
+            color: "#888",
+          }}
+        >
+          Searching...
+        </span>
+      )}
+
+      <div
+        style={{
+          marginBottom: 15,
+          fontWeight: 600,
+        }}
+      >
+        Total Products: {data?.length ?? 0}
+      </div>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
