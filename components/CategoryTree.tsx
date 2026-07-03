@@ -56,6 +56,9 @@ function CategoryNode({
         </span>
 
         <Link href={`/panel/categories/${node.id}`}>ویرایش</Link>
+        <Link href={`/panel/products?categoryId=${node.id}`}>
+          مشاهده محصولات
+        </Link>
         <Link href={`/panel/categories/create?parentId=${node.id}`}>
           + افزودن زیرشاخه
         </Link>
