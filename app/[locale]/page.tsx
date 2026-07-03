@@ -28,6 +28,7 @@ export default function HomePage() {
   const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, [debouncedSearch]);
 

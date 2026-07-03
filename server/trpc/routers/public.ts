@@ -427,4 +427,162 @@ export const publicRouter = router({
         totalPages: Math.ceil(total / input.limit),
       };
     }),
+  getLocalizedPath: publicProcedure
+    .input(
+      z.object({
+        currentLocale: z.string(),
+        targetLocale: z.string(),
+        pathname: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const parts = input.pathname.split("/").filter(Boolean);
+
+      if (parts.length < 2) {
+        return {
+          path: `/${input.targetLocale}`,
+        };
+      }
+
+      const pageType = parts[1];
+      const slug = parts[2];
+
+      if (!slug) {
+        return {
+          path: `/${input.targetLocale}/${pageType}`,
+        };
+      }
+
+      //
+      // CATEGORY
+      //
+      if (pageType === "category") {
+        const currentTranslation =
+          await ctx.prisma.categoryTranslation.findFirst({
+            where: {
+              slug,
+              language: {
+                code: input.currentLocale,
+              },
+            },
+          });
+
+        if (!currentTranslation) {
+          return {
+            path: `/${input.targetLocale}`,
+          };
+        }
+
+        const targetTranslation =
+          await ctx.prisma.categoryTranslation.findFirst({
+            where: {
+              categoryId: currentTranslation.categoryId,
+              language: {
+                code: input.targetLocale,
+              },
+            },
+          });
+
+        if (!targetTranslation) {
+          return {
+            path: `/${input.targetLocale}`,
+          };
+        }
+
+        return {
+          path: `/${input.targetLocale}/category/${targetTranslation.slug}`,
+        };
+      }
+
+      //
+      // PRODUCT
+      //
+      if (pageType === "products") {
+        const currentTranslation =
+          await ctx.prisma.productTranslation.findFirst({
+            where: {
+              slug,
+              language: {
+                code: input.currentLocale,
+              },
+            },
+          });
+
+        if (!currentTranslation) {
+          return {
+            path: `/${input.targetLocale}`,
+          };
+        }
+
+        const targetTranslation = await ctx.prisma.productTranslation.findFirst(
+          {
+            where: {
+              productId: currentTranslation.productId,
+              language: {
+                code: input.targetLocale,
+              },
+            },
+          },
+        );
+
+        if (!targetTranslation) {
+          return {
+            path: `/${input.targetLocale}`,
+          };
+        }
+
+        return {
+          path: `/${input.targetLocale}/products/${targetTranslation.slug}`,
+        };
+      }
+
+      //
+      // BLOG
+      //
+      if (pageType === "blog") {
+        const currentTranslation =
+          await ctx.prisma.contentTranslation.findFirst({
+            where: {
+              slug,
+              language: {
+                code: input.currentLocale,
+              },
+            },
+          });
+
+        if (!currentTranslation) {
+          return {
+            path: `/${input.targetLocale}/blog`,
+          };
+        }
+
+        const targetTranslation = await ctx.prisma.contentTranslation.findFirst(
+          {
+            where: {
+              contentId: currentTranslation.contentId,
+              language: {
+                code: input.targetLocale,
+              },
+            },
+          },
+        );
+
+        if (!targetTranslation) {
+          return {
+            path: `/${input.targetLocale}/blog`,
+          };
+        }
+
+        return {
+          path: `/${input.targetLocale}/blog/${targetTranslation.slug}`,
+        };
+      }
+
+      return {
+        path: input.pathname.replace(
+          `/${input.currentLocale}`,
+          `/${input.targetLocale}`,
+        ),
+      };
+    }),
 });

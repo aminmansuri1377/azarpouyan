@@ -1,15 +1,29 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-
 import Link from "next/link";
 
+import { usePathname } from "next/navigation";
+
 import { trpc } from "@/lib/trpc/client";
+import { LanguageLink } from "./LanguageLink";
 
 export function LanguageSwitcher() {
   const pathname = usePathname();
 
-  const { data } = trpc.public.getLanguages.useQuery();
+  const currentLocale = pathname.split("/")[1];
+
+  const { data: languages } = trpc.public.getLanguages.useQuery();
+
+  const { data: paths } = trpc.public.getLocalizedPath.useQuery(
+    {
+      currentLocale,
+      targetLocale: "__all__",
+      pathname,
+    },
+    {
+      enabled: false,
+    },
+  );
 
   return (
     <div
@@ -18,17 +32,14 @@ export function LanguageSwitcher() {
         gap: 10,
       }}
     >
-      {data?.map((lang) => {
-        const parts = pathname.split("/");
-
-        parts[1] = lang.code;
-
-        return (
-          <Link key={lang.id} href={parts.join("/")}>
-            {lang.code.toUpperCase()}
-          </Link>
-        );
-      })}
+      {languages?.map((lang) => (
+        <LanguageLink
+          key={lang.id}
+          lang={lang.code}
+          currentLocale={currentLocale}
+          pathname={pathname}
+        />
+      ))}
     </div>
   );
 }
