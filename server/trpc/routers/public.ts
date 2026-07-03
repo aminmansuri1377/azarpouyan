@@ -252,6 +252,12 @@ export const publicRouter = router({
       z.object({
         locale: z.string(),
         slug: z.string(),
+
+        search: z.string().optional(),
+
+        page: z.number().min(1).default(1),
+
+        limit: z.number().min(1).max(100).default(12),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -287,19 +293,42 @@ export const publicRouter = router({
         return null;
       }
 
-      const ids = await collectIdsInSubtreeFront(
+      const categoryIds = await collectIdsInSubtreeFront(
         ctx.prisma,
         translation.category.id,
       );
 
-      const products = await ctx.prisma.product.findMany({
-        where: {
-          published: true,
+      const where = {
+        published: true,
 
-          categoryId: {
-            in: ids,
-          },
+        categoryId: {
+          in: categoryIds,
         },
+
+        ...(input.search?.trim()
+          ? {
+              translations: {
+                some: {
+                  language: {
+                    code: input.locale,
+                  },
+
+                  name: {
+                    contains: input.search.trim(),
+                    mode: "insensitive" as const,
+                  },
+                },
+              },
+            }
+          : {}),
+      };
+
+      const total = await ctx.prisma.product.count({
+        where,
+      });
+
+      const products = await ctx.prisma.product.findMany({
+        where,
 
         include: {
           translations: {
@@ -310,12 +339,92 @@ export const publicRouter = router({
             },
           },
         },
+
+        skip: (input.page - 1) * input.limit,
+
+        take: input.limit,
+
+        orderBy: {
+          createdAt: "desc",
+        },
       });
 
       return {
         category: translation,
+
         children: translation.category.children,
+
         products,
+
+        total,
+
+        page: input.page,
+
+        totalPages: Math.ceil(total / input.limit),
+      };
+    }),
+  searchProducts: publicProcedure
+    .input(
+      z.object({
+        locale: z.string(),
+
+        search: z.string(),
+
+        page: z.number().default(1),
+
+        limit: z.number().default(12),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const where = {
+        published: true,
+
+        translations: {
+          some: {
+            language: {
+              code: input.locale,
+            },
+
+            name: {
+              contains: input.search,
+              mode: "insensitive" as const,
+            },
+          },
+        },
+      };
+
+      const total = await ctx.prisma.product.count({
+        where,
+      });
+
+      const products = await ctx.prisma.product.findMany({
+        where,
+
+        include: {
+          translations: {
+            where: {
+              language: {
+                code: input.locale,
+              },
+            },
+          },
+        },
+
+        skip: (input.page - 1) * input.limit,
+
+        take: input.limit,
+
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      return {
+        items: products,
+
+        total,
+
+        totalPages: Math.ceil(total / input.limit),
       };
     }),
 });

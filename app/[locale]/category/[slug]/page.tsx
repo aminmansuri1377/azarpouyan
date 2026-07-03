@@ -1,9 +1,18 @@
 "use client";
 
+import { useState } from "react";
+
 import Link from "next/link";
+
 import { useParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
+
+import { ProductSearch } from "@/components/ProductSearch";
+
+import { Pagination } from "@/components/Pagination";
+
+import { useDebounce } from "@/hooks/useDebounce";
 
 export default function CategoryPage() {
   const params = useParams();
@@ -12,10 +21,24 @@ export default function CategoryPage() {
 
   const slug = params.slug as string;
 
-  const { data, isLoading } = trpc.public.getCategoryPage.useQuery({
-    locale,
-    slug,
-  });
+  const [search, setSearch] = useState("");
+
+  const [page, setPage] = useState(1);
+
+  const debouncedSearch = useDebounce(search, 500);
+
+  const { data, isLoading, isFetching } = trpc.public.getCategoryPage.useQuery(
+    {
+      locale,
+      slug,
+      search: debouncedSearch,
+      page,
+      limit: 12,
+    },
+    {
+      placeholderData: (previousData) => previousData,
+    },
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -49,10 +72,44 @@ export default function CategoryPage() {
 
       <hr />
 
+      <div
+        style={{
+          marginBottom: 20,
+        }}
+      >
+        <ProductSearch
+          value={search}
+          onChange={(value) => {
+            setSearch(value);
+
+            setPage(1);
+          }}
+        />
+      </div>
+
+      {isFetching && (
+        <div
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          Searching...
+        </div>
+      )}
+
+      <div
+        style={{
+          marginBottom: 15,
+          fontWeight: 600,
+        }}
+      >
+        Total Products: {data.total}
+      </div>
+
       <h2>Products</h2>
 
       {data.products.length === 0 ? (
-        <div>No Products</div>
+        <div>No Products Found</div>
       ) : (
         data.products.map((product) => {
           const t = product.translations[0];
@@ -69,6 +126,12 @@ export default function CategoryPage() {
           );
         })
       )}
+
+      <Pagination
+        page={page}
+        totalPages={data.totalPages}
+        onPageChange={setPage}
+      />
     </div>
   );
 }
