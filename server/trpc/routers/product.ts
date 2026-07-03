@@ -14,17 +14,24 @@ const translationInput = z.object({
 });
 
 export const productRouter = router({
-  // لیست flat (برای select ها، breadcrumb و غیره)
   getAll: publicProcedure
     .input(
       z
         .object({
           categoryId: z.string().optional(),
           search: z.string().optional(),
+          page: z.number().min(1).default(1),
+
+          limit: z.number().min(1).max(100).default(10),
         })
         .optional(),
     )
     .query(async ({ ctx, input }) => {
+      const page = input?.page ?? 1;
+      const limit = input?.limit ?? 10;
+
+      const skip = (page - 1) * limit;
+
       const filters: any[] = [];
 
       if (input?.categoryId) {
@@ -53,31 +60,56 @@ export const productRouter = router({
         });
       }
 
-      return ctx.prisma.product.findMany({
-        where: filters.length
+      const where =
+        filters.length > 0
           ? {
               AND: filters,
             }
-          : undefined,
+          : {};
 
-        orderBy: {
-          createdAt: "desc",
-        },
+      const [items, total] = await Promise.all([
+        ctx.prisma.product.findMany({
+          where,
 
-        include: {
-          category: {
-            include: {
-              translations: true,
-            },
+          skip,
+
+          take: limit,
+
+          orderBy: {
+            createdAt: "desc",
           },
 
-          translations: {
-            include: {
-              language: true,
+          include: {
+            category: {
+              include: {
+                translations: true,
+              },
+            },
+
+            translations: {
+              include: {
+                language: true,
+              },
             },
           },
-        },
-      });
+        }),
+
+        ctx.prisma.product.count({
+          where,
+        }),
+      ]);
+
+      return {
+        items,
+
+        total,
+
+        page,
+
+        limit,
+
+        totalPages: Math.ceil(total / limit),
+      };
     }),
 
   getById: publicProcedure

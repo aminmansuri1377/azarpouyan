@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { trpc } from "@/lib/trpc/client";
 import { CategoryFilterCascade } from "@/components/CategoryFilterCascade";
 import { useDebounce } from "@/hooks/useDebounce";
 import { ProductSearch } from "@/components/ProductSearch";
+import { Pagination } from "@/components/Pagination";
 
 export default function ProductsPage() {
   const utils = trpc.useUtils();
@@ -14,19 +15,26 @@ export default function ProductsPage() {
     undefined,
   );
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+
   const debouncedSearch = useDebounce(search, 500);
   const { data: categories = [] } = trpc.category.getAll.useQuery();
 
   const { data, isLoading, isFetching } = trpc.product.getAll.useQuery({
     categoryId: categoryFilter,
     search: debouncedSearch,
+    page,
+    limit,
   });
-
   const deleteMutation = trpc.product.delete.useMutation({
     onSuccess: async () => {
       await utils.product.getAll.invalidate();
     },
   });
+  useEffect(() => {
+    setPage(1);
+  }, [categoryFilter, debouncedSearch]);
 
   return (
     <div style={{ padding: 20 }}>
@@ -91,7 +99,7 @@ export default function ProductsPage() {
           </thead>
 
           <tbody>
-            {data?.map((product) => (
+            {data?.items?.map((product) => (
               <tr key={product.id}>
                 <td>{product.translations?.[0]?.name}</td>
 
@@ -121,6 +129,11 @@ export default function ProductsPage() {
           </tbody>
         </table>
       )}
+      <Pagination
+        page={page}
+        totalPages={data?.totalPages ?? 0}
+        onPageChange={setPage}
+      />
     </div>
   );
 }
