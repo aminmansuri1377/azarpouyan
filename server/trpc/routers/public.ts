@@ -2,7 +2,7 @@ import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 import { collectIdsInSubtree } from "@/lib/category-tree";
 import { collectIdsInSubtreeFront } from "@/lib/category-tree-front";
-
+import { resolveLocalizedSlug } from "@/server/services/localization/resolveLocalizedPath";
 export const publicRouter = router({
   getLanguages: publicProcedure.query(async ({ ctx }) => {
     return ctx.prisma.language.findMany({
@@ -438,16 +438,45 @@ export const publicRouter = router({
     .query(async ({ ctx, input }) => {
       const parts = input.pathname.split("/").filter(Boolean);
 
-      if (parts.length < 2) {
+      if (parts.length === 0) {
         return {
           path: `/${input.targetLocale}`,
         };
       }
 
       const pageType = parts[1];
+
       const slug = parts[2];
 
-      if (!slug) {
+      //
+      // HOME
+      //
+      if (parts.length === 1) {
+        return {
+          path: `/${input.targetLocale}`,
+        };
+      }
+
+      //
+      // STATIC PAGES
+      //
+      const staticPages = ["contact", "test"];
+
+      if (staticPages.includes(pageType)) {
+        return {
+          path: input.pathname.replace(
+            `/${input.currentLocale}`,
+            `/${input.targetLocale}`,
+          ),
+        };
+      }
+
+      //
+      // LIST PAGES
+      //
+      const listingPages = ["blog", "news", "articles", "price-ticker"];
+
+      if (listingPages.includes(pageType) && !slug) {
         return {
           path: `/${input.targetLocale}/${pageType}`,
         };
@@ -456,128 +485,156 @@ export const publicRouter = router({
       //
       // CATEGORY
       //
-      if (pageType === "category") {
-        const currentTranslation =
-          await ctx.prisma.categoryTranslation.findFirst({
-            where: {
-              slug,
-              language: {
-                code: input.currentLocale,
-              },
-            },
-          });
+      if (pageType === "category" && slug) {
+        const translated = await resolveLocalizedSlug({
+          prisma: ctx.prisma,
 
-        if (!currentTranslation) {
-          return {
-            path: `/${input.targetLocale}`,
-          };
-        }
+          translationModel: ctx.prisma.categoryTranslation,
 
-        const targetTranslation =
-          await ctx.prisma.categoryTranslation.findFirst({
-            where: {
-              categoryId: currentTranslation.categoryId,
-              language: {
-                code: input.targetLocale,
-              },
-            },
-          });
+          entityIdField: "categoryId",
 
-        if (!targetTranslation) {
-          return {
-            path: `/${input.targetLocale}`,
-          };
-        }
+          slug,
+
+          currentLocale: input.currentLocale,
+
+          targetLocale: input.targetLocale,
+        });
 
         return {
-          path: `/${input.targetLocale}/category/${targetTranslation.slug}`,
+          path: translated
+            ? `/${input.targetLocale}/category/${translated.slug}`
+            : `/${input.targetLocale}`,
         };
       }
 
       //
       // PRODUCT
       //
-      if (pageType === "products") {
-        const currentTranslation =
-          await ctx.prisma.productTranslation.findFirst({
-            where: {
-              slug,
-              language: {
-                code: input.currentLocale,
-              },
-            },
-          });
+      if (pageType === "products" && slug) {
+        const translated = await resolveLocalizedSlug({
+          prisma: ctx.prisma,
 
-        if (!currentTranslation) {
-          return {
-            path: `/${input.targetLocale}`,
-          };
-        }
+          translationModel: ctx.prisma.productTranslation,
 
-        const targetTranslation = await ctx.prisma.productTranslation.findFirst(
-          {
-            where: {
-              productId: currentTranslation.productId,
-              language: {
-                code: input.targetLocale,
-              },
-            },
-          },
-        );
+          entityIdField: "productId",
 
-        if (!targetTranslation) {
-          return {
-            path: `/${input.targetLocale}`,
-          };
-        }
+          slug,
+
+          currentLocale: input.currentLocale,
+
+          targetLocale: input.targetLocale,
+        });
 
         return {
-          path: `/${input.targetLocale}/products/${targetTranslation.slug}`,
+          path: translated
+            ? `/${input.targetLocale}/products/${translated.slug}`
+            : `/${input.targetLocale}`,
         };
       }
 
       //
       // BLOG
       //
-      if (pageType === "blog") {
-        const currentTranslation =
-          await ctx.prisma.contentTranslation.findFirst({
-            where: {
-              slug,
-              language: {
-                code: input.currentLocale,
-              },
-            },
-          });
+      if (pageType === "blog" && slug) {
+        const translated = await resolveLocalizedSlug({
+          prisma: ctx.prisma,
 
-        if (!currentTranslation) {
-          return {
-            path: `/${input.targetLocale}/blog`,
-          };
-        }
+          translationModel: ctx.prisma.contentTranslation,
 
-        const targetTranslation = await ctx.prisma.contentTranslation.findFirst(
-          {
-            where: {
-              contentId: currentTranslation.contentId,
-              language: {
-                code: input.targetLocale,
-              },
-            },
-          },
-        );
+          entityIdField: "contentId",
 
-        if (!targetTranslation) {
-          return {
-            path: `/${input.targetLocale}/blog`,
-          };
-        }
+          slug,
+
+          currentLocale: input.currentLocale,
+
+          targetLocale: input.targetLocale,
+        });
 
         return {
-          path: `/${input.targetLocale}/blog/${targetTranslation.slug}`,
+          path: translated
+            ? `/${input.targetLocale}/blog/${translated.slug}`
+            : `/${input.targetLocale}/blog`,
         };
       }
 
+      //
+      // NEWS
+      //
+      if (pageType === "news" && slug) {
+        const translated = await resolveLocalizedSlug({
+          prisma: ctx.prisma,
+
+          translationModel: ctx.prisma.contentTranslation,
+
+          entityIdField: "contentId",
+
+          slug,
+
+          currentLocale: input.currentLocale,
+
+          targetLocale: input.targetLocale,
+        });
+
+        return {
+          path: translated
+            ? `/${input.targetLocale}/news/${translated.slug}`
+            : `/${input.targetLocale}/news`,
+        };
+      }
+
+      //
+      // ARTICLE
+      //
+      if (pageType === "articles" && slug) {
+        const translated = await resolveLocalizedSlug({
+          prisma: ctx.prisma,
+
+          translationModel: ctx.prisma.contentTranslation,
+
+          entityIdField: "contentId",
+
+          slug,
+
+          currentLocale: input.currentLocale,
+
+          targetLocale: input.targetLocale,
+        });
+
+        return {
+          path: translated
+            ? `/${input.targetLocale}/articles/${translated.slug}`
+            : `/${input.targetLocale}/articles`,
+        };
+      }
+
+      //
+      // PRICE TICKER
+      //
+      if (pageType === "price-ticker" && slug) {
+        const translated = await resolveLocalizedSlug({
+          prisma: ctx.prisma,
+
+          translationModel: ctx.prisma.priceTickerTranslation,
+
+          entityIdField: "tickerId",
+
+          slug,
+
+          currentLocale: input.currentLocale,
+
+          targetLocale: input.targetLocale,
+        });
+
+        return {
+          path: translated
+            ? `/${input.targetLocale}/price-ticker/${translated.slug}`
+            : `/${input.targetLocale}/price-ticker`,
+        };
+      }
+
+      //
+      // FALLBACK
+      //
       return {
         path: input.pathname.replace(
           `/${input.currentLocale}`,

@@ -14,17 +14,6 @@ export function LanguageSwitcher() {
 
   const { data: languages } = trpc.public.getLanguages.useQuery();
 
-  const { data: paths } = trpc.public.getLocalizedPath.useQuery(
-    {
-      currentLocale,
-      targetLocale: "__all__",
-      pathname,
-    },
-    {
-      enabled: false,
-    },
-  );
-
   return (
     <div
       style={{
