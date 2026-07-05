@@ -7,7 +7,7 @@ interface Props {
   index: number;
 }
 
-export function TranslationFields({ langId, langCode, index }: Props) {
+export function ProductTranslationFields({ langId, langCode, index }: Props) {
   const {
     register,
     formState: { errors },
@@ -23,18 +23,12 @@ export function TranslationFields({ langId, langCode, index }: Props) {
       <input type="hidden" {...register(`translations.${index}.languageId`)} />
 
       <div>
-        <input
-          placeholder="Name"
-          {...register(`translations.${index}.name`)}
-        />
+        <input placeholder="Name" {...register(`translations.${index}.name`)} />
         {err?.name && <span style={{ color: "red" }}>{err.name.message}</span>}
       </div>
 
       <div>
-        <input
-          placeholder="Slug"
-          {...register(`translations.${index}.slug`)}
-        />
+        <input placeholder="Slug" {...register(`translations.${index}.slug`)} />
         {err?.slug && <span style={{ color: "red" }}>{err.slug.message}</span>}
       </div>
 

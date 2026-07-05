@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { trpc } from "@/lib/trpc/client";
-import { ContentForm } from "@/components/ContentForm";
+import { ContentForm } from "@/components/content/ContentForm";
 import type { ContentFormValues } from "@/types/content";
 
 export default function CreateBlogPage() {

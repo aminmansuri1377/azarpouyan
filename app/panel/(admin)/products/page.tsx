@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
-import { CategoryFilterCascade } from "@/components/CategoryFilterCascade";
-import { ProductSearch } from "@/components/ProductSearch";
-import { Pagination } from "@/components/Pagination";
+import { CategoryFilterCascade } from "@/components/category/CategoryFilterCascade";
+import { ProductSearch } from "@/components/site/ProductSearch";
+import { Pagination } from "@/components/site/Pagination";
 import { useDebounce } from "@/hooks/useDebounce";
 
 export default function ProductsPage() {

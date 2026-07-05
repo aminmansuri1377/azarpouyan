@@ -8,11 +8,11 @@ import { useParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
 
-import { PublicCategoryTree } from "@/components/PublicCategoryTree";
+import { PublicCategoryTree } from "@/components/public/PublicCategoryTree";
 
-import { ProductSearch } from "@/components/ProductSearch";
+import { ProductSearch } from "@/components/site/ProductSearch";
 
-import { Pagination } from "@/components/Pagination";
+import { Pagination } from "@/components/site/Pagination";
 
 import { useDebounce } from "@/hooks/useDebounce";
 

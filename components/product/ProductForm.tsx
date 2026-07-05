@@ -5,8 +5,8 @@ import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, ProductFormValues } from "@/types/product";
 import { trpc } from "@/lib/trpc/client";
-import { TranslationFields } from "@/components/TranslationFields";
-import { CategoryCascadeSelect } from "../CategoryCascadeSelect";
+import { TranslationFields } from "../site/TranslationFields";
+import { CategoryCascadeSelect } from "../category/CategoryCascadeSelect";
 
 interface ProductFormProps {
   defaultValues?: ProductFormValues;

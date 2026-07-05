@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { trpc } from "@/lib/trpc/client";
-import { PriceTickerForm } from "@/components/PriceTickerForm";
+import { PriceTickerForm } from "@/components/priceTicker/PriceTickerForm";
 import type { PriceTickerFormValues } from "@/types/priceTicker";
 
 export default function CreatePriceTickerPage() {

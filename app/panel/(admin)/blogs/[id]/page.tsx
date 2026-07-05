@@ -3,7 +3,7 @@
 import { useRouter, useParams } from "next/navigation";
 import { useMemo } from "react";
 import { trpc } from "@/lib/trpc/client";
-import { ContentForm } from "@/components/ContentForm";
+import { ContentForm } from "@/components/content/ContentForm";
 import type { ContentFormValues } from "@/types/content";
 
 export default function EditBlogPage() {

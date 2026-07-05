@@ -28,3 +28,5 @@ export const CONTENT_TYPE_LABEL: Record<ContentType, string> = {
   NEWS: "News",
   ARTICLE: "Article",
 };
+
+export { ContentType };

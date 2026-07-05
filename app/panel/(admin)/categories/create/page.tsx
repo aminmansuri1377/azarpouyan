@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { trpc } from "@/lib/trpc/client";
-import { CategoryForm } from "@/components/CategoryForm";
+import { CategoryForm } from "@/components/category/CategoryForm";
 import type { CategoryFormValues } from "@/types/category";
 
 export default function CreateCategoryPage() {

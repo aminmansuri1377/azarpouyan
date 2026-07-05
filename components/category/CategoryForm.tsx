@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { categorySchema, CategoryFormValues } from "@/types/category";
-import { TranslationFields } from "./TranslationFields";
+import { TranslationFields } from "../site/TranslationFields";
 
 type Language = { id: string; code: string; name?: string };
 type FlatCategory = {

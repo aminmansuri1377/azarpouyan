@@ -8,9 +8,9 @@ import { useParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
 
-import { ProductSearch } from "@/components/ProductSearch";
+import { ProductSearch } from "@/components/site/ProductSearch";
 
-import { Pagination } from "@/components/Pagination";
+import { Pagination } from "@/components/site/Pagination";
 
 import { useDebounce } from "@/hooks/useDebounce";
 
