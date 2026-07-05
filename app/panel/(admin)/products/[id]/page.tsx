@@ -39,7 +39,6 @@ export default function EditProductPage() {
         imageUrl: data.imageUrl,
         images: Array.isArray(data.images) ? (data.images as string[]) : [],
         categoryId: data.categoryId,
-        subCategoryId: data.subCategoryId ?? null,
         published: data.published,
         translations: data.translations.map((t) => ({
           languageId: t.languageId,

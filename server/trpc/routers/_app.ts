@@ -4,7 +4,6 @@ import { categoryRouter } from "./category";
 import { healthRouter } from "./health";
 import { languageRouter } from "./language";
 import { adminAuthRouter } from "./admin-auth";
-import { subCategoryRouter } from "./subCategory";
 import { productRouter } from "./product";
 import { publicRouter } from "./public";
 import { contentRouter } from "./content";
@@ -15,7 +14,6 @@ export const appRouter = router({
   adminAuth: adminAuthRouter,
   language: languageRouter,
   category: categoryRouter,
-  subCategory: subCategoryRouter,
   product: productRouter,
   public: publicRouter,
   content: contentRouter,

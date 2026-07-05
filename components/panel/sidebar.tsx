@@ -13,10 +13,7 @@ const links = [
     href: "/panel/categories",
     label: "Categories",
   },
-  {
-    href: "/panel/subcategories",
-    label: "Sub Categories",
-  },
+
   {
     href: "/panel/blogs",
     label: "Blog",
