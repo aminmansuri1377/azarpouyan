@@ -2,17 +2,29 @@
 
 import Link from "next/link";
 import { trpc } from "@/lib/trpc/client";
-
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 export default function PriceTickerListPage() {
   const utils = trpc.useUtils();
-  const { data, isLoading } = trpc.priceTicker.getAll.useQuery();
+  const { data, isLoading, error, refetch } =
+    trpc.priceTicker.getAll.useQuery();
 
   const deleteMutation = trpc.priceTicker.delete.useMutation({
     onSuccess: async () => {
+      toast.success("قیمت لحظه‌ای حذف شد");
+
       await utils.priceTicker.getAll.invalidate();
     },
-  });
 
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message || "خطا در دریافت کتگوری‌ها");
+    }
+  }, [error]);
   if (isLoading) return <div>Loading...</div>;
 
   return (
@@ -49,13 +61,16 @@ export default function PriceTickerListPage() {
                 <Link href={`/panel/price-ticker/${item.id}`}>Edit</Link>
                 {" | "}
                 <button
+                  disabled={deleteMutation.isPending}
                   onClick={() => {
-                    if (confirm("Delete this ticker?")) {
-                      deleteMutation.mutate({ id: item.id });
-                    }
+                    if (!confirm("Delete this ticker?")) return;
+
+                    deleteMutation.mutate({
+                      id: item.id,
+                    });
                   }}
                 >
-                  Delete
+                  {deleteMutation.isPending ? "Deleting..." : "Delete"}
                 </button>
               </td>
             </tr>

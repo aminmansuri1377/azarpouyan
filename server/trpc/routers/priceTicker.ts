@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
-
+import { TRPCError } from "@trpc/server";
 const translationInput = z.object({
   languageId: z.string(),
   productName: z.string(),
@@ -42,17 +42,26 @@ export const priceTickerRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { translations, ...rest } = input;
-      return ctx.prisma.priceTicker.create({
-        data: {
-          ...rest,
-          translations: {
-            create: translations,
-          },
-        },
-      });
-    }),
+      try {
+        const { translations, ...rest } = input;
 
+        return await ctx.prisma.priceTicker.create({
+          data: {
+            ...rest,
+            translations: {
+              create: translations,
+            },
+          },
+        });
+      } catch (error) {
+        console.error("PRICE_TICKER_CREATE_ERROR", error);
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "خطا در ایجاد قیمت لحظه‌ای",
+        });
+      }
+    }),
   update: publicProcedure
     .input(
       z.object({
@@ -64,39 +73,102 @@ export const priceTickerRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, translations, ...rest } = input;
+      try {
+        const { id, translations, ...rest } = input;
 
-      await ctx.prisma.priceTicker.update({
-        where: { id },
-        data: rest,
-      });
+        const exists = await ctx.prisma.priceTicker.findUnique({
+          where: { id },
+          select: { id: true },
+        });
 
-      for (const translation of translations) {
-        await ctx.prisma.priceTickerTranslation.upsert({
-          where: {
-            tickerId_languageId: {
-              tickerId: id,
-              languageId: translation.languageId,
+        if (!exists) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "آیتم مورد نظر پیدا نشد",
+          });
+        }
+
+        await ctx.prisma.priceTicker.update({
+          where: { id },
+          data: rest,
+        });
+
+        for (const translation of translations) {
+          await ctx.prisma.priceTickerTranslation.upsert({
+            where: {
+              tickerId_languageId: {
+                tickerId: id,
+                languageId: translation.languageId,
+              },
             },
-          },
-          update: {
-            productName: translation.productName,
-            price: translation.price,
-          },
-          create: {
-            tickerId: id,
-            ...translation,
-          },
+            update: {
+              productName: translation.productName,
+              price: translation.price,
+            },
+            create: {
+              tickerId: id,
+              ...translation,
+            },
+          });
+        }
+
+        return true;
+      } catch (error) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+
+        console.error("PRICE_TICKER_UPDATE_ERROR", error);
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "خطا در بروزرسانی قیمت لحظه‌ای",
         });
       }
-
-      return true;
     }),
 
   delete: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      await ctx.prisma.priceTicker.delete({ where: { id: input.id } });
-      return true;
+      try {
+        const exists = await ctx.prisma.priceTicker.findUnique({
+          where: {
+            id: input.id,
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        if (!exists) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "آیتم مورد نظر پیدا نشد",
+          });
+        }
+
+        await ctx.prisma.priceTicker.delete({
+          where: {
+            id: input.id,
+          },
+        });
+
+        return true;
+      } catch (error) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+
+        console.error("PRICE_TICKER_DELETE_ERROR", error);
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "خطا در حذف قیمت لحظه‌ای",
+        });
+      }
     }),
 });

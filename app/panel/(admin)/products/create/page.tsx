@@ -11,8 +11,15 @@ export default function CreateProductPage() {
 
   const createMutation = trpc.product.create.useMutation({
     onSuccess: async () => {
+      toast.success("محصول با موفقیت ایجاد شد");
+
       await utils.product.getAll.invalidate();
+
       router.push("/panel/products");
+    },
+
+    onError(error) {
+      toast.error(error.message);
     },
   });
 

@@ -1,5 +1,6 @@
 "use client";
 
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { trpc } from "@/lib/trpc/client";
 import { ContentForm } from "@/components/content/ContentForm";
@@ -8,27 +9,50 @@ import type { ContentFormValues } from "@/types/content";
 export default function CreateArticlePage() {
   const router = useRouter();
   const utils = trpc.useUtils();
-  const { data: languages = [] } = trpc.language.getAll.useQuery();
+
+  const { data: languages = [], error: languagesError } =
+    trpc.language.getAll.useQuery();
 
   const createMutation = trpc.content.create.useMutation({
     onSuccess: async () => {
-      await utils.content.getAll.invalidate({ type: "ARTICLE" });
+      toast.success("مقاله با موفقیت ایجاد شد");
+
+      await utils.content.getAll.invalidate({
+        type: "ARTICLE",
+      });
+
       router.push("/panel/articles");
+    },
+
+    onError: (error) => {
+      toast.error(error.message || "خطا در ایجاد خبر");
     },
   });
 
   const handleSubmit = (values: ContentFormValues) => {
-    createMutation.mutate({ ...values, type: "ARTICLE" });
+    createMutation.mutate({
+      ...values,
+      type: "ARTICLE",
+    });
   };
+
+  if (languagesError) {
+    return (
+      <div style={{ padding: 20 }}>
+        <p style={{ color: "red" }}>{languagesError.message}</p>
+      </div>
+    );
+  }
 
   return (
     <>
-      <h1 style={{ padding: "20px 20px 0" }}>Create Article</h1>
+      <h1 style={{ padding: "20px 20px 0" }}>ایجاد مقاله</h1>
+
       <ContentForm
         languages={languages}
         onSubmit={handleSubmit}
         isSubmitting={createMutation.isPending}
-        submitLabel="Create"
+        submitLabel="ایجاد"
       />
     </>
   );

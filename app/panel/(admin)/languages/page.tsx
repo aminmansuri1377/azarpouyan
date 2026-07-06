@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import { trpc } from "@/lib/trpc/client";
 
@@ -9,25 +10,48 @@ export default function LanguagesPage() {
 
   const { data } = trpc.language.getAll.useQuery();
 
-  const createLanguage = trpc.language.create.useMutation({
-    onSuccess() {
-      utils.language.getAll.invalidate();
-    },
-  });
-
   const [code, setCode] = useState("");
-
   const [name, setName] = useState("");
-  const deleteLanguage = trpc.language.delete.useMutation({
-    onSuccess() {
+
+  const createLanguage = trpc.language.create.useMutation({
+    onSuccess(data) {
+      toast.success(data.message);
+
       utils.language.getAll.invalidate();
+
+      setCode("");
+      setName("");
+    },
+
+    onError(error) {
+      toast.error(error.message);
     },
   });
+
   const updateLanguage = trpc.language.update.useMutation({
-    onSuccess() {
+    onSuccess(data) {
+      toast.success(data.message);
+
       utils.language.getAll.invalidate();
     },
+
+    onError(error) {
+      toast.error(error.message);
+    },
   });
+
+  const deleteLanguage = trpc.language.delete.useMutation({
+    onSuccess(data) {
+      toast.success(data.message);
+
+      utils.language.getAll.invalidate();
+    },
+
+    onError(error) {
+      toast.error(error.message);
+    },
+  });
+
   return (
     <div>
       <h2>Languages</h2>
@@ -46,6 +70,7 @@ export default function LanguagesPage() {
         />
 
         <button
+          disabled={createLanguage.isPending}
           onClick={() =>
             createLanguage.mutate({
               code,
@@ -53,7 +78,7 @@ export default function LanguagesPage() {
             })
           }
         >
-          Add
+          {createLanguage.isPending ? "Creating..." : "Add"}
         </button>
       </div>
 
@@ -61,10 +86,9 @@ export default function LanguagesPage() {
 
       {data?.map((language) => (
         <div key={language.id}>
-          {language.code}
-          {" - "}
-          {language.name}
+          {language.code} - {language.name}
           <button
+            disabled={deleteLanguage.isPending}
             onClick={() => {
               deleteLanguage.mutate({
                 id: language.id,
@@ -74,20 +98,17 @@ export default function LanguagesPage() {
             Delete
           </button>
           <button
+            disabled={updateLanguage.isPending}
             onClick={() => {
-              const name = prompt("Language name", language.name);
+              const newName = prompt("Language name", language.name);
 
-              if (!name) return;
+              if (!newName) return;
 
               updateLanguage.mutate({
                 id: language.id,
-
                 code: language.code,
-
-                name,
-
+                name: newName,
                 enabled: language.enabled,
-
                 sortOrder: language.sortOrder,
               });
             }}
@@ -95,16 +116,13 @@ export default function LanguagesPage() {
             Edit
           </button>
           <button
+            disabled={updateLanguage.isPending}
             onClick={() => {
               updateLanguage.mutate({
                 id: language.id,
-
                 code: language.code,
-
                 name: language.name,
-
                 enabled: !language.enabled,
-
                 sortOrder: language.sortOrder,
               });
             }}

@@ -1,5 +1,5 @@
 "use client";
-
+import toast from "react-hot-toast";
 import { useRouter, useParams } from "next/navigation";
 import { useMemo } from "react";
 import { trpc } from "@/lib/trpc/client";
@@ -19,9 +19,29 @@ export default function EditPriceTickerPage() {
 
   const updateMutation = trpc.priceTicker.update.useMutation({
     onSuccess: async () => {
+      toast.success("قیمت لحظه‌ای بروزرسانی شد");
+
       await utils.priceTicker.getAll.invalidate();
-      await utils.priceTicker.getById.invalidate({ id });
+
+      await utils.priceTicker.getById.invalidate({
+        id,
+      });
+      if (!id) {
+        return <div>شناسه نامعتبر است</div>;
+      }
+
+      if (isLoading) {
+        return <div>در حال بارگذاری...</div>;
+      }
+
+      if (!data) {
+        return <div>قیمت لحظه‌ای پیدا نشد</div>;
+      }
       router.push("/panel/price-ticker");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

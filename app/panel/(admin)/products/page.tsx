@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -26,18 +26,40 @@ export default function ProductsPage() {
 
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data: categories = [] } = trpc.category.getAll.useQuery();
-
-  const { data, isLoading, isFetching } = trpc.product.getAll.useQuery({
-    categoryId: categoryFilter,
-    search: debouncedSearch,
-    page,
-    limit,
-  });
+  const { data: categories = [], error: categoriesError } =
+    trpc.category.getAll.useQuery();
+  useEffect(() => {
+    if (categoriesError) {
+      toast.error(categoriesError.message || "خطا در دریافت کتگوری‌ها");
+    }
+  }, [categoriesError]);
+  const { data, isLoading, isFetching, error, refetch } =
+    trpc.product.getAll.useQuery(
+      {
+        categoryId: categoryFilter,
+        search: debouncedSearch,
+        page,
+        limit,
+      },
+      {
+        retry: false,
+      },
+    );
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message || "خطا در دریافت محصولات");
+    }
+  }, [error]);
 
   const deleteMutation = trpc.product.delete.useMutation({
     onSuccess: async () => {
+      toast.success("محصول حذف شد");
+
       await utils.product.getAll.invalidate();
+    },
+
+    onError(error) {
+      toast.error(error.message || "خطا در حذف محصول");
     },
   });
 

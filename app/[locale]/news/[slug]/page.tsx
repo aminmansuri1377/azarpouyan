@@ -3,6 +3,8 @@
 import { useParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function NewsSinglePage() {
   const params = useParams();
@@ -10,11 +12,15 @@ export default function NewsSinglePage() {
   const locale = params.locale as string;
   const slug = params.slug as string;
 
-  const { data, isLoading } = trpc.public.getContentBySlug.useQuery({
+  const { data, isLoading, error } = trpc.public.getContentBySlug.useQuery({
     locale,
     slug,
   });
-
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message || "خطا در دریافت");
+    }
+  }, [error]);
   if (isLoading) {
     return <div>Loading...</div>;
   }

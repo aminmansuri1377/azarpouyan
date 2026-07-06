@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { trpc } from "@/lib/trpc/client";
 import { PriceTickerForm } from "@/components/priceTicker/PriceTickerForm";
 import type { PriceTickerFormValues } from "@/types/priceTicker";
-
+import toast from "react-hot-toast";
 export default function CreatePriceTickerPage() {
   const router = useRouter();
   const utils = trpc.useUtils();
@@ -12,8 +12,15 @@ export default function CreatePriceTickerPage() {
 
   const createMutation = trpc.priceTicker.create.useMutation({
     onSuccess: async () => {
+      toast.success("قیمت لحظه‌ای با موفقیت ایجاد شد");
+
       await utils.priceTicker.getAll.invalidate();
+
       router.push("/panel/price-ticker");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { TRPCError } from "@trpc/server";
 import { router, publicProcedure } from "../trpc";
 
 export const contactRequestRouter = router({
@@ -15,17 +15,31 @@ export const contactRequestRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.contactRequest.create({
-        data: input,
-      });
+      try {
+        return await ctx.prisma.contactRequest.create({
+          data: input,
+        });
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "خطا در ثبت درخواست تماس",
+        });
+      }
     }),
 
   getAll: publicProcedure.query(async ({ ctx }) => {
-    return ctx.prisma.contactRequest.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    try {
+      return await ctx.prisma.contactRequest.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } catch {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "خطا در دریافت لیست درخواست‌ها",
+      });
+    }
   }),
 
   getById: publicProcedure
@@ -35,11 +49,20 @@ export const contactRequestRouter = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      return ctx.prisma.contactRequest.findUnique({
+      const item = await ctx.prisma.contactRequest.findUnique({
         where: {
           id: input.id,
         },
       });
+
+      if (!item) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "درخواست تماس پیدا نشد",
+        });
+      }
+
+      return item;
     }),
 
   markAsRead: publicProcedure
@@ -49,15 +72,21 @@ export const contactRequestRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.contactRequest.update({
-        where: {
-          id: input.id,
-        },
-
-        data: {
-          isRead: true,
-        },
-      });
+      try {
+        return await ctx.prisma.contactRequest.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            isRead: true,
+          },
+        });
+      } catch {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "درخواست تماس پیدا نشد",
+        });
+      }
     }),
 
   delete: publicProcedure
@@ -67,10 +96,17 @@ export const contactRequestRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.contactRequest.delete({
-        where: {
-          id: input.id,
-        },
-      });
+      try {
+        return await ctx.prisma.contactRequest.delete({
+          where: {
+            id: input.id,
+          },
+        });
+      } catch {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "درخواست تماس پیدا نشد",
+        });
+      }
     }),
 });

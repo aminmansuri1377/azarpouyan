@@ -10,16 +10,33 @@ export default function EditProductPage() {
   const { id } = useParams<{ id: string }>();
   const utils = trpc.useUtils();
 
-  const { data, isLoading } = trpc.product.getById.useQuery(
+  const { data, isLoading, error, refetch } = trpc.product.getById.useQuery(
     { id },
-    { enabled: !!id },
+    {
+      enabled: !!id,
+      retry: false,
+    },
   );
-
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message || "خطا در دریافت اطلاعات محصول");
+    }
+  }, [error]);
   const updateMutation = trpc.product.update.useMutation({
     onSuccess: async () => {
+      toast.success("محصول بروزرسانی شد");
+
       await utils.product.getAll.invalidate();
-      await utils.product.getById.invalidate({ id });
+
+      await utils.product.getById.invalidate({
+        id,
+      });
+
       router.push("/panel/products");
+    },
+
+    onError(error) {
+      toast.error(error.message || "خطا در بروزرسانی محصول");
     },
   });
 

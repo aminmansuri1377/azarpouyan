@@ -136,16 +136,23 @@ export const productRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.product.create({
-        data: {
-          slug: input.slug,
-          imageUrl: input.imageUrl,
-          images: input.images,
-          categoryId: input.categoryId,
-          published: input.published,
-          translations: { create: input.translations },
-        },
-      });
+      try {
+        return ctx.prisma.product.create({
+          data: {
+            slug: input.slug,
+            imageUrl: input.imageUrl,
+            images: input.images,
+            categoryId: input.categoryId,
+            published: input.published,
+            translations: { create: input.translations },
+          },
+        });
+      } catch (error: any) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error?.message ?? "خطا در ایجاد محصول",
+        });
+      }
     }),
 
   update: publicProcedure
@@ -161,40 +168,66 @@ export const productRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, translations, ...productData } = input;
+      try {
+        const { id, translations, ...productData } = input;
 
-      await ctx.prisma.product.update({
-        where: { id },
-        data: productData,
-      });
+        await ctx.prisma.product.update({
+          where: { id },
+          data: productData,
+        });
 
-      for (const translation of translations) {
-        await ctx.prisma.productTranslation.upsert({
-          where: {
-            productId_languageId: {
-              productId: id,
-              languageId: translation.languageId,
+        for (const translation of translations) {
+          await ctx.prisma.productTranslation.upsert({
+            where: {
+              productId_languageId: {
+                productId: id,
+                languageId: translation.languageId,
+              },
             },
-          },
-          update: {
-            name: translation.name,
-            description: translation.description,
-            specifications: translation.specifications,
-            seoTitle: translation.seoTitle,
-            seoDescription: translation.seoDescription,
-            seoKeywords: translation.seoKeywords,
-          },
-          create: { productId: id, ...translation },
+            update: {
+              slug: translation.slug,
+              name: translation.name,
+              description: translation.description,
+              specifications: translation.specifications,
+              seoTitle: translation.seoTitle,
+              seoDescription: translation.seoDescription,
+              seoKeywords: translation.seoKeywords,
+            },
+            create: {
+              productId: id,
+              ...translation,
+            },
+          });
+        }
+
+        return true;
+      } catch (error: any) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error?.message ?? "خطا در بروزرسانی محصول",
         });
       }
-
-      return true;
     }),
-
   delete: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      await ctx.prisma.product.delete({ where: { id: input.id } });
-      return true;
+      try {
+        await ctx.prisma.product.delete({
+          where: {
+            id: input.id,
+          },
+        });
+
+        return true;
+      } catch (error: any) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error?.message ?? "حذف محصول امکان‌پذیر نیست",
+        });
+      }
     }),
 });

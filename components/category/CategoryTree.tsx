@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { trpc } from "@/lib/trpc/client";
 
 type TreeNode = {
@@ -26,8 +27,16 @@ function CategoryNode({
   onDeleted: () => void;
 }) {
   const [expanded, setExpanded] = useState(true);
+
   const deleteMutation = trpc.category.delete.useMutation({
-    onSuccess: onDeleted,
+    onSuccess: () => {
+      toast.success("کتگوری با موفقیت حذف شد");
+      onDeleted();
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 
   const hasChildren = node.children.length > 0;
@@ -56,20 +65,26 @@ function CategoryNode({
         </span>
 
         <Link href={`/panel/categories/${node.id}`}>ویرایش</Link>
+
         <Link href={`/panel/products?categoryId=${node.id}`}>
           مشاهده محصولات
         </Link>
+
         <Link href={`/panel/categories/create?parentId=${node.id}`}>
           + افزودن زیرشاخه
         </Link>
+
         <button
+          disabled={deleteMutation.isPending}
           onClick={() => {
             if (confirm("این کتگوری و همه زیرشاخه‌هایش حذف شوند؟")) {
-              deleteMutation.mutate({ id: node.id });
+              deleteMutation.mutate({
+                id: node.id,
+              });
             }
           }}
         >
-          حذف
+          {deleteMutation.isPending ? "در حال حذف..." : "حذف"}
         </button>
       </div>
 
@@ -87,11 +102,27 @@ function CategoryNode({
 }
 
 export function CategoryTree() {
-  const { data: tree = [], refetch } = trpc.category.getTree.useQuery();
+  const {
+    data: tree = [],
+    refetch,
+    error,
+    isLoading,
+  } = trpc.category.getTree.useQuery();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error]);
+
+  if (isLoading) {
+    return <div>در حال بارگذاری...</div>;
+  }
 
   return (
     <div>
       <Link href="/panel/categories/create">+ کتگوری اصلی جدید</Link>
+
       <div style={{ marginTop: 16 }}>
         {tree.map((node: TreeNode) => (
           <CategoryNode

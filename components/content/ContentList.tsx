@@ -1,26 +1,54 @@
 "use client";
 
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { trpc } from "@/lib/trpc/client";
 import { ContentType, CONTENT_TYPE_LABEL } from "@/types/content";
 
 interface ContentListPageProps {
   type: ContentType;
-  basePath: string; // e.g. "/panel/articles"
+  basePath: string;
 }
 
 export function ContentListPage({ type, basePath }: ContentListPageProps) {
   const utils = trpc.useUtils();
 
-  const { data, isLoading } = trpc.content.getAll.useQuery({ type });
+  const { data, isLoading, error, refetch } = trpc.content.getAll.useQuery(
+    { type },
+    {
+      retry: false,
+    },
+  );
 
   const deleteMutation = trpc.content.delete.useMutation({
     onSuccess: async () => {
-      await utils.content.getAll.invalidate({ type });
+      toast.success("محتوا با موفقیت حذف شد");
+
+      await utils.content.getAll.invalidate({
+        type,
+      });
+    },
+
+    onError: (error) => {
+      toast.error(error.message || "خطا در حذف محتوا");
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return <div style={{ padding: 20 }}>در حال بارگذاری...</div>;
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: 20 }}>
+        <h2>خطا در دریافت محتواها</h2>
+
+        <p style={{ color: "red" }}>{error.message}</p>
+
+        <button onClick={() => refetch()}>تلاش مجدد</button>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: 20 }}>
@@ -32,8 +60,9 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
         }}
       >
         <h1>{CONTENT_TYPE_LABEL[type]}s</h1>
+
         <Link href={`${basePath}/create`}>
-          Create {CONTENT_TYPE_LABEL[type]}
+          ایجاد {CONTENT_TYPE_LABEL[type]}
         </Link>
       </div>
 
@@ -47,32 +76,56 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
             <th>Actions</th>
           </tr>
         </thead>
+
         <tbody>
-          {data?.map((item) => (
-            <tr key={item.id}>
-              <td>{item.translations?.[0]?.title ?? "-"}</td>
-              <td>{item.slug}</td>
-              <td>{item.published ? "Yes" : "No"}</td>
-              <td>
-                {item.publishedAt
-                  ? new Date(item.publishedAt).toLocaleDateString()
-                  : "-"}
-              </td>
-              <td>
-                <Link href={`${basePath}/${item.id}`}>Edit</Link>
-                {" | "}
-                <button
-                  onClick={() => {
-                    if (confirm(`Delete this ${CONTENT_TYPE_LABEL[type]}?`)) {
-                      deleteMutation.mutate({ id: item.id });
-                    }
-                  }}
-                >
-                  Delete
-                </button>
+          {data?.length ? (
+            data.map((item) => (
+              <tr key={item.id}>
+                <td>{item.translations?.[0]?.title ?? "-"}</td>
+
+                <td>{item.slug}</td>
+
+                <td>{item.published ? "Yes" : "No"}</td>
+
+                <td>
+                  {item.publishedAt
+                    ? new Date(item.publishedAt).toLocaleDateString()
+                    : "-"}
+                </td>
+
+                <td>
+                  <Link href={`${basePath}/${item.id}`}>Edit</Link>
+
+                  {" | "}
+
+                  <button
+                    disabled={deleteMutation.isPending}
+                    onClick={() => {
+                      if (confirm(`حذف ${CONTENT_TYPE_LABEL[type]} ؟`)) {
+                        deleteMutation.mutate({
+                          id: item.id,
+                        });
+                      }
+                    }}
+                  >
+                    {deleteMutation.isPending ? "..." : "Delete"}
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={5}
+                style={{
+                  textAlign: "center",
+                  padding: 20,
+                }}
+              >
+                هیچ محتوایی یافت نشد
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

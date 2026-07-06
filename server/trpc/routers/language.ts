@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { router, publicProcedure } from "../init";
 
 import {
@@ -18,37 +19,75 @@ export const languageRouter = router({
   create: publicProcedure
     .input(createLanguageSchema)
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.language.create({
-        data: {
-          code: input.code,
-          name: input.name,
-        },
-      });
+      try {
+        const language = await ctx.prisma.language.create({
+          data: {
+            code: input.code,
+            name: input.name,
+          },
+        });
+
+        return {
+          success: true,
+          message: "Language created successfully",
+          data: language,
+        };
+      } catch (error: any) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error.message,
+        });
+      }
     }),
 
   update: publicProcedure
     .input(updateLanguageSchema)
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.language.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          code: input.code,
-          name: input.name,
-          enabled: input.enabled,
-          sortOrder: input.sortOrder,
-        },
-      });
+      try {
+        const language = await ctx.prisma.language.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            code: input.code,
+            name: input.name,
+            enabled: input.enabled,
+            sortOrder: input.sortOrder,
+          },
+        });
+
+        return {
+          success: true,
+          message: "Language updated successfully",
+          data: language,
+        };
+      } catch (error: any) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error.message,
+        });
+      }
     }),
 
   delete: publicProcedure
     .input(deleteLanguageSchema)
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.language.delete({
-        where: {
-          id: input.id,
-        },
-      });
+      try {
+        await ctx.prisma.language.delete({
+          where: {
+            id: input.id,
+          },
+        });
+
+        return {
+          success: true,
+          message: "Language deleted successfully",
+        };
+      } catch (error: any) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error.message,
+        });
+      }
     }),
 });

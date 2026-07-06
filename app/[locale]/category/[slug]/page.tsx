@@ -27,19 +27,24 @@ export default function CategoryPage() {
 
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data, isLoading, isFetching } = trpc.public.getCategoryPage.useQuery(
-    {
-      locale,
-      slug,
-      search: debouncedSearch,
-      page,
-      limit: 12,
-    },
-    {
-      placeholderData: (previousData) => previousData,
-    },
-  );
-
+  const { data, isLoading, isFetching, error } =
+    trpc.public.getCategoryPage.useQuery(
+      {
+        locale,
+        slug,
+        search: debouncedSearch,
+        page,
+        limit: 12,
+      },
+      {
+        placeholderData: (previousData) => previousData,
+      },
+    );
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message || "خطا در دریافت");
+    }
+  }, [error]);
   if (isLoading) {
     return <div>Loading...</div>;
   }

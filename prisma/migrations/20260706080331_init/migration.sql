@@ -156,6 +156,9 @@ CREATE INDEX "Category_parentId_idx" ON "public"."Category"("parentId");
 CREATE UNIQUE INDEX "CategoryTranslation_categoryId_languageId_key" ON "public"."CategoryTranslation"("categoryId", "languageId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "CategoryTranslation_languageId_slug_key" ON "public"."CategoryTranslation"("languageId", "slug");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Product_slug_key" ON "public"."Product"("slug");
 
 -- CreateIndex
@@ -166,6 +169,9 @@ CREATE INDEX "Product_published_idx" ON "public"."Product"("published");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "ProductTranslation_productId_languageId_key" ON "public"."ProductTranslation"("productId", "languageId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ProductTranslation_languageId_slug_key" ON "public"."ProductTranslation"("languageId", "slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Content_slug_key" ON "public"."Content"("slug");

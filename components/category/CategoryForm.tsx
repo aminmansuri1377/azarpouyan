@@ -99,25 +99,34 @@ export function CategoryForm({
 
   useEffect(() => {
     if (!languages.length) return;
+
     const merged = languages.map((lang) => {
       const existing = defaultValues?.translations?.find(
         (t) => t.languageId === lang.id,
       );
+
       return existing ?? buildEmptyTranslation(lang.id);
     });
+
     replace(merged);
-  }, [languages]);
+  }, [languages, defaultValues, replace]);
 
   useEffect(() => {
     if (!defaultValues || !languages.length) return;
+
     const merged = languages.map((lang) => {
       const existing = defaultValues.translations?.find(
         (t) => t.languageId === lang.id,
       );
+
       return existing ?? buildEmptyTranslation(lang.id);
     });
-    reset({ ...defaultValues, translations: merged });
-  }, [defaultValues, reset]);
+
+    reset({
+      ...defaultValues,
+      translations: merged,
+    });
+  }, [defaultValues, languages, reset]);
 
   const excludeIds = excludeId
     ? new Set([
