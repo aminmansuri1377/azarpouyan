@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Link from "next/link";
 
@@ -13,6 +13,7 @@ import { ProductSearch } from "@/components/site/ProductSearch";
 import { Pagination } from "@/components/site/Pagination";
 
 import { useDebounce } from "@/hooks/useDebounce";
+import toast from "react-hot-toast";
 
 export default function CategoryPage() {
   const params = useParams();
