@@ -1,66 +1,77 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { cn } from "@/lib/cn";
+import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
+import { Separator } from "@/components/ui/Separator";
+import {
+  HomeIcon,
+  PackageIcon,
+  SettingsIcon,
+  FileTextIcon,
+  InboxIcon,
+  FilterIcon,
+  DollarSignIcon,
+} from "@/components/ui/icon";
 
 const links = [
-  {
-    href: "/panel",
-    label: "Dashboard",
-  },
-  {
-    href: "/panel/products",
-    label: "Products",
-  },
-  {
-    href: "/panel/categories",
-    label: "Categories",
-  },
-
-  {
-    href: "/panel/blogs",
-    label: "Blog",
-  },
-  {
-    href: "/panel/news",
-    label: "News",
-  },
-  {
-    href: "/panel/articles",
-    label: "Articles",
-  },
-  {
-    href: "/panel/languages",
-    label: "Languages",
-  },
-  {
-    href: "/panel/price-ticker",
-    label: "Price Ticker",
-  },
-  {
-    href: "/panel/contact-requests",
-    label: "contact-requests",
-  },
-  {
-    href: "/panel/settings",
-    label: "Settings",
-  },
+  { href: "/panel", label: "Dashboard", icon: HomeIcon },
+  { href: "/panel/products", label: "Products", icon: PackageIcon },
+  { href: "/panel/categories", label: "Categories", icon: FilterIcon },
+  // { href: "/panel/attributes", label: "Attributes", icon: FilterIcon },
+  { href: "/panel/blogs", label: "Blog", icon: FileTextIcon },
+  { href: "/panel/news", label: "News", icon: FileTextIcon },
+  { href: "/panel/articles", label: "Articles", icon: FileTextIcon },
+  { href: "/panel/languages", label: "Languages", icon: SettingsIcon },
+  { href: "/panel/price-ticker", label: "Price Ticker", icon: DollarSignIcon },
+  { href: "/panel/contact-requests", label: "Contact Requests", icon: InboxIcon },
+  { href: "/panel/settings", label: "Settings", icon: SettingsIcon },
+  { href: "/panel/ui-preview", label: "UI Preview", icon: SettingsIcon },
 ];
 
 export function PanelSidebar() {
-  return (
-    <aside
-      style={{
-        width: 260,
-        padding: 20,
-        borderRight: "1px solid #ddd",
-      }}
-    >
-      <h2>Admin Panel</h2>
+  const pathname = usePathname();
 
-      <nav>
-        {links.map((item) => (
-          <div key={item.href}>
-            <Link href={item.href}>{item.label}</Link>
-          </div>
-        ))}
+  return (
+    <aside className="flex h-screen w-64 shrink-0 flex-col border-e border-border bg-card">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4">
+        <h2 className="text-base font-semibold text-foreground">Admin Panel</h2>
+        <ThemeToggle />
+      </div>
+
+      <Separator />
+
+      {/* Navigation */}
+      <nav className="flex-1 overflow-y-auto p-2">
+        <ul className="flex flex-col gap-1">
+          {links.map((item) => {
+            const isActive =
+              item.href === "/panel"
+                ? pathname === "/panel"
+                : pathname.startsWith(item.href);
+            const Icon = item.icon;
+
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    isActive
+                      ? "bg-accent text-accent-foreground"
+                      : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
+                  )}
+                >
+                  <Icon className="size-4 shrink-0" />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
     </aside>
   );

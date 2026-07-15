@@ -1,5 +1,15 @@
-import { TRPCProvider } from "@/lib/trpc/provider";
+import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
+
+import { TRPCProvider } from "@/lib/trpc/provider";
+import { ThemeProvider, themeInitScript } from "@/components/ui/theme/theme-provider";
+
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Radical Control",
+  description: "Radical Control admin & storefront",
+};
 
 export default function RootLayout({
   children,
@@ -7,17 +17,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html lang="fa" suppressHydrationWarning>
+      <head>
+        {/* Prevent flash of wrong theme before React hydrates. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
-        <TRPCProvider>
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-            }}
-          />
-          {children}
-        </TRPCProvider>
+        <ThemeProvider defaultTheme="light">
+          <TRPCProvider>
+            {children}
+            <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+          </TRPCProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

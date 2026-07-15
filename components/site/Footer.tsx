@@ -4,14 +4,12 @@ interface Props {
 
 export function Footer({ messages }: Props) {
   return (
-    <footer
-      style={{
-        marginTop: 60,
-        borderTop: "1px solid #ddd",
-        padding: 20,
-      }}
-    >
-      {messages.footer}
+    <footer className="border-t border-border bg-background">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <p className="text-center text-sm text-muted-foreground">
+          {messages.footer}
+        </p>
+      </div>
     </footer>
   );
 }

@@ -1,3 +1,7 @@
+"use client";
+
+import { SearchInput } from "@/components/ui/form";
+
 type Props = {
   value: string;
   onChange: (value: string) => void;
@@ -5,17 +9,12 @@ type Props = {
 
 export function ProductSearch({ value, onChange }: Props) {
   return (
-    <input
-      type="text"
-      placeholder="Search product..."
+    <SearchInput
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      style={{
-        width: 300,
-        padding: 10,
-        border: "1px solid #ddd",
-        borderRadius: 6,
-      }}
+      onClear={() => onChange("")}
+      placeholder="Search product..."
+      size="md"
     />
   );
 }

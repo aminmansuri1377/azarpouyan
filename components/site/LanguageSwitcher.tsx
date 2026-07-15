@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import { usePathname } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
@@ -9,18 +7,12 @@ import { LanguageLink } from "./LanguageLink";
 
 export function LanguageSwitcher() {
   const pathname = usePathname();
-
   const currentLocale = pathname.split("/")[1];
 
   const { data: languages } = trpc.public.getLanguages.useQuery();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: 10,
-      }}
-    >
+    <div className="flex items-center gap-2">
       {languages?.map((lang) => (
         <LanguageLink
           key={lang.id}
