@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
+import type { Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, ProductFormValues } from "@/types/product";
 import { trpc } from "@/lib/trpc/client";
@@ -42,7 +43,7 @@ export function ProductForm({
     reset,
     formState: { errors },
   } = useForm<ProductFormValues>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(productSchema) as unknown as Resolver<ProductFormValues>,
     defaultValues: defaultValues ?? {
       slug: "",
       imageUrl: "",

@@ -13,6 +13,13 @@ const en = {
 
   changeLanguage: "Change Language",
 
+  hero: {
+    brand: "kgacommerce",
+    tagline: "trade products",
+    year: "2026",
+    usersLabel: "active users",
+  },
+
   footer: "All rights reserved",
   contactus: "contact Us",
   error: {

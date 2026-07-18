@@ -208,4 +208,27 @@
     background-color: var(--border);
     border-radius: 9999px;
   }
+
+  /*
+   * Hero text reveal — bottom-to-top entrance.
+   * Pair with an inline `animationDelay` to stagger lines.
+   * Starts 1.5rem below + transparent, eases up into place.
+   */
+  .hero-reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    animation: hero-reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform;
+  }
+
+  @keyframes hero-reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

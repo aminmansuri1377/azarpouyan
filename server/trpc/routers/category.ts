@@ -80,7 +80,11 @@ export const categoryRouter = router({
       const path: any[] = [];
       let currentId: string | null = input.id;
       while (currentId) {
-        const node = await ctx.prisma.category.findUnique({
+        const node: {
+          id: string;
+          parentId: string | null;
+          translations: any[];
+        } | null = await ctx.prisma.category.findUnique({
           where: { id: currentId },
           include: { translations: true },
         });

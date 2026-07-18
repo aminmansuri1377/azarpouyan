@@ -13,6 +13,13 @@ const fa = {
 
   changeLanguage: "تغییر زبان",
 
+  hero: {
+    brand: "kgacommerce",
+    tagline: "تجارت محصولات",
+    year: "2026",
+    usersLabel: "کاربر فعال",
+  },
+
   footer: "تمام حقوق محفوظ است",
   contactus: "ارتباط با ما",
   error: {

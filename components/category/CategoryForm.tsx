@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
+import type { Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { categorySchema, CategoryFormValues } from "@/types/category";
 import { TranslationFields } from "../site/TranslationFields";
@@ -84,7 +85,7 @@ export function CategoryForm({
     reset,
     formState: { errors },
   } = useForm<CategoryFormValues>({
-    resolver: zodResolver(categorySchema),
+    resolver: zodResolver(categorySchema) as unknown as Resolver<CategoryFormValues>,
     defaultValues: defaultValues ?? {
       parentId: null,
       slug: "",

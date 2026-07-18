@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
+import type { Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contentSchema, ContentFormValues } from "@/types/content";
 import { ContentTranslationFields } from "./ContentTranslationFields";
@@ -41,7 +42,7 @@ export function ContentForm({
     reset,
     formState: { errors },
   } = useForm<ContentFormValues>({
-    resolver: zodResolver(contentSchema),
+    resolver: zodResolver(contentSchema) as unknown as Resolver<ContentFormValues>,
     defaultValues: defaultValues ?? {
       slug: "",
       coverImage: "",
@@ -57,14 +58,7 @@ export function ContentForm({
     control,
     name: "translations",
   });
-  const {
-    fields: imageFields,
-    append: appendImage,
-    remove: removeImage,
-  } = useFieldArray({
-    control,
-    name: "images",
-  });
+  const [newImageUrl, setNewImageUrl] = useState("");
   // create mode: initialize translations وقتی languages لود شد
   useEffect(() => {
     if (!languages.length) return;
@@ -115,21 +109,46 @@ export function ContentForm({
       </div>
       <h3>Gallery Images</h3>
       <br />
-      {imageFields.map((field, index) => (
-        <div key={field.id}>
-          <input
-            placeholder="Gallery Image URL"
-            {...register(`images.${index}`)}
-          />
-
-          <button type="button" onClick={() => removeImage(index)}>
-            Delete
-          </button>
-        </div>
-      ))}
-      <button type="button" onClick={() => appendImage("")}>
-        Add Image
-      </button>
+      <Controller
+        name="images"
+        control={control}
+        render={({ field }) => (
+          <div>
+            <input
+              placeholder="Gallery Image URL"
+              value={newImageUrl}
+              onChange={(e) => setNewImageUrl(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                if (!newImageUrl) return;
+                field.onChange([...(field.value ?? []), newImageUrl]);
+                setNewImageUrl("");
+              }}
+            >
+              افزودن
+            </button>
+            <ul>
+              {(field.value ?? []).map((url, i) => (
+                <li key={i}>
+                  {url}{" "}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      field.onChange(
+                        field.value.filter((_, idx) => idx !== i),
+                      )
+                    }
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      />
 
       <div>
         <label>Published At</label>

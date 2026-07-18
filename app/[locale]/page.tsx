@@ -10,8 +10,8 @@ import { trpc } from "@/lib/trpc/client";
 
 import { PublicCategoryTree } from "@/components/public/PublicCategoryTree";
 
+import { Hero } from "@/components/site/Hero";
 import { ProductSearch } from "@/components/site/ProductSearch";
-
 import { Pagination } from "@/components/site/Pagination";
 
 import { useDebounce } from "@/hooks/useDebounce";
@@ -55,7 +55,7 @@ export default function HomePage() {
 
   return (
     <div style={{ padding: 30 }}>
-      <h1>KGA Commerce</h1>
+      <Hero locale={locale} />
 
       <hr />
 
