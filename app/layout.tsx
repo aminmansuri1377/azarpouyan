@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 
 import { TRPCProvider } from "@/lib/trpc/provider";
-import { ThemeProvider, themeInitScript } from "@/components/ui/theme/theme-provider";
+import {
+  ThemeProvider,
+  themeInitScript,
+} from "@/components/ui/theme/theme-provider";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Radical Control",
-  description: "Radical Control admin & storefront",
+  title: "kgacommerece",
+  description: "kgacommerece admin & storefront",
 };
 
 export default function RootLayout({
