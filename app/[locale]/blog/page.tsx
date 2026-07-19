@@ -29,7 +29,7 @@ export default function BlogPage() {
     <div style={{ padding: 30 }}>
       <h1>Blogs</h1>
 
-      {blogs?.map((blog) => {
+      {blogs?.map((blog: any) => {
         const t = blog.translations[0];
 
         if (!t) return null;
