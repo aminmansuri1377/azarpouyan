@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ContentType } from "@prisma/client";
+import type { ContentType } from "@prisma/client";
 
 export const contentTranslationSchema = z.object({
   languageId: z.string().min(1, "Required"),
@@ -29,4 +29,4 @@ export const CONTENT_TYPE_LABEL: Record<ContentType, string> = {
   ARTICLE: "Article",
 };
 
-export { ContentType };
+export type { ContentType };

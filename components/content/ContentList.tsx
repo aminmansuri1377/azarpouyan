@@ -3,7 +3,7 @@
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { trpc } from "@/lib/trpc/client";
-import { ContentType, CONTENT_TYPE_LABEL } from "@/types/content";
+import { CONTENT_TYPE_LABEL, type ContentType } from "@/types/content";
 
 interface ContentListPageProps {
   type: ContentType;
