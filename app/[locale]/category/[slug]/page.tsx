@@ -65,7 +65,7 @@ export default function CategoryPage() {
       {data.children.length === 0 ? (
         <div>No Sub Categories</div>
       ) : (
-        data.children.map((child) => {
+        data.children.map((child: any) => {
           const t = child.translations[0];
 
           return (
