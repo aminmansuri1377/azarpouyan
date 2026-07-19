@@ -1,10 +1,7 @@
 "use client";
 
 import { getMessages } from "@/messages";
-import {
-  formatLocaleNumber,
-  useCountUp,
-} from "@/hooks/useCountUp";
+import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
 
 interface HeroProps {
   locale: string;
@@ -27,7 +24,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
       {/* brand */}
       <h1
         className="hero-reveal text-4xl font-bold tracking-tight text-foreground sm:text-6xl"
-        style={{ animationDelay: "0.1s" }}
+        style={{ animationDelay: "0.5s" }}
       >
         {t.brand}
       </h1>
@@ -35,7 +32,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
       {/* tagline */}
       <p
         className="hero-reveal text-xl font-medium text-primary sm:text-2xl"
-        style={{ animationDelay: "0.7s" }}
+        style={{ animationDelay: "1.3s" }}
       >
         {t.tagline}
       </p>
@@ -43,7 +40,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
       {/* year */}
       <p
         className="hero-reveal text-lg font-semibold text-muted-foreground"
-        style={{ animationDelay: "1.3s" }}
+        style={{ animationDelay: "1.9s" }}
       >
         {t.year}
       </p>
@@ -51,7 +48,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
       {/* user count (animated 0 → users) */}
       <p
         className="hero-reveal mt-6 text-3xl font-bold text-foreground sm:text-4xl"
-        style={{ animationDelay: "1.6s" }}
+        style={{ animationDelay: "2.3s" }}
       >
         {formatLocaleNumber(counted, locale)}
         <span className="ms-2 text-base font-normal text-muted-foreground">
