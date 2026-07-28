@@ -22,6 +22,9 @@ const en = {
     year: "2026",
     receiveConsulting: "Receive Consulting",
     seeServices: "See Services",
+    ourStory: "Our Story",
+    ourStoryDescription:
+      "We are an international trading company that provides industrial goods supply and access to real-time global market data together. Our goal is to simplify the process of purchasing, supplying, and decision-making in global trade.",
     usersLabel: "active users",
   },
 

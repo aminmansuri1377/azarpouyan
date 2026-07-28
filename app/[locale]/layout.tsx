@@ -23,7 +23,9 @@ export default async function SiteLayout({
 
       <Header locale={locale} messages={messages} />
 
-      <main className="flex-1 ">{children}</main>
+      <main className="flex-1 bg-linear-65 from-[#e9c98533] from-0% via-popover via-10%  to-[#c6a04d33] to-100%">
+        {children}
+      </main>
 
       <Footer messages={messages} />
 

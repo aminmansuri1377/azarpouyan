@@ -15,6 +15,7 @@ import { ProductSearch } from "@/components/site/ProductSearch";
 import { Pagination } from "@/components/site/Pagination";
 
 import { useDebounce } from "@/hooks/useDebounce";
+import OurStory from "@/components/site/OurStory";
 
 export default function HomePage() {
   const params = useParams();
@@ -57,13 +58,9 @@ export default function HomePage() {
     <div>
       <Hero locale={locale} />
 
-      <hr />
-
-      <div
-        style={{
-          marginBottom: 20,
-        }}
-      >
+      {/* <hr /> */}
+      <OurStory locale={locale} />
+      <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
       </div>
 

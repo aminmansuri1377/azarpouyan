@@ -53,7 +53,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
         >
           {t.year}
         </p> */}
-        <div className="gap-10 flex">
+        <div className="gap-10 flex" style={{ animationDelay: "2.3s" }}>
           <Button className="px-14">{t.receiveConsulting}</Button>
           <Button className="px-14" variant="secondary">
             {t.seeServices}
