@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
 import { LanguageLink } from "./LanguageLink";
+import { Spinner } from "../ui/Spinner";
 
 export function LanguageSwitcher() {
   const pathname = usePathname();
@@ -13,14 +14,21 @@ export function LanguageSwitcher() {
 
   return (
     <div className="flex items-center gap-2">
-      {languages?.map((lang) => (
-        <LanguageLink
-          key={lang.id}
-          lang={lang.code}
-          currentLocale={currentLocale}
-          pathname={pathname}
-        />
-      ))}
+      {languages ? (
+        languages?.map((lang) => (
+          <LanguageLink
+            key={lang.id}
+            lang={lang.code}
+            currentLocale={currentLocale}
+            pathname={pathname}
+          />
+        ))
+      ) : (
+        <div>
+          {" "}
+          <Spinner className="size-4" />
+        </div>
+      )}
     </div>
   );
 }

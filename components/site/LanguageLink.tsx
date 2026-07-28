@@ -20,7 +20,7 @@ export function LanguageLink({ lang, pathname, currentLocale }: Props) {
   return (
     <Link
       href={data?.path ?? "/"}
-      className="rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+      className="rounded-md px-2 py-1 text-xs font-medium text-popover transition-colors hover:bg-accent hover:text-accent-foreground"
     >
       {lang.toUpperCase()}
     </Link>

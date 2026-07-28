@@ -5,52 +5,79 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-
+import { Button } from "../ui";
+import Logo from "../../public/images/logo.png";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 interface Props {
   locale: string;
   messages: any;
 }
 
 export function Header({ locale, messages }: Props) {
-  return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Site name */}
-        <Link
-          href={`/${locale}`}
-          className="text-lg font-semibold text-foreground transition-colors hover:text-primary"
-        >
-          {messages.siteName}
-        </Link>
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "bg-[rgba(var(--secondary-foreground-rgb),0.35)]",
+        isScrolled ? "backdrop-blur-md shadow-sm" : "border-transparent",
+      )}
+    >
+      {" "}
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 lg:py-10">
+        {/* Site name */}
         {/* Navigation */}
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-8">
+          <Button>{messages.consulting}</Button>
+          <div className="ms-2 flex items-center gap-2">
+            <LanguageSwitcher />
+            {/* <ThemeToggle /> */}
+          </div>
           <Link
-            href={`/${locale}/blog`}
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            href={`/${locale}`}
+            className="text-sm text-popover transition-colors hover:text-foreground font-peyda-regular"
           >
-            {messages.blogs}
+            {messages.home}
           </Link>
 
           <Link
+            href={`/${locale}/aboutUs`}
+            className="text-sm text-popover transition-colors hover:text-foreground font-peyda-regular"
+          >
+            {messages.aboutUs}
+          </Link>
+          <Link
             href={`/${locale}/contact`}
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-sm text-popover transition-colors hover:text-foreground font-peyda-regular"
           >
             {messages.contactus}
           </Link>
-
           <Link
-            href={`/${locale}/news`}
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            href={`/${locale}/blog`}
+            className="text-sm text-popover transition-colors hover:text-foreground font-peyda-regular"
           >
-            {messages.news}
+            {messages.blogs}
           </Link>
-
-          <div className="ms-2 flex items-center gap-2">
-            <LanguageSwitcher />
-            <ThemeToggle />
-          </div>
         </nav>
+        <Image src={Logo} alt="Logo" />{" "}
+        {/* <Link
+          href={`/${locale}`}
+          className="text-lg font-semibold text-foreground transition-colors hover:text-primary font-peyda-bold"
+        >
+          {messages.siteName}
+        </Link> */}
       </div>
     </header>
   );

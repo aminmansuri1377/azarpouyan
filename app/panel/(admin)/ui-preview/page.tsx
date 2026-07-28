@@ -147,7 +147,7 @@ function ButtonsSection() {
       title="Buttons"
       description="Click any button — its variant and size are logged to the console."
     >
-      <div className="space-y-6">
+      <div className="space-y-6 bg-red-400">
         {/* Variants */}
         <div>
           <Text weight="semibold" size="sm" className="mb-3">
@@ -211,10 +211,7 @@ function ButtonsSection() {
             <Button disabled onClick={() => log("Disabled (won't fire)")}>
               Disabled
             </Button>
-            <Button
-              fullWidth={false}
-              onClick={() => log("With icon")}
-            >
+            <Button fullWidth={false} onClick={() => log("With icon")}>
               <PlusIcon />
               With Icon
             </Button>
@@ -340,7 +337,9 @@ function FormSection() {
                 log("Checkbox onChange", e.target.checked);
               }}
             />
-            <Text size="sm">Checkbox — {checkbox ? "checked" : "unchecked"}</Text>
+            <Text size="sm">
+              Checkbox — {checkbox ? "checked" : "unchecked"}
+            </Text>
           </label>
 
           <div className="flex items-center gap-2">
@@ -479,9 +478,7 @@ function FeedbackSection() {
         <div className="grid gap-3 md:grid-cols-2">
           <Alert variant="info">
             <AlertTitle>Heads up</AlertTitle>
-            <AlertDescription>
-              This is an informational alert.
-            </AlertDescription>
+            <AlertDescription>This is an informational alert.</AlertDescription>
           </Alert>
           <Alert variant="success">
             <AlertTitle>Success</AlertTitle>

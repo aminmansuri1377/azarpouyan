@@ -8,15 +8,20 @@ const en = {
   blogs: "Blog",
 
   news: "News",
-
+  home: "Home",
   products: "Products",
-
+  consulting: "consulting",
+  aboutUs: "About Us",
   changeLanguage: "Change Language",
 
   hero: {
     brand: "kgacommerce",
-    tagline: "trade products",
+    tagline: "smart trading with instant access to global markets",
+    description:
+      "We are an international trading company that provides industrial goods supply and access to real-time global market data together. Our goal is to simplify the process of purchasing, supplying, and decision-making in global trade.",
     year: "2026",
+    receiveConsulting: "Receive Consulting",
+    seeServices: "See Services",
     usersLabel: "active users",
   },
 

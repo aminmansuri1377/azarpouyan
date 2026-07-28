@@ -5,23 +5,28 @@ const fa = {
 
   categories: "دسته بندی ها",
 
-  blogs: "وبلاگ",
+  blogs: "بلاگ ها",
 
   news: "اخبار",
-
+  home: "خانه",
   products: "محصولات",
-
+  aboutUs: "درباره ما",
   changeLanguage: "تغییر زبان",
+  consulting: "مشاوره",
 
   hero: {
     brand: "kgacommerce",
-    tagline: "تجارت محصولات",
+    tagline: "تجارت هوشمند با دسترسی لحظه‌ای به بازارهای جهانی",
+    description:
+      "ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.",
     year: "2026",
+    receiveConsulting: "دریافت مشاوره",
+    seeServices: "مشاهده خدمات",
     usersLabel: "کاربر فعال",
   },
 
   footer: "تمام حقوق محفوظ است",
-  contactus: "ارتباط با ما",
+  contactus: "تماس با ما",
   error: {
     adminConfigMissing: "تنظیمات ورود مدیر ناقص است",
     passwordRequired: "رمز عبور را وارد کنید",

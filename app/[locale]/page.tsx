@@ -54,7 +54,7 @@ export default function HomePage() {
   );
 
   return (
-    <div style={{ padding: 30 }}>
+    <div>
       <Hero locale={locale} />
 
       <hr />

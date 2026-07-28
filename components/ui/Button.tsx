@@ -18,12 +18,12 @@ export type ButtonVariant =
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "icon";
 
 const BASE =
-  "inline-flex items-center cursor-pointer justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0";
+  "inline-flex items-center cursor-pointer justify-center gap-2 whitespace-nowrap rounded-2xl font-medium font-peyda-regular transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0";
 
 const VARIANT: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",
+  primary: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
   secondary:
-    "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+    " text-primary-foreground shadow-xs hover:bg-secondary/80 border border-inline-border border-primary-foreground",
   destructive:
     "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
   success: "bg-success text-success-foreground shadow-sm hover:bg-success/90",
@@ -36,10 +36,10 @@ const VARIANT: Record<ButtonVariant, string> = {
 };
 
 const SIZE: Record<ButtonSize, string> = {
-  xs: "h-7 px-2 text-xs [&_svg]:size-3.5",
-  sm: "h-8 px-3 text-sm [&_svg]:size-4",
-  md: "h-10 px-4 text-sm [&_svg]:size-4",
-  lg: "h-11 px-6 text-base [&_svg]:size-5",
+  xs: "h-7 px-4 text-xs [&_svg]:size-3.5",
+  sm: "h-8 px-5 text-sm [&_svg]:size-4",
+  md: "h-10 px-6 text-sm [&_svg]:size-4",
+  lg: "h-11 px-7 text-base [&_svg]:size-5",
   icon: "h-10 w-10 [&_svg]:size-4",
 };
 

@@ -3,7 +3,26 @@
 /* Class-based dark mode: a `.dark` class on <html> activates dark utilities.
  * Without this, Tailwind v4 defaults to `@media (prefers-color-scheme: dark)`. */
 @custom-variant dark (&:where(.dark, .dark *));
-
+@font-face {
+  font-family: "PEYDA-THIN";
+  src: url("../public/font/Peyda-Thin.ttf");
+}
+@font-face {
+  font-family: "PEYDA-REGULAR";
+  src: url("../public/font/Peyda-Regular.ttf");
+}
+@font-face {
+  font-family: "PEYDA-MEDIUM";
+  src: url("../public/font/Peyda-Medium.ttf");
+}
+@font-face {
+  font-family: "PEYDA-BOLD";
+  src: url("../public/font/Peyda-Bold.ttf");
+}
+@font-face {
+  font-family: "PEYDA-BLACK";
+  src: url("../public/font/Peyda-Black.ttf");
+}
 /*
  * ============================================================================
  *  DESIGN SYSTEM TOKENS  (Tailwind v4 — CSS-first @theme)
@@ -31,12 +50,13 @@
   --popover-foreground: #0f172a;
 
   /* Brand / primary */
-  --primary: #4f46e5; /* indigo-600 */
+  --primary: #d7a53a; /* indigo-600 */
   --primary-foreground: #ffffff;
 
   /* Secondary surfaces */
   --secondary: #f1f5f9; /* slate-100 */
   --secondary-foreground: #1e293b;
+  --secondary-foreground-rgb: 30, 41, 59;
 
   --muted: #f1f5f9;
   --muted-foreground: #64748b; /* slate-500 */
@@ -64,7 +84,11 @@
   --ring: #6366f1; /* indigo-500 — focus ring */
 
   --radius: 0.5rem;
-
+  --font-peyda-thin: "PEYDA-THIN", cursive;
+  --font-peyda-regular: "PEYDA-REGULAR", cursive;
+  --font-peyda-medium: "PEYDA-MEDIUM", cursive;
+  --font-peyda-bold: "PEYDA-BOLD", cursive;
+  --font-peyda-black: "PEYDA-BLACK", cursive;
   color-scheme: light;
 }
 
@@ -84,6 +108,7 @@
 
   --secondary: #1e1e22;
   --secondary-foreground: #e2e8f0;
+  --secondary-foreground-rgb: 226, 232, 240;
 
   --muted: #1e1e22;
   --muted-foreground: #94a3b8; /* slate-400 */
@@ -107,7 +132,11 @@
   --input: #2a2a2e;
   --input-background: #161618;
   --ring: #818cf8;
-
+  --font-peyda-thin: "PEYDA-THIN", cursive;
+  --font-peyda-regular: "PEYDA-REGULAR", cursive;
+  --font-peyda-medium: "PEYDA-MEDIUM", cursive;
+  --font-peyda-bold: "PEYDA-BOLD", cursive;
+  --font-peyda-black: "PEYDA-BLACK", cursive;
   color-scheme: dark;
 }
 
@@ -155,8 +184,13 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, Arial, sans-serif;
+  --font-peyda-thin: "PEYDA-THIN", cursive;
+  --font-peyda-regular: "PEYDA-REGULAR", cursive;
+  --font-peyda-medium: "PEYDA-MEDIUM", cursive;
+  --font-peyda-bold: "PEYDA-BOLD", cursive;
+  --font-peyda-black: "PEYDA-BLACK", cursive;
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
