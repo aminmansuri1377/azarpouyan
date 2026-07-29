@@ -34,14 +34,17 @@ export function FormField({
   labelProps,
   className,
 }: FormFieldProps) {
-  const errorText = Array.isArray(error)
-    ? error[0]
-    : error;
+  const errorText = Array.isArray(error) ? error[0] : error;
 
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       {label ? (
-        <Label htmlFor={htmlFor} required={required} {...labelProps}>
+        <Label
+          htmlFor={htmlFor}
+          required={required}
+          {...labelProps}
+          className="text-popover font-peyda-regular"
+        >
           {label}
         </Label>
       ) : null}

@@ -1,3 +1,5 @@
+import { email } from "zod";
+
 const en = {
   siteName: "KGA Commerce",
 
@@ -14,6 +16,8 @@ const en = {
   aboutUs: "About Us",
   changeLanguage: "Change Language",
   baseServices: "Our main services :",
+  likeConversation:
+    "We always love to talk to customers, potential customers, business analysts, and digital freight enthusiasts. To save your time, before contacting us, check if the links below can be helpful or not.",
   hero: {
     brand: "kgacommerce",
     tagline: "smart trading with instant access to global markets",
@@ -30,7 +34,15 @@ const en = {
 
   footer: "All rights reserved",
   contactus: "contact Us",
-  error: {
+  nameandSurname: "Name and Surname",
+  companyName: "Company Name",
+  email: "Email",
+  phoneNumber: "Phone Number",
+  subject: "Subject",
+  message: "Message",
+  ConsultationRequestForm: "Consultation Request Form",
+  contactInfo: "Contact Info :",
+  notif: {
     adminConfigMissing: "Admin login configuration is missing",
     passwordRequired: "Please enter your password",
     invalidPassword: "The password you entered is incorrect",
@@ -71,6 +83,7 @@ const en = {
 
     contentDeletedSuccessfully: "Content deleted successfully",
     contentDeleteFailed: "Failed to delete content",
+    PleaseCompleteFormErrors: "Please correct the form errors",
   },
 };
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getMessages } from "@/messages";
 import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
 import { Button } from "../ui/Button";
+import { useRouter } from "next/navigation";
 
 interface HeroProps {
   locale: string;
@@ -13,6 +14,7 @@ interface HeroProps {
 export function Hero({ locale, users = 245 }: HeroProps) {
   const t = getMessages(locale).hero;
   const counted = useCountUp(users, 1200, 1600);
+  const router = useRouter();
 
   return (
     <section className="relative isolate flex min-h-[85vh] w-full items-center justify-center overflow-hidden">
@@ -54,7 +56,12 @@ export function Hero({ locale, users = 245 }: HeroProps) {
           {t.year}
         </p> */}
         <div className="gap-10 flex" style={{ animationDelay: "2.3s" }}>
-          <Button className="px-14">{t.receiveConsulting}</Button>
+          <Button
+            onClick={() => router.push(`/${locale}/contact`)}
+            className="px-14"
+          >
+            {t.receiveConsulting}
+          </Button>
           <Button className="px-14" variant="secondary">
             {t.seeServices}
           </Button>

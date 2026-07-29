@@ -14,6 +14,8 @@ const fa = {
   changeLanguage: "تغییر زبان",
   consulting: "مشاوره",
   baseServices: "خدمات اصلی ما :",
+  likeConversation:
+    "ما همیشه عاشق صحبت با مشتریان، مشتریان بالقوه، تحلیلگران کسب و کار و علاقه‌مندان به حمل و نقل دیجیتال هستیم. برای صرفه‌جویی در وقت شما، قبل از تماس با ما، بررسی کنید که آیا لینک‌های زیر می‌توانند مفید باشند یا خیر.",
   hero: {
     brand: "kgacommerce",
     tagline: "تجارت هوشمند با دسترسی لحظه‌ای به بازارهای جهانی",
@@ -30,7 +32,15 @@ const fa = {
 
   footer: "تمام حقوق محفوظ است",
   contactus: "تماس با ما",
-  error: {
+  nameandSurname: "نام و نام خانوادگی",
+  companyName: "نام شرکت",
+  email: "ایمیل",
+  phoneNumber: "شماره تماس",
+  subject: "موضوع",
+  message: "پیام",
+  ConsultationRequestForm: "فرم درخواست مشاوره",
+  contactInfo: "اطلاعات تماس :",
+  notif: {
     adminConfigMissing: "تنظیمات ورود مدیر ناقص است",
     passwordRequired: "رمز عبور را وارد کنید",
     invalidPassword: "رمز عبور وارد شده صحیح نیست",
@@ -71,6 +81,7 @@ const fa = {
 
     contentDeletedSuccessfully: "محتوا با موفقیت حذف شد",
     contentDeleteFailed: "خطا در حذف محتوا",
+    PleaseCompelteFormErrors: "لطفاً خطاهای فرم را اصلاح کنید",
   },
 };
 

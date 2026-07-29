@@ -9,6 +9,7 @@ import { Button } from "../ui";
 import Logo from "../../public/images/logo.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 interface Props {
   locale: string;
   messages: any;
@@ -16,7 +17,7 @@ interface Props {
 
 export function Header({ locale, messages }: Props) {
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const onScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -40,7 +41,9 @@ export function Header({ locale, messages }: Props) {
         {/* Site name */}
         {/* Navigation */}
         <nav className="flex items-center gap-8">
-          <Button>{messages.consulting}</Button>
+          <Button onClick={() => router.push(`/${locale}/contact`)}>
+            {messages.consulting}
+          </Button>
           <div className="ms-2 flex items-center gap-2">
             <LanguageSwitcher />
             {/* <ThemeToggle /> */}
