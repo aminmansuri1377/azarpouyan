@@ -37,7 +37,7 @@ function HowItWorks() {
 
         <div className="relative overflow-hidden rounded-3xl font-peyda-regular">
           <div
-            className="absolute inset-0 md:w-[50%]"
+            className="absolute inset-0 md:w-[50%] rounded-3xl"
             style={{ backgroundImage: "url('/images/workman.jpg')" }}
           />
 
