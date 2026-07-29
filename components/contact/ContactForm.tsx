@@ -70,7 +70,7 @@ export function ContactForm({ locale }: { locale: string }) {
 
             <Form
               form={form}
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-5"
             >
               {Object.keys(errors).length > 0 && (

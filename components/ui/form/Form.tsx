@@ -39,8 +39,10 @@ import { Text } from "../typography/Text";
  */
 const FormContext = createContext<UseFormReturn<FieldValues> | null>(null);
 
-export interface FormProps
-  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+export interface FormProps extends Omit<
+  FormHTMLAttributes<HTMLFormElement>,
+  never
+> {
   /**
    * The react-hook-form instance returned by `useForm(...)`.
    * Generic params are intentionally erased for the provider.
