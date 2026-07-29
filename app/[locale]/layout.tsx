@@ -28,14 +28,6 @@ export default async function SiteLayout({
       </main>
 
       <Footer messages={messages} />
-
-      <main className="flex-1 ">{children}</main>
-
-      <Footer messages={messages} />
-
-      <main className="flex-1 ">{children}</main>
-
-      <Footer messages={messages} />
     </>
   );
 }

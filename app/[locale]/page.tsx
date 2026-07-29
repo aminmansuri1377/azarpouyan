@@ -16,6 +16,11 @@ import { Pagination } from "@/components/site/Pagination";
 
 import { useDebounce } from "@/hooks/useDebounce";
 import OurStory from "@/components/site/OurStory";
+import Hands from "../../public/images/hands.jpg";
+import Oil from "../../public/images/oil.jpg";
+import Cow from "../../public/images/cow.jpg";
+import { ServiceBanner } from "@/components/site/ServiceBanner";
+import { getMessages } from "@/messages";
 
 export default function HomePage() {
   const params = useParams();
@@ -27,6 +32,7 @@ export default function HomePage() {
   const [page, setPage] = useState(1);
 
   const debouncedSearch = useDebounce(search, 500);
+  const t = getMessages(locale);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -60,6 +66,36 @@ export default function HomePage() {
 
       {/* <hr /> */}
       <OurStory locale={locale} />
+      <div>
+        <h1 className="text-2xl font-peyda-bold mb-4 mx-auto text-center">
+          {t.baseServices}
+        </h1>
+        <h2 className=" font-peyda-regular text-center my-10 w-[50%] mx-auto">
+          {t.hero.description}
+        </h2>
+      </div>
+      <ServiceBanner
+        image={Hands}
+        title="ارائه تمام خدمات بازرگانی"
+        description="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ..."
+        primaryButton={t.hero.seeServices}
+        secondaryButton={t.hero.receiveConsulting}
+      />
+      <ServiceBanner
+        image={Oil}
+        title="ارائه تمام خدمات بازرگانی"
+        description="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ..."
+        primaryButton={t.hero.seeServices}
+        secondaryButton={t.hero.receiveConsulting}
+      />
+      <ServiceBanner
+        image={Cow}
+        title="ارائه تمام خدمات بازرگانی"
+        description="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ..."
+        primaryButton={t.hero.seeServices}
+        secondaryButton={t.hero.receiveConsulting}
+      />
+
       <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
       </div>

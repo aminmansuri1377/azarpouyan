@@ -13,6 +13,7 @@ const fa = {
   aboutUs: "درباره ما",
   changeLanguage: "تغییر زبان",
   consulting: "مشاوره",
+  baseServices: "خدمات اصلی ما :",
   hero: {
     brand: "kgacommerce",
     tagline: "تجارت هوشمند با دسترسی لحظه‌ای به بازارهای جهانی",

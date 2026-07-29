@@ -7,9 +7,9 @@ function OurStory({ locale }: { locale: string }) {
   const t = getMessages(locale);
 
   return (
-    <div className="m-20">
-      <div className="grid grid-cols-1 gap-40 md:grid-cols-2">
-        <div className="m-20">
+    <div className="my-20">
+      <div className="flex justify-between lg:mx-40 md:mx-10 lg:gap-40 md:gap-10">
+        <div className="w-[50%]">
           <h1 className=" font-peyda-bold my-5">{t.hero.ourStory}</h1>
           <p className=" font-peyda-regular text-justify">
             {t.hero.ourStoryDescription}

@@ -13,7 +13,7 @@ const en = {
   consulting: "consulting",
   aboutUs: "About Us",
   changeLanguage: "Change Language",
-
+  baseServices: "Our main services :",
   hero: {
     brand: "kgacommerce",
     tagline: "smart trading with instant access to global markets",
