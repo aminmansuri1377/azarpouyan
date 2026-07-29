@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
 
 const VALUES = [
   {
@@ -19,11 +21,29 @@ const VALUES = [
 ];
 
 const STATS = [
-  { value: "+100", label: "معامله جاری" },
-  { value: "+200", label: "معامله به اتمام رسیده" },
-  { value: "+20", label: "سال تجربه" },
+  { value: 100, label: "معامله جاری" },
+  { value: 200, label: "معامله به اتمام رسیده" },
+  { value: 20, label: "سال تجربه" },
 ];
-
+function StatItem({
+  stat,
+  locale = "fa",
+}: {
+  stat: { value: number; label: string };
+  locale?: string;
+}) {
+  const count = useCountUp(stat.value, 2400, 200);
+  return (
+    <div>
+      <div className="font-peyda-bold text-6xl text-[#35281F]">
+        {formatLocaleNumber(count, locale)}+
+      </div>
+      <div className="mt-3 font-peyda-medium text-xl text-[#35281F]">
+        {stat.label}
+      </div>
+    </div>
+  );
+}
 function AboutUs() {
   return (
     <div dir="rtl" className="bg-white">
@@ -150,14 +170,7 @@ function AboutUs() {
 
         <div className="mt-12 flex flex-wrap justify-center gap-x-20 gap-y-10">
           {STATS.map((stat) => (
-            <div key={stat.label}>
-              <div className="font-peyda-bold text-6xl text-[#35281F]">
-                {stat.value}
-              </div>
-              <div className="mt-3 font-peyda-medium text-xl text-[#35281F]">
-                {stat.label}
-              </div>
-            </div>
+            <StatItem key={stat.label} stat={stat} locale="fa" />
           ))}
         </div>
       </section>

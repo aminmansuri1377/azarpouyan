@@ -66,7 +66,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
             {t.seeServices}
           </Button>
         </div>
-        <p
+        {/* <p
           className="hero-reveal mt-6 text-3xl font-bold sm:text-4xl"
           style={{ animationDelay: "2.5s" }}
         >
@@ -74,7 +74,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
           <span className="ms-2 text-base font-normal text-slate-300">
             {t.usersLabel}
           </span>
-        </p>
+        </p> */}
       </div>
     </section>
   );
