@@ -40,6 +40,7 @@ const fa = {
   message: "پیام",
   ConsultationRequestForm: "فرم درخواست مشاوره",
   contactInfo: "اطلاعات تماس :",
+  startBusiness: "شروع همکاری",
   notif: {
     adminConfigMissing: "تنظیمات ورود مدیر ناقص است",
     passwordRequired: "رمز عبور را وارد کنید",

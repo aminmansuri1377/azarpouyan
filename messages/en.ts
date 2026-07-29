@@ -42,6 +42,7 @@ const en = {
   message: "Message",
   ConsultationRequestForm: "Consultation Request Form",
   contactInfo: "Contact Info :",
+  startBusiness: "Start Business",
   notif: {
     adminConfigMissing: "Admin login configuration is missing",
     passwordRequired: "Please enter your password",
