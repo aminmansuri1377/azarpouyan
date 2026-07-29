@@ -22,6 +22,7 @@ import Cow from "../../public/images/cow.jpg";
 import { ServiceBanner } from "@/components/site/ServiceBanner";
 import { getMessages } from "@/messages";
 import Collaboration from "@/components/site/Collaboration";
+import HowItWorks from "@/components/site/HowItWorks";
 
 export default function HomePage() {
   const params = useParams();
@@ -97,7 +98,7 @@ export default function HomePage() {
         primaryButton={t.hero.seeServices}
         secondaryButton={t.hero.receiveConsulting}
       />
-
+      <HowItWorks />
       <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
       </div>
