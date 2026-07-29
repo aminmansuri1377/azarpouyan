@@ -142,7 +142,7 @@ function AboutUs() {
           {VALUES.map((value) => (
             <div
               key={value.title}
-              className="rounded-[32px] border border-[#E0B247] px-8 py-10"
+              className="rounded-[32px] border border-primary px-8 py-10"
             >
               <h3 className="mb-4 font-peyda-semibold text-2xl text-[#35281F]">
                 {value.title}

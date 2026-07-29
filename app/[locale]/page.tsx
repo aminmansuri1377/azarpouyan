@@ -21,6 +21,7 @@ import Oil from "../../public/images/oil.jpg";
 import Cow from "../../public/images/cow.jpg";
 import { ServiceBanner } from "@/components/site/ServiceBanner";
 import { getMessages } from "@/messages";
+import Collaboration from "@/components/site/Collaboration";
 
 export default function HomePage() {
   const params = useParams();
@@ -66,6 +67,7 @@ export default function HomePage() {
 
       {/* <hr /> */}
       <OurStory locale={locale} />
+      <Collaboration locale={locale} />
       <div>
         <h1 className="text-2xl font-peyda-bold mb-4 mx-auto text-center">
           {t.baseServices}

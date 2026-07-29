@@ -24,7 +24,7 @@ export function ServiceBanner({
   return (
     <section
       className={cn(
-        "relative overflow-hidden rounded-3xl h-[340px] mx-40 my-8",
+        "relative overflow-hidden rounded-3xl h-[340px] lg:mx-40 mx-5 my-8",
         className,
       )}
     >
@@ -42,11 +42,11 @@ export function ServiceBanner({
           {description}
         </p>
 
-        <div className="flex items-center gap-4">
+        <div className="md:flex text-center items-center gap-4">
           <Button size="lg">{primaryButton}</Button>
 
           {secondaryButton && (
-            <Button size="lg" variant="secondary" className="">
+            <Button size="lg" variant="secondary" className="mt-5 md:mt-0">
               {secondaryButton}
             </Button>
           )}

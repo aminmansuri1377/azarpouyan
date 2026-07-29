@@ -43,6 +43,8 @@ const en = {
   ConsultationRequestForm: "Consultation Request Form",
   contactInfo: "Contact Info :",
   startBusiness: "Start Business",
+  collaborationDescription:
+    "By providing comprehensive commercial services, from sourcing goods to transportation and clearance, Kian Gostar is a reliable companion for brands and business partners in domestic and international markets.",
   notif: {
     adminConfigMissing: "Admin login configuration is missing",
     passwordRequired: "Please enter your password",

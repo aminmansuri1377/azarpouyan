@@ -41,6 +41,8 @@ const fa = {
   ConsultationRequestForm: "فرم درخواست مشاوره",
   contactInfo: "اطلاعات تماس :",
   startBusiness: "شروع همکاری",
+  collaborationDescription:
+    "کیان گستر با ارائه خدمات جامع بازرگانی، از تأمین کالا تا حمل‌ونقل و ترخیص، همراهی مطمئن برای برندها و شرکای تجاری در بازارهای داخلی و بین‌المللی است.",
   notif: {
     adminConfigMissing: "تنظیمات ورود مدیر ناقص است",
     passwordRequired: "رمز عبور را وارد کنید",
