@@ -4,6 +4,7 @@ import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
 import { useParams } from "next/navigation";
 import { getMessages } from "@/messages";
 import { useInView } from "@/hooks/useInView";
+import { Button } from "@/components/ui";
 
 const VALUES = [
   {
@@ -134,7 +135,7 @@ function AboutUs() {
           {VALUES.map((value) => (
             <div
               key={value.title}
-              className="rounded-[32px] border border-primary px-8 py-10"
+              className="rounded-3xl border-2 border-primary px-8 py-10"
             >
               <h3 className="mb-4 font-peyda-semibold text-2xl text-foreground">
                 {value.title}
@@ -177,19 +178,14 @@ function AboutUs() {
       {/* CTA                                                              */}
       {/* ---------------------------------------------------------------- */}
       <section className="bg-gradient-to-b from-white to-[#e9dfc7] px-6 py-24">
-        <div className="mx-auto max-w-[900px] rounded-[32px] bg-white/70 p-12 text-center shadow-sm">
+        <div className="mx-auto max-w-[900px] rounded-3xl border-2 border-primary p-12 text-center shadow-sm">
           <h2 className="font-peyda-bold text-3xl text-foreground">
             منتظر همکاری با شما هستیم
           </h2>
-          <p className="mx-auto mt-4 max-w-[600px] font-peyda-regular text-lg leading-[1.7] text-foreground">
+          <p className="mx-auto mt-4 max-w-[600px] font-peyda-regular text-lg leading-[1.7] text-foreground mb-10">
             {t.hero.description}
           </p>
-          <button
-            type="button"
-            className="mt-8 rounded-2xl bg-[#D7A53A] px-14 py-3 font-peyda-medium text-lg text-white hover:bg-[#c4952f]"
-          >
-            شروع همکاری
-          </button>
+          <Button className=" px-10 font-peyda-bold">{t.startBusiness}</Button>
         </div>
       </section>
     </div>

@@ -49,6 +49,7 @@ const fa = {
   newestBlogs: "جدید ترین بلاگ ها",
   learnWithTitle: "با کیان گستر یاد بگیرید",
   readMore: "مطالعه بیشتر",
+  latestArticles: "آخرین مقالات کیان گستر",
   notif: {
     adminConfigMissing: "تنظیمات ورود مدیر ناقص است",
     passwordRequired: "رمز عبور را وارد کنید",

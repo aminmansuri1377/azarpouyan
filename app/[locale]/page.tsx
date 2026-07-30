@@ -24,6 +24,7 @@ import { getMessages } from "@/messages";
 import Collaboration from "@/components/site/Collaboration";
 import HowItWorks from "@/components/site/HowItWorks";
 import WhyKga from "@/components/site/WhyKga";
+import LatestArticles from "@/components/site/LatestArticles";
 const Services = [
   {
     id: 1,
@@ -113,10 +114,10 @@ export default function HomePage() {
 
       <HowItWorks />
       <WhyKga locale={locale} />
+      <LatestArticles locale={locale} />
       <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
       </div>
-
       {shouldSearch ? (
         <>
           {isFetching && (
