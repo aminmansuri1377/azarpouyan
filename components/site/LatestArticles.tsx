@@ -3,6 +3,7 @@ import Image from "next/image";
 import Pic1 from "../../public/images/a3.jpg";
 import Pic2 from "../../public/images/a2.jpg";
 import Pic3 from "../../public/images/a1.jpg";
+import { getMessages } from "@/messages";
 export interface Article {
   id: string | number;
   title: string;
@@ -13,6 +14,7 @@ export interface Article {
 interface LatestArticlesProps {
   /** Pass articles once the API is wired up. Empty/undefined renders skeletons. */
   articles?: Article[];
+  locale: string;
 }
 const items = [
   {
@@ -29,14 +31,16 @@ const items = [
     href: "#",
   },
 ];
-function LatestArticles({ articles = [] }: LatestArticlesProps) {
+function LatestArticles({ articles = [], locale }: LatestArticlesProps) {
+  const t = getMessages(locale);
+
   const hasArticles = articles.length > 0;
   // const items = hasArticles ? articles.slice(0, 3) : [0, 1, 2];
   return (
     <section dir="rtl" className="px-6 py-16">
       <div className="mx-auto max-w-[1200px]">
         <h2 className="mb-8 text-center font-peyda-bold text-3xl text-[#35281F]">
-          آخرین مقالات کیان گستر
+          {t.latestArticles}
         </h2>
 
         <div className="grid grid-cols-1 overflow-hidden rounded-[24px] md:grid-cols-3">
