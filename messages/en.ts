@@ -45,6 +45,9 @@ const en = {
   startBusiness: "Start Business",
   collaborationDescription:
     "By providing comprehensive commercial services, from sourcing goods to transportation and clearance, Kian Gostar is a reliable companion for brands and business partners in domestic and international markets.",
+  whyKgaTitle: "Why choose Kian Gostar ?",
+  whyKgaDescription:
+    "We are an international trading company that provides industrial goods supply and access to real-time global market data together. Our goal is to simplify the process of purchasing, supplying, and decision-making in global trade.  ",
   notif: {
     adminConfigMissing: "Admin login configuration is missing",
     passwordRequired: "Please enter your password",

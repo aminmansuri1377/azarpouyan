@@ -23,7 +23,27 @@ import { ServiceBanner } from "@/components/site/ServiceBanner";
 import { getMessages } from "@/messages";
 import Collaboration from "@/components/site/Collaboration";
 import HowItWorks from "@/components/site/HowItWorks";
-
+import WhyKga from "@/components/site/WhyKga";
+const Services = [
+  {
+    id: 1,
+    image: Hands,
+    title: "ارائه تمام خدمات بازرگانی",
+    description: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+  },
+  {
+    id: 2,
+    image: Oil,
+    title: "ارائه تمام خدمات بازرگانی",
+    description: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+  },
+  {
+    id: 3,
+    image: Cow,
+    title: "ارائه تمام خدمات بازرگانی",
+    description: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+  },
+];
 export default function HomePage() {
   const params = useParams();
 
@@ -77,28 +97,22 @@ export default function HomePage() {
           {t.hero.description}
         </h2>
       </div>
-      <ServiceBanner
-        image={Hands}
-        title="ارائه تمام خدمات بازرگانی"
-        description="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ..."
-        primaryButton={t.hero.seeServices}
-        secondaryButton={t.hero.receiveConsulting}
-      />
-      <ServiceBanner
-        image={Oil}
-        title="ارائه تمام خدمات بازرگانی"
-        description="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ..."
-        primaryButton={t.hero.seeServices}
-        secondaryButton={t.hero.receiveConsulting}
-      />
-      <ServiceBanner
-        image={Cow}
-        title="ارائه تمام خدمات بازرگانی"
-        description="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ..."
-        primaryButton={t.hero.seeServices}
-        secondaryButton={t.hero.receiveConsulting}
-      />
+      <div>
+        {Services?.map((s) => (
+          <div key={s.id}>
+            <ServiceBanner
+              image={s.image}
+              title={s.title}
+              description={s.description}
+              primaryButton={t.hero.seeServices}
+              secondaryButton={t.hero.receiveConsulting}
+            />
+          </div>
+        ))}
+      </div>
+
       <HowItWorks />
+      <WhyKga locale={locale} />
       <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
       </div>
