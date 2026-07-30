@@ -16,24 +16,24 @@ import { useEffect, useRef, useState } from "react";
  * const { data } = useQuery(...);
  * const users = useCountUp(data?.users ?? 0);
  */
-export function useCountUp(end: number, duration = 1200, start = 0): number {
+export function useCountUp(
+  end: number,
+  duration = 1200,
+  start = 0,
+  enabled = true, // NEW: animation won't run until this is true
+): number {
   const [value, setValue] = useState(0);
   const frame = useRef<number | null>(null);
 
-  // No target (0 / undefined / NaN) — nothing to animate, stay at 0 without
-  // a synchronous setState inside the effect (avoids cascading renders).
   const target = end > 0 ? end : 0;
 
   useEffect(() => {
-    if (target <= 0) return;
+    if (target <= 0 || !enabled) return; // <-- gate added here
 
-    // Respect users who prefer reduced motion: jump straight to the end.
     const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      // One-time set: skip the animation for reduced-motion users.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setValue(target);
       return;
     }
@@ -45,7 +45,6 @@ export function useCountUp(end: number, duration = 1200, start = 0): number {
       if (startTime === null) startTime = now;
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOutCubic — fast start, gentle settle on the final number.
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(eased * target));
 
@@ -62,11 +61,10 @@ export function useCountUp(end: number, duration = 1200, start = 0): number {
       if (startTimer) clearTimeout(startTimer);
       if (frame.current) cancelAnimationFrame(frame.current);
     };
-  }, [target, duration, start]);
+  }, [target, duration, start, enabled]);
 
   return value;
 }
-
 /**
  * Format an integer for the current locale (Persian digits for `fa`, etc.).
  *

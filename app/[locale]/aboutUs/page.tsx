@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
 import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
+import { useParams } from "next/navigation";
+import { getMessages } from "@/messages";
+import { useInView } from "@/hooks/useInView";
 
 const VALUES = [
   {
@@ -28,23 +31,32 @@ const STATS = [
 function StatItem({
   stat,
   locale = "fa",
+  enabled,
 }: {
   stat: { value: number; label: string };
   locale?: string;
+  enabled: boolean;
 }) {
-  const count = useCountUp(stat.value, 2400, 200);
+  const count = useCountUp(stat.value, 2400, 200, enabled);
   return (
     <div>
-      <div className="font-peyda-bold text-6xl text-[#35281F]">
+      <div className="font-peyda-bold text-6xl text-foreground">
         {formatLocaleNumber(count, locale)}+
       </div>
-      <div className="mt-3 font-peyda-medium text-xl text-[#35281F]">
+      <div className="mt-3 font-peyda-medium text-xl text-foreground">
         {stat.label}
       </div>
     </div>
   );
 }
 function AboutUs() {
+  const params = useParams();
+
+  const locale = params.locale as string;
+  const t = getMessages(locale);
+  const { ref: statsRef, inView: statsInView } = useInView<HTMLDivElement>({
+    threshold: 0.4,
+  });
   return (
     <div dir="rtl" className="bg-white">
       {/* ---------------------------------------------------------------- */}
@@ -62,9 +74,7 @@ function AboutUs() {
             درباره ما :
           </h1>
           <p className="mx-auto mt-4 max-w-[633px] font-peyda-regular text-lg leading-[1.8] text-white">
-            ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی
-            به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما
-            ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.
+            {t.hero.description}
           </p>
         </div>
 
@@ -74,19 +84,10 @@ function AboutUs() {
               داستان شرکت :
             </h2>
             <p className="text-justify font-peyda-regular text-lg leading-[1.8] text-white">
-              ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و
-              دسترسی به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه
-              می‌دهیم. هدف ما سالورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-              صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه
-              روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
-              تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
-              کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده،
-              شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت
-              بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ
-              پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که
-              تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-              رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی
-              سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+              {t.hero.description}
+              {t.hero.description}
+              {t.hero.description}
+              {t.hero.description}
             </p>
           </div>
         </div>
@@ -111,20 +112,11 @@ function AboutUs() {
           </div>
 
           <div className="relative z-10 mx-auto -mt-28 max-w-[800px] rounded-[40px] bg-[#F5F5F7] px-10 py-10 shadow-lg md:px-14 md:py-12">
-            <p className="text-justify font-peyda-regular text-lg leading-[1.6] text-[#35281F]">
-              ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و
-              دسترسی به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه
-              می‌دهیم. هدف ما سالورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-              صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه
-              روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
-              تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
-              کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده،
-              شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت
-              بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ
-              پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که
-              تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-              رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی
-              سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+            <p className="text-justify font-peyda-regular text-lg leading-[1.6] text-foreground">
+              {t.hero.description}
+              {t.hero.description}
+              {t.hero.description}
+              {t.hero.description}
             </p>
           </div>
         </div>
@@ -144,10 +136,10 @@ function AboutUs() {
               key={value.title}
               className="rounded-[32px] border border-primary px-8 py-10"
             >
-              <h3 className="mb-4 font-peyda-semibold text-2xl text-[#35281F]">
+              <h3 className="mb-4 font-peyda-semibold text-2xl text-foreground">
                 {value.title}
               </h3>
-              <p className="font-peyda-regular text-sm leading-[2] text-[#35281F]">
+              <p className="font-peyda-regular text-sm leading-[2] text-foreground">
                 {value.description}
               </p>
             </div>
@@ -159,18 +151,24 @@ function AboutUs() {
       {/* Stats / achievements                                             */}
       {/* ---------------------------------------------------------------- */}
       <section className="px-6 pt-24 text-center">
-        <h2 className="font-peyda-bold text-3xl text-[#35281F]">
+        <h2 className="font-peyda-bold text-3xl text-foreground">
           آمار ها و دست آورد ها :
         </h2>
-        <p className="mx-auto mt-4 max-w-[813px] font-peyda-regular text-lg leading-[1.6] text-[#35281F]">
-          ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی
-          به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما
-          ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.
+        <p className="mx-auto mt-4 max-w-[813px] font-peyda-regular text-lg leading-[1.6] text-foreground">
+          {t.hero.description}
         </p>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-x-20 gap-y-10">
+        <div
+          ref={statsRef}
+          className="mt-12 flex flex-wrap justify-center gap-x-20 gap-y-10"
+        >
           {STATS.map((stat) => (
-            <StatItem key={stat.label} stat={stat} locale="fa" />
+            <StatItem
+              key={stat.label}
+              stat={stat}
+              locale="fa"
+              enabled={statsInView}
+            />
           ))}
         </div>
       </section>
@@ -180,13 +178,11 @@ function AboutUs() {
       {/* ---------------------------------------------------------------- */}
       <section className="bg-gradient-to-b from-white to-[#e9dfc7] px-6 py-24">
         <div className="mx-auto max-w-[900px] rounded-[32px] bg-white/70 p-12 text-center shadow-sm">
-          <h2 className="font-peyda-bold text-3xl text-[#35281F]">
+          <h2 className="font-peyda-bold text-3xl text-foreground">
             منتظر همکاری با شما هستیم
           </h2>
-          <p className="mx-auto mt-4 max-w-[600px] font-peyda-regular text-lg leading-[1.7] text-[#35281F]">
-            ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی
-            به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما
-            ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.
+          <p className="mx-auto mt-4 max-w-[600px] font-peyda-regular text-lg leading-[1.7] text-foreground">
+            {t.hero.description}
           </p>
           <button
             type="button"

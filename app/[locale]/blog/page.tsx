@@ -80,7 +80,7 @@ export default function BlogPage() {
         <p className=" font-peyda-regular text-white my-10 w-[40%] mx-auto">
           {t.hero.description}
         </p>
-        <div className="order-2 rounded-[40px] bg-white/20 p-5 lg:p-16 backdrop-blur-sm md:order-1 mx-5 lg:mx-20 text-right md:mt-20">
+        <div className="order-2 rounded-[40px] bg-white/20 p-5 lg:p-16 backdrop-blur-sm md:order-1 mx-5 lg:mx-20 text-start md:mt-20">
           <h1 className=" lg:text-2xl font-peyda-bold text-white">
             {t.learnWithTitle}
           </h1>

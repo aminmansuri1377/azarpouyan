@@ -36,14 +36,14 @@ export function Hero({ locale, users = 245 }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 flex max-w-4xl flex-col items-center gap-4 px-6 text-center text-white">
         <h1
-          className="hero-reveal text-4xl font-peyda-bold font-bold tracking-tight sm:text-6xl mb-5 mt-10"
+          className="hero-reveal text-5xl font-peyda-bold font-bold tracking-tight  mb-5 mt-10"
           style={{ animationDelay: "1s" }}
         >
           {t.tagline}
         </h1>
 
         <p
-          className="hero-reveal text-xl font-peyda-regular font-medium text-popover sm:text-2xl my-5"
+          className="hero-reveal text-sm font-peyda-regular font-medium text-popover  my-5"
           style={{ animationDelay: "2s" }}
         >
           {t.description}
@@ -55,14 +55,17 @@ export function Hero({ locale, users = 245 }: HeroProps) {
         >
           {t.year}
         </p> */}
-        <div className="gap-10 flex" style={{ animationDelay: "2.3s" }}>
+        <div
+          className="gap-10 md:flex mt-10"
+          style={{ animationDelay: "2.3s" }}
+        >
           <Button
             onClick={() => router.push(`/${locale}/contact`)}
             className="px-14"
           >
             {t.receiveConsulting}
           </Button>
-          <Button className="px-14" variant="secondary">
+          <Button className="px-14 mt-10 md:mt-0" variant="secondary">
             {t.seeServices}
           </Button>
         </div>
