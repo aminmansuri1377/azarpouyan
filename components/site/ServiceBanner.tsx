@@ -43,7 +43,9 @@ export function ServiceBanner({
         </p>
 
         <div className="md:flex text-center items-center gap-4">
-          <Button size="lg">{primaryButton}</Button>
+          <Button size="lg" className="px-10">
+            {primaryButton}
+          </Button>
 
           {secondaryButton && (
             <Button size="lg" variant="secondary" className="mt-5 md:mt-0">

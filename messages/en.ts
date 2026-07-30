@@ -48,6 +48,9 @@ const en = {
   whyKgaTitle: "Why choose Kian Gostar ?",
   whyKgaDescription:
     "We are an international trading company that provides industrial goods supply and access to real-time global market data together. Our goal is to simplify the process of purchasing, supplying, and decision-making in global trade.  ",
+  newestBlogs: "Newest Blogs",
+  learnWithTitle: "Learn with Kian Gostar",
+  readMore: "read more",
   notif: {
     adminConfigMissing: "Admin login configuration is missing",
     passwordRequired: "Please enter your password",
