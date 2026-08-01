@@ -24,7 +24,7 @@ export function ServiceBanner({
   return (
     <section
       className={cn(
-        "relative overflow-hidden rounded-3xl h-[340px] lg:mx-40 mx-5 my-8",
+        "relative overflow-hidden rounded-3xl h-[80vh] md:h-[55vh] lg:mx-40 md:pb-20 mx-5 my-8",
         className,
       )}
     >
@@ -42,7 +42,7 @@ export function ServiceBanner({
           {description}
         </p>
 
-        <div className="md:flex text-center items-center gap-4">
+        <div className="md:flex text-center items-center gap-4 md:mt-10">
           <Button size="lg" className="px-10">
             {primaryButton}
           </Button>

@@ -13,10 +13,10 @@ function Collaboration({ locale }: { locale: string }) {
   return (
     <div className="my-10 lg:mx-40 mx-10">
       <div className=" lg:flex justify-between rounded-3xl border border-primary px-8 ">
-        <div className=" lg:w-[40%] py-10">
-          <h2 className="lg:text-3xl font-peyda-bold mt-5 mb-16 text-justify">
+        <div className=" lg:w-[50%] py-10">
+          <p className="lg:text-3xl font-peyda-bold mt-5 mb-16 text-justify leading-12">
             {t.collaborationDescription}
-          </h2>
+          </p>
           <Button
             onClick={() => router.push(`/${locale}/contact`)}
             size="lg"

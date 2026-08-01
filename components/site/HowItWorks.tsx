@@ -31,7 +31,7 @@ function HowItWorks() {
   return (
     <section dir="rtl" className="px-6 py-16">
       <div className="mx-auto md:max-w-[1200px]">
-        <h2 className="mb-8 font-peyda-bold text-3xl text-[#35281F]">
+        <h2 className="mb-8 font-peyda-bold text-3xl text-foreground">
           نحوه کار:
         </h2>
 
@@ -47,16 +47,21 @@ function HowItWorks() {
                 key={step.number}
                 className="flex items-center justify-between gap-6"
               >
-                <span className="hidden shrink-0 font-peyda-bold text-8xl text-white/80 md:block">
-                  {step.number}
-                </span>
-                <div className="w-full rounded-3xl bg-primary-foreground p-8 text-right shadow-lg md:max-w-[600px]">
-                  <h3 className="mb-3 font-peyda-semibold text-xl text-[#35281F]">
-                    {step.title}
-                  </h3>
-                  <p className="font-peyda-regular text-base leading-[1.8] text-[#35281F]">
-                    {step.description}
-                  </p>
+                <div className="hidden shrink-0 font-peyda-bold text-8xl text-white/80 md:block"></div>
+                <div className="w-full rounded-3xl bg-primary-foreground p-8 text-right shadow-sm md:max-w-[800px]">
+                  <div className="md:flex md:items-center">
+                    <span className=" font-peyda-thin text-7xl text-black ">
+                      {step.number}
+                    </span>
+                    <div className="md:mx-20">
+                      <h3 className="mb-3 font-peyda-semibold text-xl text-foreground">
+                        {step.title}
+                      </h3>
+                      <p className="font-peyda-regular text-base leading-[1.8] text-foreground">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

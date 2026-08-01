@@ -59,7 +59,7 @@
   --secondary-foreground-rgb: 30, 41, 59;
 
   --muted: #f1f5f9;
-  --muted-foreground: #64748b; /* slate-500 */
+  --muted-foreground: #7b808c; /* slate-500 */
 
   --accent: #eef2ff; /* indigo-50 */
   --accent-foreground: #4338ca;
@@ -75,7 +75,7 @@
   --warning-foreground: #ffffff;
 
   --info: #2563eb; /* blue-600 */
-  --info-foreground: #ffffff;
+  --info-foreground: ##f2f2f2;
 
   /* Borders, inputs, rings */
   --border: #e2e8f0; /* slate-200 */

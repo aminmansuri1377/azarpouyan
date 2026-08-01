@@ -32,8 +32,9 @@ export function Header({ locale, messages }: Props) {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        "bg-[rgba(var(--secondary-foreground-rgb),0.35)]",
-        isScrolled ? "backdrop-blur-md shadow-sm" : "border-transparent",
+        isScrolled
+          ? "backdrop-blur-md shadow-sm bg-[rgba(var(--secondary-foreground-rgb),0.35)]"
+          : "border-transparent bg-[rgba(var(--secondary-foreground-rgb),0.9)]",
       )}
     >
       {" "}

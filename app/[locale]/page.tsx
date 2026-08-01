@@ -30,19 +30,22 @@ const Services = [
     id: 1,
     image: Hands,
     title: "ارائه تمام خدمات بازرگانی",
-    description: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+    description:
+      "ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.",
   },
   {
     id: 2,
     image: Oil,
     title: "ارائه تمام خدمات بازرگانی",
-    description: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+    description:
+      "ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.",
   },
   {
     id: 3,
     image: Cow,
     title: "ارائه تمام خدمات بازرگانی",
-    description: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+    description:
+      "ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.",
   },
 ];
 export default function HomePage() {
@@ -91,10 +94,10 @@ export default function HomePage() {
       <OurStory locale={locale} />
       <Collaboration locale={locale} />
       <div>
-        <h1 className="text-2xl font-peyda-bold mb-4 mx-auto text-center">
+        <h1 className="text-2xl font-peyda-bold mb-4 mx-auto text-center mt-10">
           {t.baseServices}
         </h1>
-        <h2 className=" font-peyda-regular text-center my-10 w-[50%] mx-auto">
+        <h2 className=" font-peyda-regular text-center mb-10 w-[50%] mx-auto">
           {t.hero.description}
         </h2>
       </div>

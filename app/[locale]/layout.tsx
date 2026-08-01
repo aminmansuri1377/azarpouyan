@@ -27,7 +27,7 @@ export default async function SiteLayout({
         {children}
       </main>
 
-      <Footer messages={messages} />
+      <Footer messages={messages} locale={locale} />
     </>
   );
 }

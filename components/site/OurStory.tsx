@@ -12,9 +12,9 @@ function OurStory({ locale }: { locale: string }) {
 
   return (
     <div className="my-20">
-      <div className="lg:flex justify-between lg:mx-40 md:mx-10 mx-5 lg:gap-40 md:gap-10">
+      <div className="lg:flex items-center justify-between lg:mx-40 md:mx-10 mx-5 lg:gap-40 md:gap-10">
         <div className="lg:w-[50%]">
-          <h1 className=" font-peyda-bold my-5">{t.hero.ourStory}</h1>
+          <h1 className=" text-3xl font-peyda-bold my-5">{t.hero.ourStory}</h1>
           <p className=" font-peyda-regular text-justify">
             {t.hero.ourStoryDescription}
           </p>
