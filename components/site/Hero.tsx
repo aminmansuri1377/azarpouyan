@@ -36,18 +36,32 @@ export function Hero({ locale, users = 245 }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 flex max-w-4xl flex-col items-center gap-4 px-6 text-center text-white">
         <h1
-          className="hero-reveal text-5xl font-peyda-bold font-bold tracking-tight  mb-5 mt-10"
+          className="hero-reveal text-5xl font-peyda-bold font-bold tracking-tight mb-5 mt-10"
           style={{ animationDelay: "1s" }}
         >
           {t.tagline}
         </h1>
 
-        <p
-          className="hero-reveal text-sm font-peyda-regular font-medium text-popover  my-5"
-          style={{ animationDelay: "2s" }}
-        >
-          {t.description}
-        </p>
+        <div className="relative w-full max-w-[633px] mx-auto flex items-center justify-center my-5">
+          {/* Left horizontal line */}
+          <div
+            className="hidden lg:block absolute right-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
+            aria-hidden="true"
+          />
+
+          <p
+            className="hero-reveal text-sm font-peyda-regular font-medium text-popover text-center"
+            style={{ animationDelay: "2s" }}
+          >
+            {t.description}
+          </p>
+
+          {/* Right horizontal line */}
+          <div
+            className="hidden lg:block absolute left-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
+            aria-hidden="true"
+          />
+        </div>
 
         {/* <p
           className="hero-reveal text-lg text-slate-200"

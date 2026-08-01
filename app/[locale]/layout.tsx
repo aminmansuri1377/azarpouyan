@@ -3,6 +3,7 @@ import { Footer } from "@/components/site/Footer";
 import { LocaleDirSync } from "@/components/ui/theme/locale-dir-sync";
 
 import { getMessages } from "@/messages";
+import { BackgroundGlows } from "@/components/site/BackgroundGlows";
 
 export default async function SiteLayout({
   children,
@@ -23,10 +24,11 @@ export default async function SiteLayout({
 
       <Header locale={locale} messages={messages} />
 
-      <main className="flex-1 bg-linear-65 from-[#e9c98533] from-0% via-popover via-10%  to-[#c6a04d33] to-100%">
-        {children}
-      </main>
+      <main className="relative flex-1 bg-white overflow-x-hidden min-h-screen">
+        <BackgroundGlows />
 
+        <div className="relative z-10">{children}</div>
+      </main>
       <Footer messages={messages} locale={locale} />
     </>
   );
