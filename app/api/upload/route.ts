@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Upload } from "@aws-sdk/lib-storage";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { randomUUID } from "crypto";
-import { s3Client, S3_BUCKET, S3_PUBLIC_URL } from "@/lib/s3";
+import { s3Client, S3_BUCKET } from "@/lib/s3";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
