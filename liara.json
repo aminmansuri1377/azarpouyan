@@ -1,4 +1,8 @@
 {
-  "app": "kgacommerce",
-  "port": 3000
+  "app": "kga-commerce",
+  "port": 3000,
+  "build": {
+    "location": "iran"
+  },
+  "disks": []
 }
