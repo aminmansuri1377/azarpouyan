@@ -4,6 +4,7 @@ import Pic1 from "../../public/images/a3.jpg";
 import Pic2 from "../../public/images/a2.jpg";
 import Pic3 from "../../public/images/a1.jpg";
 import { getMessages } from "@/messages";
+import SectionTitle from "../ui/SectionTitle";
 export interface Article {
   id: string | number;
   title: string;
@@ -38,6 +39,8 @@ function LatestArticles({ articles = [], locale }: LatestArticlesProps) {
   // const items = hasArticles ? articles.slice(0, 3) : [0, 1, 2];
   return (
     <section dir="rtl" className="px-6 py-16">
+      <SectionTitle>Articles </SectionTitle>
+
       <div className="mx-auto max-w-[1200px]">
         <h2 className="mb-8 text-center font-peyda-bold text-3xl text-[#35281F]">
           {t.latestArticles}

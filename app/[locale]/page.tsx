@@ -25,6 +25,7 @@ import Collaboration from "@/components/site/Collaboration";
 import HowItWorks from "@/components/site/HowItWorks";
 import WhyKga from "@/components/site/WhyKga";
 import LatestArticles from "@/components/site/LatestArticles";
+import SectionTitle from "@/components/ui/SectionTitle";
 const Services = [
   {
     id: 1,
@@ -94,6 +95,8 @@ export default function HomePage() {
       <OurStory locale={locale} />
       <Collaboration locale={locale} />
       <div>
+        <SectionTitle>WHAT WE DO</SectionTitle>
+
         <h1 className="text-2xl font-peyda-bold mb-4 mx-auto text-center mt-10">
           {t.baseServices}
         </h1>

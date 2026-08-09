@@ -23,6 +23,14 @@
   font-family: "PEYDA-BLACK";
   src: url("../public/font/Peyda-Black.ttf");
 }
+@layer components {
+  .text-outline {
+    font-family: var(--font-peyda-black);
+    color: transparent;
+    -webkit-text-stroke: 1px #3b302a;
+    background: transparent;
+  }
+}
 /*
  * ============================================================================
  *  DESIGN SYSTEM TOKENS  (Tailwind v4 — CSS-first @theme)
@@ -40,7 +48,7 @@
 
 /* --- Light theme (default) ------------------------------------------------- */
 :root {
-  --background: #ffffff;
+  --background: #f1f1f1;
   --foreground: #35281f;
 
   --card: #ffffff;

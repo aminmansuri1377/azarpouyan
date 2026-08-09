@@ -8,7 +8,7 @@ interface Props {
 
 export function Footer({ messages, locale }: Props) {
   return (
-    <footer className="border-t border-border bg-info-foreground text-center pt-5 pb-10">
+    <footer className="border-t border-border bg-white text-center pt-5 pb-10">
       <Image src={Logo} alt="Logo" className="mx-auto" />
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <p className="text-center text-sm text-muted-foreground">

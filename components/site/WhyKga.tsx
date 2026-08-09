@@ -1,6 +1,7 @@
 import { getMessages } from "@/messages";
 import React from "react";
 import { id } from "zod/v4/locales";
+import SectionTitle from "../ui/SectionTitle";
 const VALUES = [
   {
     id: 1,
@@ -26,6 +27,8 @@ function WhyKga({ locale }: { locale: string }) {
 
   return (
     <div>
+      <SectionTitle>? WHY CHOOS US</SectionTitle>
+
       <h1 className=" text-center font-peyda-bold my-5 mx-auto lg:text-2xl">
         {t.whyKgaTitle}
       </h1>

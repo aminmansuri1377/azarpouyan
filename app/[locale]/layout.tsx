@@ -24,9 +24,7 @@ export default async function SiteLayout({
 
       <Header locale={locale} messages={messages} />
 
-      <main className="relative flex-1 bg-white overflow-x-hidden min-h-screen">
-        <BackgroundGlows />
-
+      <main className="relative flex-1 bg-background overflow-x-hidden min-h-screen">
         <div className="relative z-10">{children}</div>
       </main>
       <Footer messages={messages} locale={locale} />

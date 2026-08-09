@@ -1,5 +1,5 @@
 import React from "react";
-
+import SectionTitle from "../ui/SectionTitle";
 interface Step {
   number: string;
   title: string;
@@ -30,6 +30,7 @@ const STEPS: Step[] = [
 function HowItWorks() {
   return (
     <section dir="rtl" className="px-6 py-16">
+      <SectionTitle>HOW IT WORKS</SectionTitle>
       <div className="mx-auto md:max-w-[1200px]">
         <h2 className="mb-8 font-peyda-bold text-3xl text-foreground">
           نحوه کار:
