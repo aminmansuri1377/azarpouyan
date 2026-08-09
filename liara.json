@@ -1,6 +1,7 @@
 {
   "app": "kga-commerce",
   "port": 3000,
+  "platform": "docker",
   "build": {
     "location": "iran"
   },
