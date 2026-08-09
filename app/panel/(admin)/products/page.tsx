@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
@@ -152,6 +153,7 @@ export default function ProductsPage() {
           <table border={1} cellPadding={10} style={{ width: "100%" }}>
             <thead>
               <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Slug</th>
                 <th>Category</th>
@@ -164,6 +166,39 @@ export default function ProductsPage() {
               {data?.items?.length ? (
                 data.items.map((product) => (
                   <tr key={product.id}>
+                    <td>
+                      {product.imageUrl ? (
+                        <div
+                          style={{
+                            position: "relative",
+                            width: 50,
+                            height: 50,
+                          }}
+                        >
+                          <Image
+                            src={product.imageUrl}
+                            alt={
+                              product.translations?.[0]?.name ?? product.slug
+                            }
+                            fill
+                            style={{
+                              objectFit: "cover",
+                              borderRadius: 4,
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            width: 50,
+                            height: 50,
+                            background: "#f0f0f0",
+                            borderRadius: 4,
+                          }}
+                        />
+                      )}
+                    </td>
+
                     <td>{product.translations?.[0]?.name}</td>
 
                     <td>{product.slug}</td>
@@ -193,7 +228,7 @@ export default function ProductsPage() {
               ) : (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={6}
                     style={{
                       textAlign: "center",
                       padding: 30,

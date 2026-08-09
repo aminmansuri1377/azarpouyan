@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { trpc } from "@/lib/trpc/client";
-
+import Image from "next/image";
 type TreeNode = {
   id: string;
   slug: string;
+  imageUrl: string;
   published: boolean;
   translations: { languageId: string; name: string }[];
   children: TreeNode[];
@@ -63,7 +64,31 @@ function CategoryNode({
         <span style={{ opacity: node.published ? 1 : 0.5 }}>
           {displayName(node)}
         </span>
+        {hasChildren ? (
+          <button onClick={() => setExpanded((e) => !e)}>
+            {expanded ? "▾" : "▸"}
+          </button>
+        ) : (
+          <span style={{ width: 20, display: "inline-block" }} />
+        )}
 
+        {node.imageUrl && (
+          <Image
+            src={node.imageUrl}
+            alt={displayName(node)}
+            width={50}
+            height={50}
+            style={{
+              objectFit: "cover",
+              borderRadius: 4,
+              border: "1px solid #eee",
+            }}
+          />
+        )}
+
+        <span style={{ opacity: node.published ? 1 : 0.5 }}>
+          {displayName(node)}
+        </span>
         <Link href={`/panel/categories/${node.id}`}>ویرایش</Link>
 
         <Link href={`/panel/products?categoryId=${node.id}`}>

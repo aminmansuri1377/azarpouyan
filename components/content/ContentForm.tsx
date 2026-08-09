@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import type { Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contentSchema, ContentFormValues } from "@/types/content";
 import { ContentTranslationFields } from "./ContentTranslationFields";
+import { ImageUploader } from "../../components/ui/mageUploader";
+import { MultiImageUploader } from "@/components/ui/MultiImageUploader";
 
 type Language = { id: string; code: string; name?: string };
 
@@ -42,7 +44,9 @@ export function ContentForm({
     reset,
     formState: { errors },
   } = useForm<ContentFormValues>({
-    resolver: zodResolver(contentSchema) as unknown as Resolver<ContentFormValues>,
+    resolver: zodResolver(
+      contentSchema,
+    ) as unknown as Resolver<ContentFormValues>,
     defaultValues: defaultValues ?? {
       slug: "",
       coverImage: "",
@@ -58,7 +62,7 @@ export function ContentForm({
     control,
     name: "translations",
   });
-  const [newImageUrl, setNewImageUrl] = useState("");
+
   // create mode: initialize translations وقتی languages لود شد
   useEffect(() => {
     if (!languages.length) return;
@@ -98,57 +102,46 @@ export function ContentForm({
       <br />
 
       <div>
-        <label>Cover Image URL</label>
-        <br />
-        <input placeholder="https://..." {...register("coverImage")} />
+        <Controller
+          name="coverImage"
+          control={control}
+          render={({ field }) => (
+            <ImageUploader
+              value={field.value}
+              onChange={field.onChange}
+              folder="content"
+              label="تصویر کاور"
+            />
+          )}
+        />
         {errors.coverImage && (
           <span style={{ color: "red", fontSize: 12 }}>
             {errors.coverImage.message}
           </span>
         )}
       </div>
-      <h3>Gallery Images</h3>
       <br />
-      <Controller
-        name="images"
-        control={control}
-        render={({ field }) => (
-          <div>
-            <input
-              placeholder="Gallery Image URL"
-              value={newImageUrl}
-              onChange={(e) => setNewImageUrl(e.target.value)}
+
+      <div>
+        <Controller
+          name="images"
+          control={control}
+          render={({ field }) => (
+            <MultiImageUploader
+              value={field.value ?? []}
+              onChange={field.onChange}
+              folder="content"
+              label="گالری تصاویر"
             />
-            <button
-              type="button"
-              onClick={() => {
-                if (!newImageUrl) return;
-                field.onChange([...(field.value ?? []), newImageUrl]);
-                setNewImageUrl("");
-              }}
-            >
-              افزودن
-            </button>
-            <ul>
-              {(field.value ?? []).map((url, i) => (
-                <li key={i}>
-                  {url}{" "}
-                  <button
-                    type="button"
-                    onClick={() =>
-                      field.onChange(
-                        field.value.filter((_, idx) => idx !== i),
-                      )
-                    }
-                  >
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          )}
+        />
+        {errors.images && (
+          <span style={{ color: "red", fontSize: 12 }}>
+            {errors.images.message as string}
+          </span>
         )}
-      />
+      </div>
+      <br />
 
       <div>
         <label>Published At</label>

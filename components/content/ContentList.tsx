@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import toast from "react-hot-toast";
 import { trpc } from "@/lib/trpc/client";
 import { CONTENT_TYPE_LABEL, type ContentType } from "@/types/content";
@@ -69,6 +70,7 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
       <table border={1} cellPadding={10} style={{ width: "100%" }}>
         <thead>
           <tr>
+            <th>Cover</th>
             <th>Title</th>
             <th>Slug</th>
             <th>Published</th>
@@ -81,6 +83,37 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
           {data?.length ? (
             data.map((item) => (
               <tr key={item.id}>
+                <td>
+                  {item.coverImage ? (
+                    <div
+                      style={{
+                        position: "relative",
+                        width: 50,
+                        height: 50,
+                      }}
+                    >
+                      <Image
+                        src={item.coverImage}
+                        alt={item.translations?.[0]?.title ?? item.slug}
+                        fill
+                        style={{
+                          objectFit: "cover",
+                          borderRadius: 4,
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        width: 50,
+                        height: 50,
+                        background: "#f0f0f0",
+                        borderRadius: 4,
+                      }}
+                    />
+                  )}
+                </td>
+
                 <td>{item.translations?.[0]?.title ?? "-"}</td>
 
                 <td>{item.slug}</td>
@@ -116,7 +149,7 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
           ) : (
             <tr>
               <td
-                colSpan={5}
+                colSpan={6}
                 style={{
                   textAlign: "center",
                   padding: 20,

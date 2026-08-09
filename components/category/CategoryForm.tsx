@@ -6,6 +6,7 @@ import type { Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { categorySchema, CategoryFormValues } from "@/types/category";
 import { TranslationFields } from "../site/TranslationFields";
+import { ImageUploader } from "../ui/mageUploader";
 
 type Language = { id: string; code: string; name?: string };
 type FlatCategory = {
@@ -85,7 +86,9 @@ export function CategoryForm({
     reset,
     formState: { errors },
   } = useForm<CategoryFormValues>({
-    resolver: zodResolver(categorySchema) as unknown as Resolver<CategoryFormValues>,
+    resolver: zodResolver(
+      categorySchema,
+    ) as unknown as Resolver<CategoryFormValues>,
     defaultValues: defaultValues ?? {
       parentId: null,
       slug: "",
@@ -175,7 +178,21 @@ export function CategoryForm({
       <div>
         <label>Image URL</label>
         <br />
-        <input placeholder="image url" {...register("imageUrl")} />
+        <Controller
+          name="imageUrl"
+          control={control}
+          render={({ field }) => (
+            <ImageUploader
+              value={field.value}
+              onChange={field.onChange}
+              folder="categories"
+              label="تصویر کتگوری"
+            />
+          )}
+        />
+        {errors.imageUrl && (
+          <span style={{ color: "red" }}>{errors.imageUrl.message}</span>
+        )}{" "}
         {errors.imageUrl && (
           <span style={{ color: "red" }}>{errors.imageUrl.message}</span>
         )}

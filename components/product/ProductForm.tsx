@@ -8,6 +8,8 @@ import { productSchema, ProductFormValues } from "@/types/product";
 import { trpc } from "@/lib/trpc/client";
 import { TranslationFields } from "../site/TranslationFields";
 import { CategoryCascadeSelect } from "../category/CategoryCascadeSelect";
+import { ImageUploader } from "../../components/ui/mageUploader";
+import { MultiImageUploader } from "@/components/ui/MultiImageUploader";
 
 interface ProductFormProps {
   defaultValues?: ProductFormValues;
@@ -43,7 +45,9 @@ export function ProductForm({
     reset,
     formState: { errors },
   } = useForm<ProductFormValues>({
-    resolver: zodResolver(productSchema) as unknown as Resolver<ProductFormValues>,
+    resolver: zodResolver(
+      productSchema,
+    ) as unknown as Resolver<ProductFormValues>,
     defaultValues: defaultValues ?? {
       slug: "",
       imageUrl: "",
@@ -55,7 +59,6 @@ export function ProductForm({
   });
 
   const { fields, replace } = useFieldArray({ control, name: "translations" });
-  const [newImageUrl, setNewImageUrl] = useState("");
 
   useEffect(() => {
     if (!languages.length) return;
@@ -133,9 +136,18 @@ export function ProductForm({
       <br />
 
       <div>
-        <label>Main Image URL</label>
-        <br />
-        <input placeholder="image url" {...register("imageUrl")} />
+        <Controller
+          name="imageUrl"
+          control={control}
+          render={({ field }) => (
+            <ImageUploader
+              value={field.value}
+              onChange={field.onChange}
+              folder="products"
+              label="تصویر اصلی محصول"
+            />
+          )}
+        />
         {errors.imageUrl && (
           <span style={{ color: "red" }}>{errors.imageUrl.message}</span>
         )}
@@ -143,48 +155,23 @@ export function ProductForm({
       <br />
 
       <div>
-        <label>Gallery Images</label>
-        <br />
         <Controller
           name="images"
           control={control}
           render={({ field }) => (
-            <div>
-              <input
-                placeholder="image url"
-                value={newImageUrl}
-                onChange={(e) => setNewImageUrl(e.target.value)}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  if (!newImageUrl) return;
-                  field.onChange([...(field.value ?? []), newImageUrl]);
-                  setNewImageUrl("");
-                }}
-              >
-                افزودن
-              </button>
-              <ul>
-                {(field.value ?? []).map((url, i) => (
-                  <li key={i}>
-                    {url}{" "}
-                    <button
-                      type="button"
-                      onClick={() =>
-                        field.onChange(
-                          field.value.filter((_, idx) => idx !== i),
-                        )
-                      }
-                    >
-                      حذف
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <MultiImageUploader
+              value={field.value ?? []}
+              onChange={field.onChange}
+              folder="products"
+              label="گالری تصاویر محصول"
+            />
           )}
         />
+        {errors.images && (
+          <span style={{ color: "red" }}>
+            {errors.images.message as string}
+          </span>
+        )}
       </div>
       <br />
 
