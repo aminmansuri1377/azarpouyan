@@ -71,7 +71,7 @@ export default function BlogPage() {
       <Image
         src={BlogImage}
         alt="Blog background"
-        className="object-cover w-full"
+        className="object-cover object-[50%_center] md:object-center w-full"
       />
       <div className="absolute inset-0 text-center mt-30">
         <h1 className=" font-peyda-bold text-4xl text-white lg:mt-20">

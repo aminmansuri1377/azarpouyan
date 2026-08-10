@@ -52,7 +52,7 @@ export function Header({ locale, messages }: Props) {
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         isScrolled
           ? "backdrop-blur-md shadow-sm bg-[rgba(var(--secondary-foreground-rgb),0.35)]"
-          : "border-transparent bg-[rgba(var(--secondary-foreground-rgb),0.9)]",
+          : "border-transparent bg-[rgba(var(--secondary-foreground-rgb),0.55)]",
       )}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 lg:py-10">

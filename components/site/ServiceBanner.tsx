@@ -24,7 +24,7 @@ export function ServiceBanner({
   return (
     <section
       className={cn(
-        "relative overflow-hidden md:rounded-3xl rounded-2xl h-[80vh] md:h-[55vh] lg:mx-40 md:pb-20 mx-5 my-8",
+        "relative overflow-hidden md:rounded-3xl rounded-2xl h-[60vh] md:h-[55vh] lg:mx-40 md:pb-20 mx-5 my-8",
         className,
       )}
     >

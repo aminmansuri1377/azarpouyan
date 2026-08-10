@@ -13,7 +13,6 @@ interface HeroProps {
 
 export function Hero({ locale, users = 245 }: HeroProps) {
   const t = getMessages(locale).hero;
-  const counted = useCountUp(users, 1200, 1600);
   const router = useRouter();
 
   return (
@@ -24,14 +23,13 @@ export function Hero({ locale, users = 245 }: HeroProps) {
         alt="Hero background"
         fill
         priority
-        className="object-cover"
+        className="object-cover object-[75%_center] md:object-center"
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-slate-900/60" />
+      {/* <div className="absolute inset-0 bg-slate-900/60" /> */}
 
       {/* Optional gradient like the Figma */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/20 via-slate-900/40 to-slate-900/70" />
 
       {/* Content */}
       <div className="relative z-10 flex max-w-4xl flex-col items-center gap-4 px-6 text-center text-white">
@@ -42,33 +40,39 @@ export function Hero({ locale, users = 245 }: HeroProps) {
           {t.tagline}
         </h1>
 
-        <div className="relative w-full max-w-[633px] md:mx-auto text-justify mx-5 flex items-center justify-center my-5">
-          {/* Left horizontal line */}
+        <div className="relative w-full max-w-[633px] md:mx-auto text-justify flex flex-col items-center justify-center gap-4 my-5 md:flex-row md:gap-0">
+          {/* خط بالای متن - فقط موبایل */}
+          <div
+            className="h-px w-full max-w-[240px] bg-white/70 md:hidden"
+            aria-hidden="true"
+          />
+
+          {/* Left horizontal line - فقط دسکتاپ */}
           <div
             className="hidden lg:block absolute right-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
             aria-hidden="true"
           />
 
           <p
-            className="hero-reveal text-sm font-peyda-regular font-medium text-popover text-center"
+            className="hero-reveal text-sm font-peyda-regular font-medium text-popover text-center mx-8 md:mx-0"
             style={{ animationDelay: "2s" }}
           >
             {t.description}
           </p>
 
-          {/* Right horizontal line */}
+          {/* Right horizontal line - فقط دسکتاپ */}
           <div
             className="hidden lg:block absolute left-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
             aria-hidden="true"
           />
+
+          {/* خط پایین متن - فقط موبایل */}
+          <div
+            className="h-px w-full max-w-[240px] bg-white/70 md:hidden"
+            aria-hidden="true"
+          />
         </div>
 
-        {/* <p
-          className="hero-reveal text-lg text-slate-200"
-          style={{ animationDelay: "1.9s" }}
-        >
-          {t.year}
-        </p> */}
         <div
           className="gap-10 md:flex mt-10"
           style={{ animationDelay: "2.3s" }}
@@ -79,19 +83,13 @@ export function Hero({ locale, users = 245 }: HeroProps) {
           >
             {t.receiveConsulting}
           </Button>
-          <Button className="px-14 mt-10 md:mt-0" variant="secondary">
+          <Button
+            className="hidden px-14 mt-4 md:mt-0 md:inline-flex"
+            variant="secondary"
+          >
             {t.seeServices}
           </Button>
         </div>
-        {/* <p
-          className="hero-reveal mt-6 text-3xl font-bold sm:text-4xl"
-          style={{ animationDelay: "2.5s" }}
-        >
-          {formatLocaleNumber(counted, locale)}
-          <span className="ms-2 text-base font-normal text-slate-300">
-            {t.usersLabel}
-          </span>
-        </p> */}
       </div>
     </section>
   );
