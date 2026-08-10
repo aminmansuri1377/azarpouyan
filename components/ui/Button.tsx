@@ -18,7 +18,7 @@ export type ButtonVariant =
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "icon";
 
 const BASE =
-  "inline-flex items-center cursor-pointer justify-center gap-2 whitespace-nowrap rounded-2xl font-medium font-peyda-regular transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0";
+  "inline-flex items-center cursor-pointer justify-center gap-2 whitespace-nowrap md:rounded-2xl rounded-xl font-medium font-peyda-regular transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0";
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",

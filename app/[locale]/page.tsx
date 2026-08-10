@@ -100,7 +100,7 @@ export default function HomePage() {
         <h1 className="text-2xl font-peyda-bold mb-4 mx-auto text-center mt-10">
           {t.baseServices}
         </h1>
-        <h2 className=" font-peyda-regular text-center mb-10 w-[50%] mx-auto">
+        <h2 className=" font-peyda-regular md:text-center mb-10 md:w-[50%] md:mx-auto mx-5 text-justify">
           {t.hero.description}
         </h2>
       </div>

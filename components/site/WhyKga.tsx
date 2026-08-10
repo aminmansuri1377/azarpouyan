@@ -32,19 +32,19 @@ function WhyKga({ locale }: { locale: string }) {
       <h1 className=" text-center font-peyda-bold my-5 mx-auto lg:text-2xl">
         {t.whyKgaTitle}
       </h1>
-      <p className="text-center font-peyda-regular md:w-[50%] mx-auto">
+      <p className="text-center font-peyda-regular md:w-[50%] md:mx-auto mx-5">
         {t.whyKgaDescription}
       </p>
-      <div className="mx-auto mt-12 grid max-w-[1000px] gap-6 md:grid-cols-3">
+      <div className="md:mx-auto mx-5 mt-12 grid max-w-[1000px] gap-6 md:grid-cols-3">
         {VALUES.map((value) => (
           <div
             key={value.id}
-            className="rounded-2xl border border-primary px-8 py-10 text-center"
+            className="rounded-2xl border border-primary px-8 md:py-10 py-5 md:text-center"
           >
             <h3 className="mb-4 font-peyda-semibold text-2xl text-foreground font-peyda-medium">
               {value.title}
             </h3>
-            <p className=" text-sm leading-[2] text-foreground font-peyda-thin">
+            <p className=" text-sm md:leading-[2] text-foreground font-peyda-thin">
               {value.description}
             </p>
           </div>

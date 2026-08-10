@@ -36,13 +36,13 @@ export function Hero({ locale, users = 245 }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 flex max-w-4xl flex-col items-center gap-4 px-6 text-center text-white">
         <h1
-          className="hero-reveal text-5xl font-peyda-bold font-bold tracking-tight mb-5 mt-10"
+          className="hero-reveal md:text-5xl text-2xl font-peyda-bold font-bold tracking-tight mb-5 mt-10"
           style={{ animationDelay: "1s" }}
         >
           {t.tagline}
         </h1>
 
-        <div className="relative w-full max-w-[633px] mx-auto flex items-center justify-center my-5">
+        <div className="relative w-full max-w-[633px] md:mx-auto text-justify mx-5 flex items-center justify-center my-5">
           {/* Left horizontal line */}
           <div
             className="hidden lg:block absolute right-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"

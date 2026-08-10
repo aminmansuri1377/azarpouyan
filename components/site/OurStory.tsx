@@ -14,7 +14,9 @@ function OurStory({ locale }: { locale: string }) {
     <div className="my-20">
       <div className="lg:flex items-center justify-between lg:mx-40 md:mx-10 mx-5 lg:gap-40 md:gap-10">
         <div className="lg:w-[50%]">
-          <h1 className="text-outline md:text-6xl md:text-left">ABOUT US</h1>
+          <h1 className="text-outline md:text-6xl text-left text-4xl">
+            ABOUT US
+          </h1>
           <h1 className=" text-3xl font-peyda-bold my-5">{t.hero.ourStory}</h1>
           <p className=" font-peyda-regular text-justify">
             {t.hero.ourStoryDescription}

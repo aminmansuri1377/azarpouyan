@@ -14,7 +14,7 @@ function Collaboration({ locale }: { locale: string }) {
     <div className="my-10 lg:mx-40 mx-10 bg-white shadow-2xl rounded-3xl">
       <div className=" lg:flex justify-between px-8 ">
         <div className=" lg:w-[50%] py-10">
-          <p className="lg:text-3xl font-peyda-bold mt-5 mb-16 text-justify leading-12">
+          <p className="lg:text-3xl font-peyda-bold mt-5 md:mb-16 mb-5 text-justify md:leading-12">
             {t.collaborationDescription}
           </p>
           <Button
