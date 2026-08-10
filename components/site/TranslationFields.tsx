@@ -35,20 +35,20 @@ export function TranslationFields({
   const prefix = `translations.${index}`;
 
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        padding: 16,
-        marginBottom: 20,
-      }}
-    >
+    <div className=" p-5 m-4 border border-primary">
       <h3>{langCode}</h3>
 
       {/* hidden field - languageId حتماً باید ارسال شود */}
       <input type="hidden" {...register(`${prefix}.languageId`)} />
 
       <div>
-        <input placeholder="Name" {...register(`${prefix}.name`)} />
+        <span className="mx-4">نام: </span>
+
+        <input
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          placeholder="Name"
+          {...register(`${prefix}.name`)}
+        />
         {errors?.name && (
           <span style={{ color: "red", fontSize: 12 }}>
             {errors.name.message}
@@ -58,7 +58,12 @@ export function TranslationFields({
       <br />
 
       <div>
-        <input placeholder="Slug" {...register(`${prefix}.slug`)} />
+        <span className="mx-4">slug: </span>
+        <input
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          placeholder="Slug"
+          {...register(`${prefix}.slug`)}
+        />
         {errors?.slug && (
           <span style={{ color: "red", fontSize: 12 }}>
             {errors.slug.message}
@@ -70,7 +75,10 @@ export function TranslationFields({
       {withContent && (
         <>
           <div>
+            <span className="mx-4">توضیحات: </span>
+
             <textarea
+              className="px-5 py-1 rounded-2xl border-2 border-primary"
               placeholder="Description"
               {...register(`${prefix}.description`)}
             />
@@ -83,8 +91,10 @@ export function TranslationFields({
           <br />
 
           <div>
+            <span className="mx-4">ویژگی: </span>
             <textarea
               placeholder="Specifications"
+              className="px-5 py-1 rounded-2xl border-2 border-primary"
               {...register(`${prefix}.specifications`)}
             />
             {errors?.specifications && (
@@ -97,17 +107,26 @@ export function TranslationFields({
         </>
       )}
 
-      <input placeholder="SEO Title" {...register(`${prefix}.seoTitle`)} />
+      <span className="mx-4">SEO Title: </span>
+      <input
+        placeholder="SEO Title"
+        className="px-5 py-1 rounded-2xl border-2 border-primary"
+        {...register(`${prefix}.seoTitle`)}
+      />
       <br />
       <br />
+      <span className="mx-4">SEO Description: </span>
       <textarea
         placeholder="SEO Description"
+        className="px-5 py-1 rounded-2xl border-2 border-primary"
         {...register(`${prefix}.seoDescription`)}
       />
       <br />
       <br />
+      <span className="mx-4">SEO Keywords: </span>
       <input
         placeholder="SEO Keywords"
+        className="px-5 py-1 rounded-2xl border-2 border-primary"
         {...register(`${prefix}.seoKeywords`)}
       />
     </div>

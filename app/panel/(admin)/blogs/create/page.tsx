@@ -45,7 +45,7 @@ export default function CreateBlogPage() {
   }
 
   return (
-    <>
+    <div className=" font-peyda-regular text-right">
       <h1 style={{ padding: "20px 20px 0" }}>ایجاد بلاگ</h1>
 
       <ContentForm
@@ -54,6 +54,6 @@ export default function CreateBlogPage() {
         isSubmitting={createMutation.isPending}
         submitLabel="ایجاد"
       />
-    </>
+    </div>
   );
 }

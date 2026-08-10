@@ -29,12 +29,12 @@ export default function CreateProductPage() {
   };
 
   return (
-    <>
-      <h1>Create Product</h1>
+    <div className=" font-peyda-regular text-right">
+      <h1>ساخت محصول</h1>
       <ProductForm
         onSubmit={handleSubmit}
         isLoading={createMutation.isPending}
       />
-    </>
+    </div>
   );
 }

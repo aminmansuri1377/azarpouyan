@@ -26,8 +26,19 @@ export function ContentTranslationFields({
       <input type="hidden" {...register(`${prefix}.languageId`)} />
 
       <div>
-        <input placeholder="Title" {...register(`${prefix}.title`)} />
-        <input placeholder="Slug" {...register(`${prefix}.slug`)} />
+        <span className="mx-4">عنوان : </span>
+        <input
+          placeholder="Title"
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          {...register(`${prefix}.title`)}
+        />
+        <span className="mx-4">slug : </span>
+
+        <input
+          placeholder="Slug"
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          {...register(`${prefix}.slug`)}
+        />
 
         {errors?.title && (
           <span style={{ color: "red", fontSize: 12 }}>
@@ -37,8 +48,11 @@ export function ContentTranslationFields({
       </div>
       <br />
 
-      <div>
+      <div className=" flex justify-end items-center">
+        <span className="mx-4">موضوع : </span>
+
         <textarea
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
           placeholder="Excerpt"
           rows={2}
           {...register(`${prefix}.excerpt`)}
@@ -46,8 +60,14 @@ export function ContentTranslationFields({
       </div>
       <br />
 
-      <div>
-        <textarea placeholder="Body" rows={6} {...register(`${prefix}.body`)} />
+      <div className=" flex justify-end items-center">
+        <span className="mx-4">متن : </span>
+        <textarea
+          placeholder="Body"
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          rows={6}
+          {...register(`${prefix}.body`)}
+        />
         {errors?.body && (
           <span style={{ color: "red", fontSize: 12 }}>
             {errors.body.message}
@@ -56,18 +76,27 @@ export function ContentTranslationFields({
       </div>
       <br />
 
-      <input placeholder="SEO Title" {...register(`${prefix}.seoTitle`)} />
+      <span className="mx-4">SEO Title : </span>
+      <input
+        placeholder="SEO Title"
+        className="px-5 py-1 rounded-2xl border-2 border-primary"
+        {...register(`${prefix}.seoTitle`)}
+      />
       <br />
       <br />
+      <span className="mx-4">SEO Description : </span>
       <textarea
         placeholder="SEO Description"
+        className="px-5 py-1 rounded-2xl border-2 border-primary"
         rows={2}
         {...register(`${prefix}.seoDescription`)}
       />
       <br />
       <br />
+      <span className="mx-4">SEO Keywords : </span>
       <input
         placeholder="SEO Keywords"
+        className="px-5 py-1 rounded-2xl border-2 border-primary"
         {...register(`${prefix}.seoKeywords`)}
       />
     </div>

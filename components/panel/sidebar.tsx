@@ -17,17 +17,21 @@ import {
 } from "@/components/ui/icon";
 
 const links = [
-  { href: "/panel", label: "Dashboard", icon: HomeIcon },
-  { href: "/panel/products", label: "Products", icon: PackageIcon },
-  { href: "/panel/categories", label: "Categories", icon: FilterIcon },
+  { href: "/panel", label: "داشبورد", icon: HomeIcon },
+  { href: "/panel/categories", label: "دسته بندی", icon: FilterIcon },
+  { href: "/panel/products", label: "محصولات", icon: PackageIcon },
   // { href: "/panel/attributes", label: "Attributes", icon: FilterIcon },
-  { href: "/panel/blogs", label: "Blog", icon: FileTextIcon },
-  { href: "/panel/news", label: "News", icon: FileTextIcon },
-  { href: "/panel/articles", label: "Articles", icon: FileTextIcon },
-  { href: "/panel/languages", label: "Languages", icon: SettingsIcon },
-  { href: "/panel/price-ticker", label: "Price Ticker", icon: DollarSignIcon },
-  { href: "/panel/contact-requests", label: "Contact Requests", icon: InboxIcon },
-  { href: "/panel/settings", label: "Settings", icon: SettingsIcon },
+  { href: "/panel/blogs", label: "بلاگ", icon: FileTextIcon },
+  { href: "/panel/news", label: "اخبار", icon: FileTextIcon },
+  { href: "/panel/articles", label: "مقالات", icon: FileTextIcon },
+  // { href: "/panel/languages", label: "زبان‌ها", icon: SettingsIcon },
+  { href: "/panel/price-ticker", label: "لیست قیمت ها", icon: DollarSignIcon },
+  {
+    href: "/panel/contact-requests",
+    label: "درخواست مشاوره",
+    icon: InboxIcon,
+  },
+  { href: "/panel/settings", label: "تنظیمات", icon: SettingsIcon },
   { href: "/panel/ui-preview", label: "UI Preview", icon: SettingsIcon },
 ];
 
@@ -38,8 +42,10 @@ export function PanelSidebar() {
     <aside className="flex h-screen w-64 shrink-0 flex-col border-e border-border bg-card">
       {/* Header */}
       <div className="flex items-center justify-between p-4">
-        <h2 className="text-base font-semibold text-foreground">Admin Panel</h2>
-        <ThemeToggle />
+        <h2 className="text-base  font-peyda-bold text-foreground">
+          پنل مدیریت
+        </h2>
+        {/* <ThemeToggle /> */}
       </div>
 
       <Separator />
@@ -61,7 +67,7 @@ export function PanelSidebar() {
                   className={cn(
                     "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-accent text-accent-foreground"
+                      ? "bg-primary text-white"
                       : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
                   )}
                 >

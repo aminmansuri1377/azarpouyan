@@ -68,7 +68,7 @@ export default function ProductsPage() {
   const selectedCategory = categories.find((c) => c.id === categoryFilter);
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: 20 }} className=" font-peyda-regular">
       <div
         style={{
           display: "flex",
@@ -79,43 +79,18 @@ export default function ProductsPage() {
       >
         <h1>
           {selectedCategory
-            ? `Products - ${selectedCategory.translations?.[0]?.name}`
-            : "Products"}
+            ? `محصولات - ${selectedCategory.translations?.[0]?.name}`
+            : "محصولات"}
         </h1>
-
-        <div
-          style={{
-            display: "flex",
-            gap: 12,
-          }}
-        >
-          <Link href="/panel/products">Show All Products</Link>
-
-          <Link href="/panel/products/create">Create Product</Link>
-        </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: 12,
-          alignItems: "center",
-          marginBottom: 20,
-        }}
-      >
-        <CategoryFilterCascade
-          categories={categories}
-          value={categoryFilter}
-          onChange={(value) => {
-            setPage(1);
-
-            if (value) {
-              router.push(`/panel/products?categoryId=${value}`);
-            } else {
-              router.push("/panel/products");
-            }
-          }}
-        />
+      <div className=" flex justify-around">
+        <Link
+          href="/panel/products/create"
+          className=" bg-primary py-2 px-8 m-4 rounded-2xl"
+        >
+          ساخت محصول{" "}
+        </Link>
 
         <ProductSearch
           value={search}
@@ -135,16 +110,27 @@ export default function ProductsPage() {
             Searching...
           </span>
         )}
-      </div>
+        <CategoryFilterCascade
+          categories={categories}
+          value={categoryFilter}
+          onChange={(value) => {
+            setPage(1);
 
-      <div
-        style={{
-          marginBottom: 15,
-          fontWeight: 600,
-        }}
-      >
-        Total Products: {data?.total ?? 0}
+            if (value) {
+              router.push(`/panel/products?categoryId=${value}`);
+            } else {
+              router.push("/panel/products");
+            }
+          }}
+        />
+        <Link
+          href="/panel/products"
+          className=" bg-transparent py-2 px-8 m-4 rounded-2xl border-2 border-primary"
+        >
+          همه محصولات
+        </Link>
       </div>
+      <div className=" my-10">تعداد محصولات: {data?.total ?? 0}</div>
 
       {isLoading ? (
         <div>Loading...</div>
@@ -153,16 +139,16 @@ export default function ProductsPage() {
           <table border={1} cellPadding={10} style={{ width: "100%" }}>
             <thead>
               <tr>
-                <th>Image</th>
-                <th>Name</th>
+                <th>عکس</th>
+                <th>نام</th>
                 <th>Slug</th>
-                <th>Category</th>
+                <th>دسته بندی</th>
                 <th>Published</th>
                 <th>Actions</th>
               </tr>
             </thead>
 
-            <tbody>
+            <tbody className=" text-center mx-auto">
               {data?.items?.length ? (
                 data.items.map((product) => (
                   <tr key={product.id}>

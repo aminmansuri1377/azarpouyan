@@ -22,7 +22,7 @@ export default async function PanelLayout({
       <main className="flex-1 overflow-auto">
         {/* Top bar */}
         <div className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <h1 className="text-lg font-semibold text-foreground">CMS</h1>
+          <h1 className="text-lg font-semibold text-foreground">panel</h1>
           <LogoutButton />
         </div>
 

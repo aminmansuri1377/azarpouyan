@@ -52,7 +52,7 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
   }
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className=" p-20 font-peyda-regular">
       <div
         style={{
           display: "flex",
@@ -62,7 +62,10 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
       >
         <h1>{CONTENT_TYPE_LABEL[type]}s</h1>
 
-        <Link href={`${basePath}/create`}>
+        <Link
+          href={`${basePath}/create`}
+          className=" bg-primary py-2 px-8 m-4 rounded-2xl"
+        >
           ایجاد {CONTENT_TYPE_LABEL[type]}
         </Link>
       </div>
@@ -70,16 +73,16 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
       <table border={1} cellPadding={10} style={{ width: "100%" }}>
         <thead>
           <tr>
-            <th>Cover</th>
-            <th>Title</th>
+            <th>کاور</th>
+            <th>عنوان</th>
             <th>Slug</th>
             <th>Published</th>
-            <th>Published At</th>
+            <th>تاریخ انتشار</th>
             <th>Actions</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className=" mx-auto text-center">
           {data?.length ? (
             data.map((item) => (
               <tr key={item.id}>

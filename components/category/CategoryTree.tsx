@@ -43,15 +43,13 @@ function CategoryNode({
   const hasChildren = node.children.length > 0;
 
   return (
-    <div style={{ marginInlineStart: depth * 20 }}>
+    <div className="  text-center mx-auto">
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
           padding: "6px 0",
           borderBottom: "1px solid #eee",
         }}
+        className=" font-peyda-regular flex justify-center gap-10"
       >
         {hasChildren ? (
           <button onClick={() => setExpanded((e) => !e)}>
@@ -61,9 +59,9 @@ function CategoryNode({
           <span style={{ width: 20, display: "inline-block" }} />
         )}
 
-        <span style={{ opacity: node.published ? 1 : 0.5 }}>
+        {/* <span style={{ opacity: node.published ? 1 : 0.5 }}>
           {displayName(node)}
-        </span>
+        </span> */}
         {hasChildren ? (
           <button onClick={() => setExpanded((e) => !e)}>
             {expanded ? "▾" : "▸"}
@@ -145,8 +143,13 @@ export function CategoryTree() {
   }
 
   return (
-    <div>
-      <Link href="/panel/categories/create">+ کتگوری اصلی جدید</Link>
+    <div className=" font-peyda-regular">
+      <Link
+        href="/panel/categories/create"
+        className=" bg-primary py-2 px-6 rounded-2xl"
+      >
+        + کتگوری اصلی جدید
+      </Link>
 
       <div style={{ marginTop: 16 }}>
         {tree.map((node: TreeNode) => (

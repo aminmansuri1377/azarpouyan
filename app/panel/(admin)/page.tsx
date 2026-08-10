@@ -1,9 +1,9 @@
 export default function DashboardPage() {
   return (
-    <div>
-      <h2>Dashboard</h2>
+    <div className=" text-center">
+      <h2 className=" font-peyda-regular text-2xl my-10">داشبورد مدیریت</h2>
 
-      <p>Welcome to admin panel.</p>
+      <p className=" font-peyda-regular text-2xl">خوش آمدید</p>
     </div>
   );
 }

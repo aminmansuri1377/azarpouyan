@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { categorySchema, CategoryFormValues } from "@/types/category";
 import { TranslationFields } from "../site/TranslationFields";
 import { ImageUploader } from "../ui/mageUploader";
+import { Button } from "../ui";
 
 type Language = { id: string; code: string; name?: string };
 type FlatCategory = {
@@ -150,6 +151,7 @@ export function CategoryForm({
           control={control}
           render={({ field }) => (
             <select
+              className=" bg-primary px-6 py-1 rounded-2xl my-3"
               value={field.value ?? ""}
               onChange={(e) => field.onChange(e.target.value || null)}
             >
@@ -166,17 +168,21 @@ export function CategoryForm({
       <br />
 
       <div>
-        <label>Slug</label>
+        <label>main Slug </label>
         <br />
-        <input placeholder="slug" {...register("slug")} />
+        <input
+          placeholder="slug"
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          {...register("slug")}
+        />
         {errors.slug && (
           <span style={{ color: "red" }}>{errors.slug.message}</span>
         )}
       </div>
       <br />
 
-      <div>
-        <label>Image URL</label>
+      <div className=" border-2 border-primary rounded-2xl p-3 max-w-100 mx-auto text-center">
+        <label>بارگذاری عکس</label>
         <br />
         <Controller
           name="imageUrl"
@@ -231,9 +237,9 @@ export function CategoryForm({
         );
       })}
 
-      <button type="submit" disabled={isSubmitting}>
+      <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Saving..." : submitLabel}
-      </button>
+      </Button>
     </form>
   );
 }

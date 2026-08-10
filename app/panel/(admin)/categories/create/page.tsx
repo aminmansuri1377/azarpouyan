@@ -27,7 +27,7 @@ export default function CreateCategoryPage() {
   };
 
   return (
-    <>
+    <div className=" font-peyda-regular text-right">
       <h1 style={{ padding: "20px 20px 0" }}>افزودن کتگوری</h1>
       <CategoryForm
         languages={languages}
@@ -48,6 +48,6 @@ export default function CreateCategoryPage() {
         isSubmitting={createMutation.isPending}
         submitLabel="ایجاد"
       />
-    </>
+    </div>
   );
 }

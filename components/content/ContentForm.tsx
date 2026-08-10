@@ -8,6 +8,7 @@ import { contentSchema, ContentFormValues } from "@/types/content";
 import { ContentTranslationFields } from "./ContentTranslationFields";
 import { ImageUploader } from "../../components/ui/mageUploader";
 import { MultiImageUploader } from "@/components/ui/MultiImageUploader";
+import { Button } from "../ui";
 
 type Language = { id: string; code: string; name?: string };
 
@@ -90,9 +91,13 @@ export function ContentForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 20 }}>
       <div>
-        <label>Slug</label>
+        <label>main Slug</label>
         <br />
-        <input placeholder="slug" {...register("slug")} />
+        <input
+          placeholder="slug"
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          {...register("slug")}
+        />
         {errors.slug && (
           <span style={{ color: "red", fontSize: 12 }}>
             {errors.slug.message}
@@ -101,7 +106,8 @@ export function ContentForm({
       </div>
       <br />
 
-      <div>
+      <div className=" border-2 border-primary rounded-2xl p-3 max-w-100 mx-auto text-center">
+        <label>بارگذاری عکس</label>{" "}
         <Controller
           name="coverImage"
           control={control}
@@ -122,7 +128,8 @@ export function ContentForm({
       </div>
       <br />
 
-      <div>
+      <div className=" border-2 border-primary rounded-2xl p-3 max-w-100 mx-auto text-center">
+        <label>بارگذاری عکس های گالری</label>{" "}
         <Controller
           name="images"
           control={control}
@@ -144,7 +151,7 @@ export function ContentForm({
       <br />
 
       <div>
-        <label>Published At</label>
+        <label>: تاریخ انتشار</label>
         <br />
         <input type="datetime-local" {...register("publishedAt")} />
       </div>
@@ -185,9 +192,9 @@ export function ContentForm({
         );
       })}
 
-      <button type="submit" disabled={isSubmitting}>
+      <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Saving..." : submitLabel}
-      </button>
+      </Button>
     </form>
   );
 }

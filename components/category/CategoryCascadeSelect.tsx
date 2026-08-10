@@ -74,11 +74,12 @@ export function CategoryCascadeSelect({
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+    <div className=" flex justify-end gap-5 ">
       {levels.map((level, idx) => (
         <select
           key={level.key}
           required={idx === 0}
+          className="bg-primary px-6 py-1 rounded-2xl my-3"
           value={chain[idx] ?? ""}
           onChange={(e) => handleSelect(idx, e.target.value)}
         >

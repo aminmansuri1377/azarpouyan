@@ -10,6 +10,7 @@ import { TranslationFields } from "../site/TranslationFields";
 import { CategoryCascadeSelect } from "../category/CategoryCascadeSelect";
 import { ImageUploader } from "../../components/ui/mageUploader";
 import { MultiImageUploader } from "@/components/ui/MultiImageUploader";
+import { Button } from "../ui";
 
 interface ProductFormProps {
   defaultValues?: ProductFormValues;
@@ -33,7 +34,7 @@ export function ProductForm({
   defaultValues,
   onSubmit,
   isLoading,
-  submitLabel = "Save",
+  submitLabel = "ایجاد",
 }: ProductFormProps) {
   const { data: languages = [] } = trpc.language.getAll.useQuery();
   const { data: categories = [] } = trpc.category.getAll.useQuery();
@@ -126,16 +127,21 @@ export function ProductForm({
       <br />
 
       <div>
-        <label>Slug</label>
+        <label>main Slug</label>
         <br />
-        <input placeholder="slug" {...register("slug")} />
+        <input
+          placeholder="slug"
+          className="px-5 py-1 rounded-2xl border-2 border-primary"
+          {...register("slug")}
+        />
         {errors.slug && (
           <span style={{ color: "red" }}>{errors.slug.message}</span>
         )}
       </div>
       <br />
 
-      <div>
+      <div className=" border-2 border-primary rounded-2xl p-3 max-w-100 mx-auto text-center">
+        <label>بارگذاری عکس</label>{" "}
         <Controller
           name="imageUrl"
           control={control}
@@ -154,7 +160,8 @@ export function ProductForm({
       </div>
       <br />
 
-      <div>
+      <div className=" border-2 border-primary rounded-2xl p-3 max-w-100 mx-auto text-center">
+        <label>بارگذاری عکس های گالری</label>{" "}
         <Controller
           name="images"
           control={control}
@@ -250,9 +257,9 @@ export function ProductForm({
         );
       })}
 
-      <button type="submit" disabled={isLoading}>
+      <Button type="submit" disabled={isLoading}>
         {isLoading ? "Saving..." : submitLabel}
-      </button>
+      </Button>
     </form>
   );
 }

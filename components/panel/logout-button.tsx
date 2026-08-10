@@ -10,13 +10,9 @@ export function LogoutButton() {
   }
 
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={logout}
-    >
+    <Button variant="ghost" size="sm" onClick={logout}>
       <LogoutIcon className="size-4" />
-      Logout
+      خروج
     </Button>
   );
 }
