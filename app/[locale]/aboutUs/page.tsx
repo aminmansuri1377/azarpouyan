@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
 import { useParams } from "next/navigation";
@@ -8,83 +9,137 @@ import { Button } from "@/components/ui";
 
 const VALUES = [
   {
-    title: "ارزش شماره 1",
+    title: "مورد اول",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است",
   },
   {
-    title: "ارزش شماره 2",
+    title: "مورد دوم",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است",
   },
   {
-    title: "ارزش شماره 3",
+    title: "مورد سوم",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است",
   },
 ];
 
 const STATS = [
-  { value: 100, label: "معامله جاری" },
-  { value: 200, label: "معامله به اتمام رسیده" },
-  { value: 20, label: "سال تجربه" },
+  {
+    value: 100,
+    label: "معامله جاری",
+  },
+  {
+    value: 200,
+    label: "معامله به اتمام رسیده",
+  },
+  {
+    value: 20,
+    label: "سال تجربه",
+  },
 ];
+
 function StatItem({
   stat,
   locale = "fa",
   enabled,
 }: {
-  stat: { value: number; label: string };
+  stat: {
+    value: number;
+    label: string;
+  };
   locale?: string;
   enabled: boolean;
 }) {
   const count = useCountUp(stat.value, 2400, 200, enabled);
+
   return (
-    <div>
-      <div className="font-peyda-bold text-6xl text-foreground">
+    <div className="text-center">
+      <div className="font-peyda-bold text-4xl leading-none text-foreground sm:text-5xl lg:text-6xl">
         {formatLocaleNumber(count, locale)}+
       </div>
-      <div className="mt-3 font-peyda-medium text-xl text-foreground">
+
+      <div className="mt-2 whitespace-nowrap font-peyda-medium text-xs text-foreground sm:text-sm lg:mt-3 lg:text-lg">
         {stat.label}
       </div>
     </div>
   );
 }
+
 function AboutUs() {
   const params = useParams();
 
   const locale = params.locale as string;
   const t = getMessages(locale);
+
   const { ref: statsRef, inView: statsInView } = useInView<HTMLDivElement>({
     threshold: 0.4,
   });
-  return (
-    <div dir="rtl" className="bg-white">
-      {/* ---------------------------------------------------------------- */}
-      {/* Hero + company story (both share the towman.jpg background)      */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="relative isolate overflow-hidden">
-        <div
-          className="absolute inset-0 -z-10 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/towman.jpg')" }}
-        />
-        <div className="absolute inset-0 -z-10 bg-[rgba(15,28,45,0.6)]" />
 
-        <div className="mx-auto max-w-[1100px] px-6 pt-36 pb-20 text-center">
-          <h1 className="font-peyda-bold text-4xl leading-[1.5] text-white">
+  return (
+    <main dir="rtl" className="overflow-hidden bg-background text-foreground">
+      {/* =========================================================
+          HERO
+      ========================================================= */}
+
+      <section className="relative isolate">
+        {/* Hero background */}
+        <div
+          className="
+            absolute inset-x-0 top-0 -z-10
+            h-72
+            bg-cover bg-center
+            md:h-full
+          "
+          style={{
+            backgroundImage: "url('/images/towman.jpg')",
+          }}
+        />
+
+        {/* Hero overlay */}
+        {/* <div
+          className="
+            absolute inset-x-0 top-0 -z-10
+            h-72
+            bg-slate-950/60
+            md:inset-0
+            md:h-full
+          "
+        /> */}
+
+        {/* Hero content */}
+        <div className="container mx-auto px-4 pb-8 pt-24 text-center sm:px-6 md:pb-16 md:pt-32 lg:px-8">
+          <h1 className="font-peyda-bold text-2xl leading-relaxed text-white sm:text-3xl md:text-4xl">
             درباره ما :
           </h1>
-          <p className="mx-auto mt-4 max-w-[633px] font-peyda-regular text-lg leading-[1.8] text-white">
+
+          <p className="mx-auto mt-4 max-w-xl font-peyda-regular text-xs leading-loose text-white sm:text-sm md:text-base lg:text-lg">
             {t.hero.description}
           </p>
         </div>
 
-        <div className="mx-auto max-w-[1200px] px-6 pb-28">
-          <div className="rounded-[40px] bg-[rgba(245,245,247,0.2)] p-10 backdrop-blur-sm md:p-14">
-            <h2 className="mb-6 text-center font-peyda-bold text-3xl text-white">
+        {/* =======================================================
+            COMPANY STORY
+        ======================================================= */}
+
+        <div className="container mx-auto px-4 pb-10 sm:px-6 md:pb-24 lg:px-8">
+          <div
+            className="
+              mx-auto max-w-6xl
+              mt-20
+              md:rounded-3xl
+              md:bg-white/15
+              md:p-10
+              md:backdrop-blur-md
+              lg:p-14
+          "
+          >
+            <h2 className="mb-5 text-center font-peyda-bold text-xl text-foreground md:mb-6 md:text-3xl md:text-white">
               داستان شرکت :
             </h2>
-            <p className="text-justify font-peyda-regular text-lg leading-[1.8] text-white">
+
+            <p className="text-justify font-peyda-regular text-xs leading-loose text-foreground md:text-base md:leading-9 md:text-white lg:text-lg">
               {t.hero.description}
               {t.hero.description}
               {t.hero.description}
@@ -94,26 +149,40 @@ function AboutUs() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Mission & vision (select.jpg background + overlapping light card) */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="relative px-6 pt-24">
-        <div className="mx-auto max-w-[1200px]">
-          <div className="relative overflow-hidden rounded-[40px]">
+      {/* =========================================================
+          MISSION & VISION
+      ========================================================= */}
+
+      <section className="container mx-auto px-4 pt-10 sm:px-6 md:pt-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          {/* Image */}
+          <div className="relative overflow-hidden rounded-2xl md:rounded-3xl">
             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/images/select.jpg')" }}
+              className="
+                aspect-[4/3]
+                bg-cover
+                bg-center
+                sm:aspect-video
+                md:h-[60vh]
+                w-full
+              "
+              style={{
+                backgroundImage: "url('/images/select.jpg')",
+              }}
             />
-            <div className="absolute inset-0 bg-[rgba(15,28,45,0.6)]" />
-            <div className="relative px-10 pt-16 pb-40 text-center">
-              <h2 className="font-peyda-bold text-3xl text-white">
+
+            {/* <div className="absolute inset-0 bg-slate-950/60" /> */}
+
+            <div className="absolute inset-0 flex items-center justify-center px-6 pb-16 text-center md:items-start md:pt-16">
+              <h2 className="font-peyda-bold text-xl leading-relaxed text-white md:text-3xl">
                 ماموریت و چشم انداز ما :
               </h2>
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto -mt-28 max-w-[800px] rounded-[40px] bg-[#F5F5F7] px-10 py-10 shadow-lg md:px-14 md:py-12">
-            <p className="text-justify font-peyda-regular text-lg leading-[1.6] text-foreground">
+          {/* Content */}
+          <div className="relative z-10 md:mx-auto mx-4 -mt-20 max-w-3xl rounded-2xl bg-white p-6 shadow-lg sm:p-8 md:-mt-64 md:rounded-3xl md:p-12">
+            <p className="text-justify font-peyda-regular text-xs leading-loose text-foreground sm:text-sm md:text-base md:leading-8 lg:text-lg">
               {t.hero.description}
               {t.hero.description}
               {t.hero.description}
@@ -123,45 +192,78 @@ function AboutUs() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Organizational values                                            */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="px-6 pt-24 text-center">
-        <h2 className="font-peyda-bold text-3xl text-[#3F3F3F]">
+      {/* =========================================================
+          ORGANIZATIONAL VALUES
+      ========================================================= */}
+
+      <section className="container mx-auto px-4 pt-12 text-center sm:px-6 md:pt-24 lg:px-8">
+        <h2 className="font-peyda-bold text-xl text-foreground md:text-3xl">
           ارزش های سازمانی
         </h2>
 
-        <div className="mx-auto mt-12 grid max-w-[1000px] gap-6 md:grid-cols-3">
+        <div className="mx-auto mt-8 grid max-w-5xl gap-3 sm:grid-cols-3 sm:gap-5 md:mt-12 md:gap-6">
           {VALUES.map((value) => (
-            <div
+            <article
               key={value.title}
-              className="rounded-3xl border-2 border-primary px-8 py-10"
+              className="
+                rounded-2xl
+                border
+                border-primary/70
+                p-5
+                text-right
+                transition
+                duration-300
+                hover:-translate-y-1
+                hover:shadow-md
+
+                sm:p-6
+                md:rounded-3xl
+                md:p-8
+                md:text-center
+              "
             >
-              <h3 className="mb-4 font-peyda-semibold text-2xl text-foreground">
+              <h3 className="mb-2 font-peyda-semibold text-sm text-foreground md:mb-4 md:text-xl lg:text-2xl">
                 {value.title}
               </h3>
-              <p className="font-peyda-regular text-sm leading-[2] text-foreground">
+
+              <p className="font-peyda-regular text-xs leading-loose text-foreground md:text-sm">
                 {value.description}
               </p>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Stats / achievements                                             */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="px-6 pt-24 text-center">
-        <h2 className="font-peyda-bold text-3xl text-foreground">
+      {/* =========================================================
+          STATS
+      ========================================================= */}
+
+      <section className="container mx-auto px-4 pt-12 text-center sm:px-6 md:pt-24 lg:px-8">
+        <h2 className="font-peyda-bold text-xl text-foreground md:text-3xl">
           آمار ها و دست آورد ها :
         </h2>
-        <p className="mx-auto mt-4 max-w-[813px] font-peyda-regular text-lg leading-[1.6] text-foreground">
+
+        <p className="mx-auto mt-4 max-w-3xl font-peyda-regular text-xs leading-loose text-foreground sm:text-sm md:text-base lg:text-lg">
           {t.hero.description}
         </p>
 
+        {/* Counter */}
         <div
           ref={statsRef}
-          className="mt-12 flex flex-wrap justify-center gap-x-20 gap-y-10"
+          className="
+            mx-auto
+            mt-10
+            flex
+            max-w-sm
+            items-start
+            justify-between
+            gap-4
+
+            md:mt-14
+            md:max-w-3xl
+            md:justify-center
+            md:gap-20
+          "
         >
           {STATS.map((stat) => (
             <StatItem
@@ -174,21 +276,26 @@ function AboutUs() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* CTA                                                              */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="bg-gradient-to-b from-white to-[#e9dfc7] px-6 py-24">
-        <div className="mx-auto max-w-[900px] rounded-3xl border-2 border-primary p-12 text-center shadow-sm">
-          <h2 className="font-peyda-bold text-3xl text-foreground">
+      {/* =========================================================
+          CTA
+      ========================================================= */}
+
+      <section className="bg-gradient-to-b from-background to-primary/10 px-4 pb-12 pt-12 sm:px-6 md:py-24">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-primary/70 bg-background p-6 text-center shadow-sm sm:p-8 md:rounded-3xl md:p-12">
+          <h2 className="font-peyda-bold text-xl text-foreground md:text-3xl">
             منتظر همکاری با شما هستیم
           </h2>
-          <p className="mx-auto mt-4 max-w-[600px] font-peyda-regular text-lg leading-[1.7] text-foreground mb-10">
+
+          <p className="mx-auto mt-4 max-w-xl font-peyda-regular text-xs leading-loose text-foreground sm:text-sm md:text-base lg:text-lg">
             {t.hero.description}
           </p>
-          <Button className=" px-10 font-peyda-bold">{t.startBusiness}</Button>
+
+          <Button className="mt-6 px-8 font-peyda-bold md:mt-8 md:px-10">
+            {t.startBusiness}
+          </Button>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
 
