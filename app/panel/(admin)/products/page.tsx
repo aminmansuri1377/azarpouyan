@@ -11,6 +11,14 @@ import { CategoryFilterCascade } from "@/components/category/CategoryFilterCasca
 import { ProductSearch } from "@/components/site/ProductSearch";
 import { Pagination } from "@/components/site/Pagination";
 import { useDebounce } from "@/hooks/useDebounce";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "../../../../components/ui/Table";
 
 export default function ProductsPage() {
   const utils = trpc.useUtils();
@@ -136,96 +144,86 @@ export default function ProductsPage() {
         <div>Loading...</div>
       ) : (
         <>
-          <table border={1} cellPadding={10} style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th>عکس</th>
-                <th>نام</th>
-                <th>Slug</th>
-                <th>دسته بندی</th>
-                <th>Published</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+          <div className="rounded-xl border border-border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>عکس</TableHead>
+                  <TableHead>نام</TableHead>
+                  <TableHead>Slug</TableHead>
+                  <TableHead>دسته بندی</TableHead>
+                  <TableHead>Published</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
 
-            <tbody className=" text-center mx-auto">
-              {data?.items?.length ? (
-                data.items.map((product) => (
-                  <tr key={product.id}>
-                    <td>
-                      {product.imageUrl ? (
-                        <div
-                          style={{
-                            position: "relative",
-                            width: 50,
-                            height: 50,
-                          }}
-                        >
-                          <Image
-                            src={product.imageUrl}
-                            alt={
-                              product.translations?.[0]?.name ?? product.slug
+              <TableBody>
+                {data?.items?.length ? (
+                  data.items.map((product) => (
+                    <TableRow key={product.id}>
+                      <TableCell>
+                        {product.imageUrl ? (
+                          <div className="relative h-[50px] w-[50px]">
+                            <Image
+                              src={product.imageUrl}
+                              alt={
+                                product.translations?.[0]?.name ?? product.slug
+                              }
+                              fill
+                              className="rounded object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="h-[50px] w-[50px] rounded bg-muted" />
+                        )}
+                      </TableCell>
+
+                      <TableCell>{product.translations?.[0]?.name}</TableCell>
+
+                      <TableCell>{product.slug}</TableCell>
+
+                      <TableCell>
+                        {product.category?.translations?.[0]?.name}
+                      </TableCell>
+
+                      <TableCell>{product.published ? "Yes" : "No"}</TableCell>
+
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={`/panel/products/${product.id}`}
+                            className="text-primary hover:underline"
+                          >
+                            ویرایش
+                          </Link>
+
+                          <span className="text-muted-foreground">|</span>
+
+                          <button
+                            onClick={() =>
+                              deleteMutation.mutate({
+                                id: product.id,
+                              })
                             }
-                            fill
-                            style={{
-                              objectFit: "cover",
-                              borderRadius: 4,
-                            }}
-                          />
+                            disabled={deleteMutation.isPending}
+                            className="text-destructive hover:underline disabled:opacity-50"
+                          >
+                            حذف
+                          </button>
                         </div>
-                      ) : (
-                        <div
-                          style={{
-                            width: 50,
-                            height: 50,
-                            background: "#f0f0f0",
-                            borderRadius: 4,
-                          }}
-                        />
-                      )}
-                    </td>
-
-                    <td>{product.translations?.[0]?.name}</td>
-
-                    <td>{product.slug}</td>
-
-                    <td>{product.category?.translations?.[0]?.name}</td>
-
-                    <td>{product.published ? "Yes" : "No"}</td>
-
-                    <td>
-                      <Link href={`/panel/products/${product.id}`}>Edit</Link>
-
-                      {" | "}
-
-                      <button
-                        onClick={() =>
-                          deleteMutation.mutate({
-                            id: product.id,
-                          })
-                        }
-                        disabled={deleteMutation.isPending}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan={6}
-                    style={{
-                      textAlign: "center",
-                      padding: 30,
-                    }}
-                  >
-                    No products found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-10">
+                      هنوز هیچ محصولی ثبت نشده{" "}
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
 
           <Pagination
             page={page}

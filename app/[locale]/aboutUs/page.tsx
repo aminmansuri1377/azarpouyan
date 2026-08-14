@@ -276,10 +276,6 @@ function AboutUs() {
         </div>
       </section>
 
-      {/* =========================================================
-          CTA
-      ========================================================= */}
-
       <section className="bg-gradient-to-b from-background to-primary/10 px-4 pb-12 pt-12 sm:px-6 md:py-24">
         <div className="mx-auto max-w-3xl rounded-2xl border border-primary/70 bg-background p-6 text-center shadow-sm sm:p-8 md:rounded-3xl md:p-12">
           <h2 className="font-peyda-bold text-xl text-foreground md:text-3xl">

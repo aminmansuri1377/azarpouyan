@@ -71,11 +71,7 @@ export default function BlogPage() {
 
   return (
     <div dir="rtl" className="bg-background">
-      {/* ---------------------------------------------------------------- */}
-      {/* Hero — دسکتاپ: عین کد اصلی | موبایل: جداست                      */}
-      {/* ---------------------------------------------------------------- */}
-
-      {/* دسکتاپ hero — عین کد اصلی خودت */}
+      {/* دسکتاپ hero — */}
       <section className="hidden md:block relative">
         <Image
           src={BlogImage}
@@ -129,7 +125,7 @@ export default function BlogPage() {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Blog grid — دسکتاپ (دست‌نخورده)                                 */}
+      {/* Blog grid — دسکتاپ ()                                 */}
       {/* ---------------------------------------------------------------- */}
       <section className="hidden md:block px-6 py-20 bg-background">
         <div className="mx-auto max-w-[1200px] grid grid-cols-2 gap-8">

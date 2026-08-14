@@ -5,6 +5,14 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { trpc } from "@/lib/trpc/client";
 import { CONTENT_TYPE_LABEL, type ContentType } from "@/types/content";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "../ui/Table";
 
 interface ContentListPageProps {
   type: ContentType;
@@ -70,100 +78,88 @@ export function ContentListPage({ type, basePath }: ContentListPageProps) {
         </Link>
       </div>
 
-      <table border={1} cellPadding={10} style={{ width: "100%" }}>
-        <thead>
-          <tr>
-            <th>کاور</th>
-            <th>عنوان</th>
-            <th>Slug</th>
-            <th>Published</th>
-            <th>تاریخ انتشار</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <div className="rounded-xl border border-border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>کاور</TableHead>
+              <TableHead>عنوان</TableHead>
+              <TableHead>Slug</TableHead>
+              <TableHead>Published</TableHead>
+              <TableHead>تاریخ انتشار</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
 
-        <tbody className=" mx-auto text-center">
-          {data?.length ? (
-            data.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  {item.coverImage ? (
-                    <div
-                      style={{
-                        position: "relative",
-                        width: 50,
-                        height: 50,
-                      }}
-                    >
-                      <Image
-                        src={item.coverImage}
-                        alt={item.translations?.[0]?.title ?? item.slug}
-                        fill
-                        style={{
-                          objectFit: "cover",
-                          borderRadius: 4,
+          <TableBody>
+            {data?.length ? (
+              data.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>
+                    {item.coverImage ? (
+                      <div className="relative h-[50px] w-[50px]">
+                        <Image
+                          src={item.coverImage}
+                          alt={item.translations?.[0]?.title ?? item.slug}
+                          fill
+                          className="rounded object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-[50px] w-[50px] rounded bg-muted" />
+                    )}
+                  </TableCell>
+
+                  <TableCell>{item.translations?.[0]?.title ?? "-"}</TableCell>
+
+                  <TableCell>{item.slug}</TableCell>
+
+                  <TableCell>{item.published ? "Yes" : "No"}</TableCell>
+
+                  <TableCell>
+                    {item.publishedAt
+                      ? new Date(item.publishedAt).toLocaleDateString()
+                      : "-"}
+                  </TableCell>
+
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`${basePath}/${item.id}`}
+                        className="text-primary hover:underline"
+                      >
+                        Edit
+                      </Link>
+
+                      <span className="text-muted-foreground">|</span>
+
+                      <button
+                        disabled={deleteMutation.isPending}
+                        onClick={() => {
+                          if (confirm(`حذف ${CONTENT_TYPE_LABEL[type]} ؟`)) {
+                            deleteMutation.mutate({
+                              id: item.id,
+                            });
+                          }
                         }}
-                      />
+                        className="text-destructive hover:underline disabled:opacity-50"
+                      >
+                        {deleteMutation.isPending ? "..." : "Delete"}
+                      </button>
                     </div>
-                  ) : (
-                    <div
-                      style={{
-                        width: 50,
-                        height: 50,
-                        background: "#f0f0f0",
-                        borderRadius: 4,
-                      }}
-                    />
-                  )}
-                </td>
-
-                <td>{item.translations?.[0]?.title ?? "-"}</td>
-
-                <td>{item.slug}</td>
-
-                <td>{item.published ? "Yes" : "No"}</td>
-
-                <td>
-                  {item.publishedAt
-                    ? new Date(item.publishedAt).toLocaleDateString()
-                    : "-"}
-                </td>
-
-                <td>
-                  <Link href={`${basePath}/${item.id}`}>Edit</Link>
-
-                  {" | "}
-
-                  <button
-                    disabled={deleteMutation.isPending}
-                    onClick={() => {
-                      if (confirm(`حذف ${CONTENT_TYPE_LABEL[type]} ؟`)) {
-                        deleteMutation.mutate({
-                          id: item.id,
-                        });
-                      }
-                    }}
-                  >
-                    {deleteMutation.isPending ? "..." : "Delete"}
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={6}
-                style={{
-                  textAlign: "center",
-                  padding: 20,
-                }}
-              >
-                هیچ محتوایی یافت نشد
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-10">
+                  هیچ محتوایی یافت نشد
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
