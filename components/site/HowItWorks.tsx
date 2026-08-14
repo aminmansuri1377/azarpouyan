@@ -1,5 +1,6 @@
 import React from "react";
 import SectionTitle from "../ui/SectionTitle";
+import { GlassCard } from "../ui/GlassCard";
 import { cn } from "@/lib/cn";
 
 interface Step {
@@ -56,13 +57,14 @@ function HowItWorks() {
               >
                 <div className="hidden shrink-0 font-peyda-bold text-8xl text-white/80 md:block"></div>
 
-                <div
+                <GlassCard
+                  variant="dark"
+                  radius="lg"
+                  blur="md"
                   className={cn(
-                    "relative flex w-full items-center gap-4 overflow-hidden rounded-2xl p-6 text-right shadow-sm md:block md:max-w-[800px] md:rounded-3xl md:p-8",
-                    // موبایل: شیشه‌ی تیره
-                    "border border-white/10 bg-white/10 backdrop-blur-md",
-                    // دسکتاپ: کارت سفید توپر مثل قبل
-                    "md:border-0 md:bg-primary-foreground md:backdrop-blur-none",
+                    "flex w-full items-center gap-4 p-6 text-right shadow-sm md:block md:max-w-[800px] md:rounded-3xl md:p-8",
+                    // دسکتاپ: کارت سفید توپر مثل قبل (override می‌کنه روی استایل گلس)
+                    "md:border-0 md:bg-primary-foreground md:backdrop-blur-none md:shadow-lg",
                   )}
                 >
                   <div className="min-w-0 flex-1 md:mx-20 md:flex md:items-center">
@@ -83,9 +85,7 @@ function HowItWorks() {
                       </p>
                     </div>
                   </div>
-
-                  {/* عدد موبایل - سمت راست، سفید، هم‌ردیف با متن */}
-                </div>
+                </GlassCard>
               </div>
             ))}
           </div>

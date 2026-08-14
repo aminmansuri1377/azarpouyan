@@ -14,6 +14,7 @@ import { trpc } from "@/lib/trpc/client";
 import { getMessages } from "@/messages";
 
 import { Button, Form, FormField, Input } from "@/components/ui";
+import { GlassCard } from "../ui/GlassCard";
 
 export function ContactForm({ locale }: { locale: string }) {
   const router = useRouter();
@@ -63,7 +64,7 @@ export function ContactForm({ locale }: { locale: string }) {
       <div className="mx-auto max-w-[1100px] px-6 text-center">
         <div className="mt-16 grid gap-6 text-right md:grid-cols-2">
           {/* Consultation request form */}
-          <div className="order-2 rounded-[40px] bg-white/20 p-10 backdrop-blur-sm md:order-1">
+          <GlassCard variant="light" radius="xl" className="p-10">
             <h2 className="mb-8 text-center font-peyda-bold text-3xl text-white">
               {t.ConsultationRequestForm}
             </h2>
@@ -141,10 +142,10 @@ export function ContactForm({ locale }: { locale: string }) {
                 {mutation.isPending ? "در حال ارسال..." : "ثبت درخواست"}
               </Button>
             </Form>
-          </div>
+          </GlassCard>
 
           {/* Contact info */}
-          <div className="order-1 rounded-[40px] bg-white/20 p-10 backdrop-blur-sm md:order-2">
+          <GlassCard variant="light" radius="xl" className="p-10">
             <h2 className="mb-8 text-center font-peyda-bold text-3xl text-white">
               {t.contactInfo}
             </h2>
@@ -166,7 +167,7 @@ export function ContactForm({ locale }: { locale: string }) {
                 <span className="font-peyda-medium text-lg">INSTAGRAM.COM</span>
               </li>
             </ul>
-          </div>
+          </GlassCard>
         </div>
       </div>
     </section>
