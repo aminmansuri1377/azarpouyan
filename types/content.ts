@@ -2,23 +2,23 @@ import { z } from "zod";
 import type { ContentType } from "@prisma/client";
 
 export const contentTranslationSchema = z.object({
-  languageId: z.string().min(1, "Required"),
-  title: z.string().min(1, "Title is required"),
-  excerpt: z.string().optional(),
-  slug: z.string().min(1),
-  body: z.string().min(1, "Body is required"),
-  seoTitle: z.string().optional(),
-  seoDescription: z.string().optional(),
-  seoKeywords: z.string().optional(),
+  languageId: z.string().min(1),
+  title: z.string().min(1, "عنوان الزامی است"),
+  slug: z.string().min(1, "Slug الزامی است"),
+  excerpt: z.string().optional().default(""),
+  body: z.string().min(1, "محتوا الزامی است"),
+  seoTitle: z.string().optional().default(""),
+  seoDescription: z.string().optional().default(""),
+  seoKeywords: z.string().optional().default(""),
 });
 
 export const contentSchema = z.object({
-  slug: z.string().min(1, "Slug is required"),
-  coverImage: z.string().min(1, "Cover image is required"),
+  slug: z.string().min(1, "Slug اصلی الزامی است"),
+  coverImage: z.string().min(1, "تصویر کاور الزامی است"),
   images: z.array(z.string()).default([]),
   published: z.boolean(),
   publishedAt: z.string().nullable().optional(),
-  translations: z.array(contentTranslationSchema),
+  translations: z.array(contentTranslationSchema).min(1),
 });
 
 export type ContentFormValues = z.infer<typeof contentSchema>;

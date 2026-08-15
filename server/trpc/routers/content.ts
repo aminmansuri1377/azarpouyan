@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 import { ContentType } from "@prisma/client";
+import { sanitizeContentHtml } from "../../utils/sanitizeContent";
 
 const translationInput = z.object({
   languageId: z.string(),
@@ -40,7 +41,6 @@ export const contentRouter = router({
         },
       });
     }),
-
   create: publicProcedure
     .input(
       z.object({
@@ -55,13 +55,21 @@ export const contentRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { translations, publishedAt, ...rest } = input;
+      const { translations, publishedAt, published, ...rest } = input;
+
       return ctx.prisma.content.create({
         data: {
           ...rest,
-          publishedAt: publishedAt ? new Date(publishedAt) : null,
+
+          published,
+
+          publishedAt: published && publishedAt ? new Date(publishedAt) : null,
+
           translations: {
-            create: translations,
+            create: translations.map((translation) => ({
+              ...translation,
+              body: sanitizeContentHtml(translation.body),
+            })),
           },
         },
       });
@@ -81,13 +89,18 @@ export const contentRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, translations, publishedAt, ...rest } = input;
+      const { id, translations, publishedAt, published, ...rest } = input;
 
       await ctx.prisma.content.update({
-        where: { id },
+        where: {
+          id,
+        },
         data: {
           ...rest,
-          publishedAt: publishedAt ? new Date(publishedAt) : null,
+
+          published,
+
+          publishedAt: published && publishedAt ? new Date(publishedAt) : null,
         },
       });
 
@@ -99,18 +112,27 @@ export const contentRouter = router({
               languageId: translation.languageId,
             },
           },
+
           update: {
             title: translation.title,
             slug: translation.slug,
             excerpt: translation.excerpt,
-            body: translation.body,
+            body: sanitizeContentHtml(translation.body),
             seoTitle: translation.seoTitle,
             seoDescription: translation.seoDescription,
             seoKeywords: translation.seoKeywords,
           },
+
           create: {
             contentId: id,
-            ...translation,
+            languageId: translation.languageId,
+            title: translation.title,
+            slug: translation.slug,
+            excerpt: translation.excerpt,
+            body: sanitizeContentHtml(translation.body),
+            seoTitle: translation.seoTitle,
+            seoDescription: translation.seoDescription,
+            seoKeywords: translation.seoKeywords,
           },
         });
       }

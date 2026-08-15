@@ -145,11 +145,10 @@ export const publicRouter = router({
         },
       });
     }),
-
   getBlogs: publicProcedure
     .input(
       z.object({
-        locale: z.string(),
+        locale: z.string().min(1),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -157,6 +156,14 @@ export const publicRouter = router({
         where: {
           type: "BLOG",
           published: true,
+
+          translations: {
+            some: {
+              language: {
+                code: input.locale,
+              },
+            },
+          },
         },
 
         include: {
@@ -166,31 +173,48 @@ export const publicRouter = router({
                 code: input.locale,
               },
             },
+            include: {
+              language: true,
+            },
           },
         },
 
-        orderBy: {
-          publishedAt: "desc",
-        },
+        orderBy: [
+          {
+            publishedAt: "desc",
+          },
+          {
+            createdAt: "desc",
+          },
+        ],
       });
     }),
   getContentBySlug: publicProcedure
     .input(
       z.object({
-        locale: z.string(),
-        slug: z.string(),
+        locale: z.string().min(1),
+        slug: z.string().min(1),
       }),
     )
     .query(async ({ ctx, input }) => {
-      return ctx.prisma.contentTranslation.findFirst({
+      const decodedSlug = decodeURIComponent(input.slug);
+
+      console.log("getContentBySlug input:", {
+        locale: input.locale,
+        slug: input.slug,
+        decodedSlug,
+      });
+
+      const translation = await ctx.prisma.contentTranslation.findFirst({
         where: {
-          slug: input.slug,
+          slug: decodedSlug,
 
           language: {
             code: input.locale,
           },
 
           content: {
+            type: "BLOG",
             published: true,
           },
         },
@@ -200,6 +224,23 @@ export const publicRouter = router({
           language: true,
         },
       });
+
+      console.log("getContentBySlug result:", translation);
+
+      if (!translation) {
+        return null;
+      }
+
+      return {
+        content: translation.content,
+        title: translation.title,
+        slug: translation.slug,
+        excerpt: translation.excerpt,
+        body: translation.body,
+        seoTitle: translation.seoTitle,
+        seoDescription: translation.seoDescription,
+        seoKeywords: translation.seoKeywords,
+      };
     }),
   getCategoryTree: publicProcedure
     .input(

@@ -1,10 +1,14 @@
-import { UseFormRegister } from "react-hook-form";
+"use client";
+
+import { Control, Controller, UseFormRegister } from "react-hook-form";
 import { ContentFormValues } from "@/types/content";
+import { RichTextEditor } from "./RichTextEditor";
 
 interface Props {
   index: number;
   langCode: string;
   register: UseFormRegister<ContentFormValues>;
+  control: Control<ContentFormValues>;
   errors?: {
     title?: { message?: string };
     body?: { message?: string };
@@ -15,90 +19,104 @@ export function ContentTranslationFields({
   index,
   langCode,
   register,
+  control,
   errors,
 }: Props) {
   const prefix = `translations.${index}` as const;
 
   return (
-    <div style={{ border: "1px solid #ccc", padding: 16, marginBottom: 20 }}>
-      <h3>{langCode}</h3>
+    <div className="mb-6 rounded-xl border border-gray-300 bg-gray-50 p-5">
+      <h3 className="mb-5 text-lg font-bold">{langCode}</h3>
 
       <input type="hidden" {...register(`${prefix}.languageId`)} />
 
-      <div>
-        <span className="mx-4">عنوان : </span>
-        <input
-          placeholder="Title"
-          className="px-5 py-1 rounded-2xl border-2 border-primary"
-          {...register(`${prefix}.title`)}
-        />
-        <span className="mx-4">slug : </span>
+      <div className="mb-4">
+        <label className="mb-2 block">عنوان</label>
 
         <input
-          placeholder="Slug"
-          className="px-5 py-1 rounded-2xl border-2 border-primary"
-          {...register(`${prefix}.slug`)}
+          placeholder="عنوان مقاله"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2"
+          {...register(`${prefix}.title`)}
         />
 
         {errors?.title && (
-          <span style={{ color: "red", fontSize: 12 }}>
+          <span className="mt-1 block text-sm text-red-600">
             {errors.title.message}
           </span>
         )}
       </div>
-      <br />
 
-      <div className=" flex justify-end items-center">
-        <span className="mx-4">موضوع : </span>
+      <div className="mb-4">
+        <label className="mb-2 block">Slug</label>
+
+        <input
+          dir="ltr"
+          placeholder="article-slug"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2"
+          {...register(`${prefix}.slug`)}
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="mb-2 block">خلاصه مقاله</label>
 
         <textarea
-          className="px-5 py-1 rounded-2xl border-2 border-primary"
-          placeholder="Excerpt"
-          rows={2}
+          rows={3}
+          placeholder="خلاصه‌ای کوتاه از مقاله"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2"
           {...register(`${prefix}.excerpt`)}
         />
       </div>
-      <br />
 
-      <div className=" flex justify-end items-center">
-        <span className="mx-4">متن : </span>
-        <textarea
-          placeholder="Body"
-          className="px-5 py-1 rounded-2xl border-2 border-primary"
-          rows={6}
-          {...register(`${prefix}.body`)}
+      <div className="mb-4">
+        <label className="mb-2 block">محتوای مقاله</label>
+
+        <Controller
+          name={`${prefix}.body`}
+          control={control}
+          render={({ field }) => (
+            <RichTextEditor
+              value={field.value || ""}
+              onChange={field.onChange}
+            />
+          )}
         />
+
         {errors?.body && (
-          <span style={{ color: "red", fontSize: 12 }}>
+          <span className="mt-1 block text-sm text-red-600">
             {errors.body.message}
           </span>
         )}
       </div>
-      <br />
 
-      <span className="mx-4">SEO Title : </span>
-      <input
-        placeholder="SEO Title"
-        className="px-5 py-1 rounded-2xl border-2 border-primary"
-        {...register(`${prefix}.seoTitle`)}
-      />
-      <br />
-      <br />
-      <span className="mx-4">SEO Description : </span>
-      <textarea
-        placeholder="SEO Description"
-        className="px-5 py-1 rounded-2xl border-2 border-primary"
-        rows={2}
-        {...register(`${prefix}.seoDescription`)}
-      />
-      <br />
-      <br />
-      <span className="mx-4">SEO Keywords : </span>
-      <input
-        placeholder="SEO Keywords"
-        className="px-5 py-1 rounded-2xl border-2 border-primary"
-        {...register(`${prefix}.seoKeywords`)}
-      />
+      <details className="rounded-lg border bg-white p-4">
+        <summary className="cursor-pointer font-bold">تنظیمات SEO</summary>
+
+        <div className="mt-4">
+          <label className="mb-2 block">SEO Title</label>
+          <input
+            className="w-full rounded-lg border px-4 py-2"
+            {...register(`${prefix}.seoTitle`)}
+          />
+        </div>
+
+        <div className="mt-4">
+          <label className="mb-2 block">SEO Description</label>
+          <textarea
+            rows={3}
+            className="w-full rounded-lg border px-4 py-2"
+            {...register(`${prefix}.seoDescription`)}
+          />
+        </div>
+
+        <div className="mt-4">
+          <label className="mb-2 block">SEO Keywords</label>
+          <input
+            className="w-full rounded-lg border px-4 py-2"
+            {...register(`${prefix}.seoKeywords`)}
+          />
+        </div>
+      </details>
     </div>
   );
 }

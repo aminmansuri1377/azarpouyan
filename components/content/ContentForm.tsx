@@ -67,26 +67,35 @@ export function ContentForm({
   // create mode: initialize translations وقتی languages لود شد
   useEffect(() => {
     if (!languages.length) return;
+
     const merged = languages.map((lang) => {
       const existing = defaultValues?.translations?.find(
-        (t) => t.languageId === lang.id,
+        (translation) => translation.languageId === lang.id,
       );
+
       return existing ?? buildEmptyTranslation(lang.id);
     });
+
     replace(merged);
-  }, [languages]);
+  }, [languages, defaultValues, replace]);
 
   // edit mode: reset کامل فرم وقتی defaultValues آمد
   useEffect(() => {
     if (!defaultValues || !languages.length) return;
+
     const merged = languages.map((lang) => {
       const existing = defaultValues.translations?.find(
-        (t) => t.languageId === lang.id,
+        (translation) => translation.languageId === lang.id,
       );
+
       return existing ?? buildEmptyTranslation(lang.id);
     });
-    reset({ ...defaultValues, translations: merged });
-  }, [defaultValues, reset]);
+
+    reset({
+      ...defaultValues,
+      translations: merged,
+    });
+  }, [defaultValues, languages, reset]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 20 }}>
@@ -187,6 +196,7 @@ export function ContentForm({
               lang ? `${lang.name ?? ""} (${lang.code})` : field.languageId
             }
             register={register}
+            control={control}
             errors={tErrors}
           />
         );
