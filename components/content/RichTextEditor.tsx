@@ -92,7 +92,7 @@ export function RichTextEditor({
       }),
     ],
 
-    // بهتر است placeholder به‌عنوان محتوای واقعی ذخیره نشود
+    // placeholder را به عنوان محتوای واقعی ذخیره نمی‌کنیم
     content: value || "<p></p>",
 
     editorProps: {
@@ -103,22 +103,43 @@ export function RichTextEditor({
     },
 
     onUpdate({ editor }) {
-      onChange(editor.getHTML());
+      const html = editor.getHTML();
+
+      // مقدار جدید را به react-hook-form می‌فرستیم
+      onChange(html);
     },
   });
 
+  /**
+   * مقداردهی اولیه و هماهنگ‌کردن ادیتور با فرم
+   *
+   * نکته مهم:
+   * اگر value خالی شد، محتوای فعلی را پاک نمی‌کنیم.
+   * چون ممکن است react-hook-form هنگام رندر مجدد
+   * برای لحظه‌ای مقدار خالی ارسال کند.
+   */
   useEffect(() => {
     if (!editor) return;
 
+    // وقتی کاربر در حال تایپ است، محتوای ادیتور را overwrite نکن
+    if (editor.isFocused) {
+      return;
+    }
+
     const currentHtml = editor.getHTML();
 
-    if (value && value !== currentHtml) {
-      editor.commands.setContent(value, false);
+    // مقدار خالی موقت نباید باعث حذف محتوا شود
+    if (!value) {
+      return;
     }
 
-    if (!value && currentHtml !== "<p></p>") {
-      editor.commands.clearContent(false);
+    // اگر مقدار فعلی و فرم یکی هستند، کاری انجام نده
+    if (value === currentHtml) {
+      return;
     }
+
+    // فقط وقتی مقدار جدید از بیرون آمد، ادیتور را تغییر بده
+    editor.commands.setContent(value, false);
   }, [editor, value]);
 
   if (!editor) {
@@ -161,17 +182,12 @@ export function RichTextEditor({
       .run();
   };
 
-  /**
-   * آپلود تصویر و قرار دادن آن در محل فعلی cursor
-   */
   const uploadImage = async (file: File) => {
     setUploading(true);
     setUploadError(null);
 
     const controller = new AbortController();
 
-    // اگر API بیشتر از 60 ثانیه پاسخ نداد،
-    // درخواست را متوقف می‌کنیم تا در حالت آپلود باقی نماند.
     const timeoutId = window.setTimeout(() => {
       controller.abort();
     }, 60_000);
@@ -188,7 +204,10 @@ export function RichTextEditor({
         signal: controller.signal,
       });
 
-      let data: { url?: string; error?: string };
+      let data: {
+        url?: string;
+        error?: string;
+      };
 
       try {
         data = await response.json();
@@ -205,7 +224,7 @@ export function RichTextEditor({
       }
 
       /**
-       * تصویر در محل فعلی انتخاب یا cursor وارد می‌شود.
+       * تصویر دقیقاً در محل فعلی cursor قرار می‌گیرد.
        */
       editor
         .chain()
@@ -219,7 +238,7 @@ export function RichTextEditor({
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
         setUploadError(
-          "زمان آپلود تمام شد. لطفاً اتصال اینترنت و API آپلود را بررسی کنید.",
+          "زمان آپلود تمام شد. اتصال اینترنت یا API آپلود را بررسی کنید.",
         );
       } else {
         setUploadError(
@@ -248,7 +267,7 @@ export function RichTextEditor({
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-300 bg-white">
-      {/* نوار اصلی ابزار */}
+      {/* ابزارهای اصلی */}
       <div className="flex flex-wrap gap-2 border-b bg-gray-50 p-2" dir="rtl">
         <ToolbarButton
           onClick={() =>
@@ -388,7 +407,7 @@ export function RichTextEditor({
           className="flex flex-wrap gap-2 border-b bg-yellow-50 p-2"
           dir="rtl"
         >
-          <span className="flex items-center px-2 text-sm font-bold text-gray-700">
+          <span className="flex items-center px-2 text-sm font-bold">
             مدیریت جدول:
           </span>
 
@@ -458,7 +477,7 @@ export function RichTextEditor({
         </div>
       )}
 
-      {/* محتوای ویرایشگر */}
+      {/* محتوای ادیتور */}
       <div className="p-4">
         <EditorContent editor={editor} />
       </div>
