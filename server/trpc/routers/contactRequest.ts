@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, adminProcedure } from "../trpc";
 
 export const contactRequestRouter = router({
   create: publicProcedure
@@ -27,7 +27,7 @@ export const contactRequestRouter = router({
       }
     }),
 
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: adminProcedure.query(async ({ ctx }) => {
     try {
       return await ctx.prisma.contactRequest.findMany({
         orderBy: {
@@ -42,7 +42,7 @@ export const contactRequestRouter = router({
     }
   }),
 
-  getById: publicProcedure
+  getById: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -65,7 +65,7 @@ export const contactRequestRouter = router({
       return item;
     }),
 
-  markAsRead: publicProcedure
+  markAsRead: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -89,7 +89,7 @@ export const contactRequestRouter = router({
       }
     }),
 
-  delete: publicProcedure
+  delete: adminProcedure
     .input(
       z.object({
         id: z.string(),

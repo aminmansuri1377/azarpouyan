@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure } from "../init";
+import { router, publicProcedure, adminProcedure } from "../init";
 
 import {
   createLanguageSchema,
@@ -16,7 +16,7 @@ export const languageRouter = router({
     });
   }),
 
-  create: publicProcedure
+  create: adminProcedure
     .input(createLanguageSchema)
     .mutation(async ({ ctx, input }) => {
       try {
@@ -40,7 +40,7 @@ export const languageRouter = router({
       }
     }),
 
-  update: publicProcedure
+  update: adminProcedure
     .input(updateLanguageSchema)
     .mutation(async ({ ctx, input }) => {
       try {
@@ -69,7 +69,7 @@ export const languageRouter = router({
       }
     }),
 
-  delete: publicProcedure
+  delete: adminProcedure
     .input(deleteLanguageSchema)
     .mutation(async ({ ctx, input }) => {
       try {

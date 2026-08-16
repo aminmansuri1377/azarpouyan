@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure } from "../init";
+import { router, publicProcedure, adminProcedure } from "../init";
 
 // تبدیل لیست flat به درخت تو در تو
 function buildTree(flat: any[], parentId: string | null = null): any[] {
@@ -95,7 +95,7 @@ export const categoryRouter = router({
       return path;
     }),
 
-  create: publicProcedure
+  create: adminProcedure
     .input(
       z.object({
         parentId: z.string().nullable().optional(),
@@ -128,7 +128,7 @@ export const categoryRouter = router({
       });
     }),
 
-  update: publicProcedure
+  update: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -190,7 +190,7 @@ export const categoryRouter = router({
       return true;
     }),
 
-  delete: publicProcedure
+  delete: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       try {

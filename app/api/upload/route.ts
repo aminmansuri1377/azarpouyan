@@ -4,6 +4,7 @@ import { Upload } from "@aws-sdk/lib-storage";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { randomUUID } from "crypto";
 import { s3Client, S3_BUCKET } from "@/lib/s3";
+import { getAdminSession } from "@/lib/auth/get-admin-session";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
@@ -16,6 +17,11 @@ function sanitizeFileName(name: string) {
 }
 
 export async function POST(req: NextRequest) {
+  const isAdmin = await getAdminSession();
+  if (!isAdmin) {
+    return NextResponse.json({ error: "غیرمجاز" }, { status: 401 });
+  }
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
@@ -68,6 +74,10 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  const isAdmin = await getAdminSession();
+  if (!isAdmin) {
+    return NextResponse.json({ error: "غیرمجاز" }, { status: 401 });
+  }
   try {
     const { key } = await req.json();
     if (!key) {

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, adminProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 const translationInput = z.object({
   languageId: z.string(),
@@ -32,7 +32,7 @@ export const priceTickerRouter = router({
       });
     }),
 
-  create: publicProcedure
+  create: adminProcedure
     .input(
       z.object({
         active: z.boolean(),
@@ -62,7 +62,7 @@ export const priceTickerRouter = router({
         });
       }
     }),
-  update: publicProcedure
+  update: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -127,7 +127,7 @@ export const priceTickerRouter = router({
       }
     }),
 
-  delete: publicProcedure
+  delete: adminProcedure
     .input(
       z.object({
         id: z.string(),

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, adminProcedure } from "../trpc";
 import { ContentType } from "@prisma/client";
 import { sanitizeContentHtml } from "../../utils/sanitizeContent";
 
@@ -41,7 +41,7 @@ export const contentRouter = router({
         },
       });
     }),
-  create: publicProcedure
+  create: adminProcedure
     .input(
       z.object({
         slug: z.string(),
@@ -75,7 +75,7 @@ export const contentRouter = router({
       });
     }),
 
-  update: publicProcedure
+  update: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -140,7 +140,7 @@ export const contentRouter = router({
       return true;
     }),
 
-  delete: publicProcedure
+  delete: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       await ctx.prisma.content.delete({ where: { id: input.id } });

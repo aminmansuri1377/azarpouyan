@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, adminProcedure } from "../trpc";
 import { collectIdsInSubtree } from "@/lib/category-tree";
 
 const translationInput = z.object({
@@ -125,7 +125,7 @@ export const productRouter = router({
       });
     }),
 
-  create: publicProcedure
+  create: adminProcedure
     .input(
       z.object({
         slug: z.string(),
@@ -156,7 +156,7 @@ export const productRouter = router({
       }
     }),
 
-  update: publicProcedure
+  update: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -209,7 +209,7 @@ export const productRouter = router({
         });
       }
     }),
-  delete: publicProcedure
+  delete: adminProcedure
     .input(
       z.object({
         id: z.string(),
