@@ -55,7 +55,7 @@ export function Header({ locale, messages }: Props) {
           : "border-transparent bg-[rgba(var(--secondary-foreground-rgb),0.55)]",
       )}
     >
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 lg:py-10">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         {/* Navigation - دسکتاپ */}
         <nav className="hidden items-center gap-8 md:flex">
           <Button onClick={() => router.push(`/${locale}/contact`)}>
@@ -98,7 +98,7 @@ export function Header({ locale, messages }: Props) {
           </svg>
         </button>
 
-        <Image src={Logo} alt="Logo" />
+        <Image src={Logo} alt="Logo" width={80} />
       </div>
 
       {/* بک‌دراپ موبایل */}

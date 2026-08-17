@@ -88,31 +88,31 @@ export default function BlogSinglePage() {
   }
 
   return (
-    <main dir="rtl" className="mx-auto max-w-5xl px-4 py-10 text-right">
+    <main dir="rtl" className="w-full text-right">
       {data.content.coverImage && (
-        <div className="relative mb-8 h-[280px] w-full overflow-hidden rounded-2xl sm:h-[400px] md:h-[500px]">
+        <div className="relative mb-8 h-[280px] w-full overflow-hidden md:h-[500px]">
           <Image
             src={data.content.coverImage}
             alt={data.title}
             fill
             priority
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 1200px"
+            className="h-auto w-full object-cover md:object-center"
           />
         </div>
       )}
+      <div className="mx-auto px-5 py-20 md:px-20">
+        <h1 className="mb-6 font-peyda-bold text-3xl leading-[1.7] md:text-4xl">
+          {data.title}
+        </h1>
 
-      <h1 className="mb-6 font-peyda-bold text-3xl leading-[1.7] md:text-4xl">
-        {data.title}
-      </h1>
+        {data.excerpt && (
+          <p className="mb-10 rounded-xl bg-gray-50 p-5 font-peyda-regular text-lg leading-[2] text-gray-600">
+            {data.excerpt}
+          </p>
+        )}
 
-      {data.excerpt && (
-        <p className="mb-10 rounded-xl bg-gray-50 p-5 font-peyda-regular text-lg leading-[2] text-gray-600">
-          {data.excerpt}
-        </p>
-      )}
-
-      <ArticleContent html={data.body || "<p></p>"} />
+        <ArticleContent html={data.body || "<p></p>"} />
+      </div>
     </main>
   );
 }
