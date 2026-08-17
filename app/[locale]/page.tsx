@@ -3,11 +3,9 @@
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-
 import { useParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
-
 import { PublicCategoryTree } from "@/components/public/PublicCategoryTree";
 
 import { Hero } from "@/components/site/Hero";
@@ -25,7 +23,8 @@ import Collaboration from "@/components/site/Collaboration";
 import HowItWorks from "@/components/site/HowItWorks";
 import WhyKga from "@/components/site/WhyKga";
 import LatestArticles from "@/components/site/LatestArticles";
-import SectionTitle from "@/components/ui/SectionTitle";
+import StickySection from "../../components/ui/StickySection";
+
 const Services = [
   {
     id: 1,
@@ -49,13 +48,12 @@ const Services = [
       "ما یک شرکت بازرگانی بین‌المللی هستیم که تأمین کالاهای صنعتی و دسترسی به داده‌های لحظه‌ای بازار جهانی را در کنار هم ارائه می‌دهیم. هدف ما ساده‌تر کردن فرآیند خرید، تأمین و تصمیم‌گیری در تجارت جهانی است.",
   },
 ];
+
 export default function HomePage() {
   const params = useParams();
-
   const locale = params.locale as string;
 
   const [search, setSearch] = useState("");
-
   const [page, setPage] = useState(1);
 
   const debouncedSearch = useDebounce(search, 500);
@@ -66,82 +64,78 @@ export default function HomePage() {
     setPage(1);
   }, [debouncedSearch]);
 
-  const { data: categories } = trpc.public.getCategoryTree.useQuery({
-    locale,
-  });
+  const { data: categories } = trpc.public.getCategoryTree.useQuery({ locale });
 
   const shouldSearch = debouncedSearch.trim().length > 0;
 
   const { data: products, isFetching } = trpc.public.searchProducts.useQuery(
     {
       locale,
-
       search: debouncedSearch,
-
       page,
-
       limit: 12,
     },
-    {
-      enabled: shouldSearch,
-    },
+    { enabled: shouldSearch },
   );
 
   return (
     <div>
       <Hero locale={locale} />
 
-      {/* <hr /> */}
       <OurStory locale={locale} />
       <Collaboration locale={locale} />
-      <div>
-        <SectionTitle>WHAT WE DO</SectionTitle>
 
-        <h1 className="text-2xl font-peyda-bold mb-4 mx-auto text-center mt-10">
-          {t.baseServices}
-        </h1>
-        <h2 className=" font-peyda-regular md:text-center mb-10 md:w-[50%] md:mx-auto mx-5 text-justify">
-          {t.hero.description}
-        </h2>
-      </div>
-      <div>
-        {Services?.map((s) => (
-          <div key={s.id}>
-            <ServiceBanner
-              image={s.image}
-              title={s.title}
-              description={s.description}
-              primaryButton={t.hero.seeServices}
-              secondaryButton={t.hero.receiveConsulting}
-            />
-          </div>
-        ))}
-      </div>
+      {/* ===== بخش ۱ : WHAT WE DO ===== */}
+      <StickySection title="WHAT WE DO">
+        <div>
+          <h1 className="mx-auto mb-4 mt-10 text-center font-peyda-bold text-2xl">
+            {t.baseServices}
+          </h1>
+          <h2 className="mx-5 mb-10 text-justify font-peyda-regular md:mx-auto md:w-[50%] md:text-center">
+            {t.hero.description}
+          </h2>
+        </div>
 
-      <HowItWorks />
-      <WhyKga locale={locale} />
-      <LatestArticles locale={locale} />
+        <div>
+          {Services?.map((s) => (
+            <div key={s.id}>
+              <ServiceBanner
+                image={s.image}
+                title={s.title}
+                description={s.description}
+                primaryButton={t.hero.seeServices}
+                secondaryButton={t.hero.receiveConsulting}
+              />
+            </div>
+          ))}
+        </div>
+      </StickySection>
+
+      {/* ===== بخش ۲ : HOW IT WORKS ===== */}
+      <StickySection title="HOW IT WORKS" dir="rtl">
+        <HowItWorks />
+      </StickySection>
+
+      {/* ===== بخش ۳ : WHY CHOOSE US ===== */}
+      <StickySection title="WHY CHOOSE US ?">
+        <WhyKga locale={locale} />
+      </StickySection>
+
+      {/* ===== بخش ۴ : ARTICLES ===== */}
+      <StickySection title="ARTICLES" dir="rtl">
+        <LatestArticles locale={locale} />
+      </StickySection>
+
+      {/* ===== جستجوی محصولات (بدون تیتر چسبان) ===== */}
       <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
       </div>
+
       {shouldSearch ? (
         <>
-          {isFetching && (
-            <div
-              style={{
-                marginBottom: 10,
-              }}
-            >
-              Searching...
-            </div>
-          )}
+          {isFetching && <div className="mb-3">Searching...</div>}
 
-          <div
-            style={{
-              marginBottom: 15,
-              fontWeight: 600,
-            }}
-          >
+          <div className="mb-4 font-semibold">
             Total Results: {products?.total ?? 0}
           </div>
 
@@ -149,16 +143,10 @@ export default function HomePage() {
             <div>No Products Found</div>
           ) : (
             products?.items.map((product) => {
-              const t = product.translations[0];
-
+              const tr = product.translations[0];
               return (
-                <div
-                  key={product.id}
-                  style={{
-                    marginBottom: 10,
-                  }}
-                >
-                  <Link href={`/${locale}/products/${t.slug}`}>{t.name}</Link>
+                <div key={product.id} className="mb-3">
+                  <Link href={`/${locale}/products/${tr.slug}`}>{tr.name}</Link>
                 </div>
               );
             })

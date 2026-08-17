@@ -3,19 +3,15 @@ import { Footer } from "@/components/site/Footer";
 import { LocaleDirSync } from "@/components/ui/theme/locale-dir-sync";
 
 import { getMessages } from "@/messages";
-import { BackgroundGlows } from "@/components/site/BackgroundGlows";
 
 export default async function SiteLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{
-    locale: string;
-  }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
   const messages = getMessages(locale);
 
   return (
@@ -24,9 +20,10 @@ export default async function SiteLayout({
 
       <Header locale={locale} messages={messages} />
 
-      <main className="relative flex-1 bg-background overflow-x-hidden min-h-screen">
+      <main className="relative flex-1 min-h-screen bg-background [overflow-x:clip]">
         <div className="relative z-10">{children}</div>
       </main>
+
       <Footer messages={messages} locale={locale} />
     </>
   );

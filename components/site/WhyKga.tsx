@@ -1,7 +1,6 @@
 import { getMessages } from "@/messages";
 import React from "react";
-import { id } from "zod/v4/locales";
-import SectionTitle from "../ui/SectionTitle";
+
 const VALUES = [
   {
     id: 1,
@@ -22,29 +21,29 @@ const VALUES = [
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است",
   },
 ];
+
 function WhyKga({ locale }: { locale: string }) {
   const t = getMessages(locale);
 
   return (
-    <div>
-      <SectionTitle>? WHY CHOOS US</SectionTitle>
-
-      <h1 className=" text-center font-peyda-bold my-5 mx-auto lg:text-2xl">
+    <div className="pb-16">
+      <h1 className="mx-auto my-5 text-center font-peyda-bold lg:text-2xl">
         {t.whyKgaTitle}
       </h1>
-      <p className="text-center font-peyda-regular md:w-[50%] md:mx-auto mx-5">
+      <p className="mx-5 text-center font-peyda-regular md:mx-auto md:w-[50%]">
         {t.whyKgaDescription}
       </p>
-      <div className="md:mx-auto mx-5 mt-12 grid max-w-[1000px] gap-6 md:grid-cols-3">
+
+      <div className="mx-5 mt-12 grid max-w-[1000px] gap-6 md:mx-auto md:grid-cols-3">
         {VALUES.map((value) => (
           <div
             key={value.id}
-            className="rounded-2xl border border-primary px-8 md:py-10 py-5 md:text-center"
+            className="rounded-2xl border border-primary px-8 py-5 md:py-10 md:text-center"
           >
-            <h3 className="mb-4 font-peyda-semibold text-2xl text-foreground font-peyda-medium">
+            <h3 className="mb-4 font-peyda-medium text-2xl text-foreground">
               {value.title}
             </h3>
-            <p className=" text-sm md:leading-[2] text-foreground font-peyda-thin">
+            <p className="font-peyda-thin text-sm text-foreground md:leading-[2]">
               {value.description}
             </p>
           </div>
