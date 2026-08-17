@@ -140,7 +140,7 @@ export default function HomePage() {
           </div>
 
           {products?.items.length === 0 ? (
-            <div>No Products Found</div>
+            <div>No Products Found/</div>
           ) : (
             products?.items.map((product) => {
               const tr = product.translations[0];
