@@ -9,7 +9,7 @@ const SectionTitle = ({ children, sticky = true, className }) => {
       className={cn(
         "flex w-full items-center gap-4",
         sticky
-          ? "sticky top-14 lg:top-24 z-30 bg-background/85 backdrop-blur-md py-4 md:py-6 transition-shadow duration-300"
+          ? "sticky top-14 lg:top-20 z-30 bg-background/85 backdrop-blur-md py-4 md:py-6 transition-shadow duration-300"
           : "md:my-20 my-5",
         className,
       )}

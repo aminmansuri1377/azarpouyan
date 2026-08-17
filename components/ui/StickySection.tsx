@@ -13,13 +13,6 @@ interface StickySectionProps {
   dir?: "rtl" | "ltr";
 }
 
-/**
- * هر بخش صفحه را داخل این کامپوننت بگذار.
- * راز افکت: هر <section> یک «کانتینر چسبندگی» است؛
- * تیتر داخل آن فقط تا انتهای همان section می‌چسبد و
- * وقتی section بعدی بالا می‌آید، تیتر قبلی را به بیرون هل می‌دهد
- * و تیتر جدید جایش می‌نشیند. صد در صد CSS، بدون جاوااسکریپت.
- */
 export function StickySection({
   title,
   children,
@@ -30,7 +23,9 @@ export function StickySection({
 }: StickySectionProps) {
   return (
     <section id={id} dir={dir} className={cn("relative", className)}>
-      <SectionTitle sticky={sticky}>{title}</SectionTitle>
+      <SectionTitle sticky={sticky} className={""}>
+        {title}
+      </SectionTitle>
       <div className="relative z-10">{children}</div>
     </section>
   );
