@@ -24,31 +24,41 @@ export function ServiceBanner({
   return (
     <section
       className={cn(
-        "relative overflow-hidden md:rounded-3xl rounded-2xl h-[60vh] md:h-[55vh] lg:mx-40 md:pb-20 mx-5 my-8",
+        "relative mx-5 my-8 h-[60vh] overflow-hidden rounded-2xl md:h-[55vh] md:rounded-3xl md:pb-20 lg:mx-40",
         className,
       )}
     >
       {/* Background */}
       <Image src={image} alt={title} fill priority className="object-cover" />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-l from-slate-950/80 via-slate-900/55 to-transparent" />
+      {/* Mobile: bottom gradient / Desktop: original gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/55 to-transparent md:bg-gradient-to-l md:from-slate-950/80" />
 
       {/* Content */}
-      <div className="relative z-10 flex h-full max-w-xl flex-col justify-center gap-5 md:px-10 px-5 text-white">
-        <h2 className="font-peyda-bold md:text-3xl text-2xl">{title}</h2>
+      <div
+        className="
+          relative z-10 flex h-full max-w-xl flex-col
+          justify-end gap-5 px-5 pb-8 text-white
+          md:justify-center md:px-10 md:pb-0
+        "
+      >
+        <h2 className="font-peyda-bold text-2xl md:text-3xl">{title}</h2>
 
-        <p className="font-peyda-regular md:leading-8 text-white/80">
+        <p className="font-peyda-regular text-white/80 md:leading-8">
           {description}
         </p>
 
-        <div className="flex text-center items-center md:gap-4 gap-2 md:mt-10">
-          <Button size="lg" className="md:px-10 px-5">
+        <div className="flex w-full items-center gap-2 text-center md:mt-10 md:gap-4">
+          <Button size="lg" className="flex-1 px-5 md:flex-none md:px-10">
             {primaryButton}
           </Button>
 
           {secondaryButton && (
-            <Button size="lg" variant="secondary" className="md:px-10 px-5">
+            <Button
+              size="lg"
+              variant="secondary"
+              className="flex-1 px-5 md:flex-none md:px-10"
+            >
               {secondaryButton}
             </Button>
           )}
