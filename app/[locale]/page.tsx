@@ -24,6 +24,7 @@ import HowItWorks from "@/components/site/HowItWorks";
 import WhyKga from "@/components/site/WhyKga";
 import LatestArticles from "@/components/site/LatestArticles";
 import StickySection from "../../components/ui/StickySection";
+import ProjectsSection from "@/components/site/ProjectsSection";
 
 const Services = [
   {
@@ -83,7 +84,8 @@ export default function HomePage() {
       <Hero locale={locale} />
 
       <OurStory locale={locale} />
-      <Collaboration locale={locale} />
+      {/* <Collaboration locale={locale} /> */}
+      <ProjectsSection />
 
       {/* ===== بخش ۱ : WHAT WE DO ===== */}
       <StickySection title="WHAT WE DO">
