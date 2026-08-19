@@ -102,7 +102,7 @@ const cards = [
 
 export default function WhyUsSection() {
   return (
-    <section className="relative bg-gray-50 py-20 px-6 md:px-12 lg:px-20 overflow-hidden font-peyda-medium">
+    <section className="relative py-20 px-6 md:px-12 lg:px-20 overflow-hidden font-peyda-medium">
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
@@ -131,7 +131,7 @@ export default function WhyUsSection() {
           <QuestionMark position="right" className="hidden lg:block" />
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:mx-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:mx-12">
             {cards.map((card, index) => (
               <WhyUsCard
                 key={index}
