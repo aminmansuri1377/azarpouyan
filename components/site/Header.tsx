@@ -103,7 +103,7 @@ export function Header({ locale, messages, whiteText }: Props) {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-sm transition-colors font-peyda-regular",
+                  "text-bold transition-colors font-peyda-regular",
                   isActive
                     ? "text-primary"
                     : whiteText
