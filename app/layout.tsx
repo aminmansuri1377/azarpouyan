@@ -10,8 +10,8 @@ import {
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "kgacommerece",
-  description: "kgacommerece admin & storefront",
+  title: "azar-pouyan",
+  description: "azar-pouyan admin & storefront",
 };
 
 export default function RootLayout({
