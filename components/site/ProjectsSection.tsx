@@ -2,6 +2,7 @@
 import ProjectCard from "./ProjectCard";
 import DotPattern from "./DotPattern";
 import SectionBorderTitle from "./SectionBorderTitle";
+import { Button } from "../ui";
 // import Img1 from "../../public/images/project1.png";
 // import Img12 from "../../public/images/project2.png";
 interface Project {
@@ -103,14 +104,11 @@ export default function ProjectsSection() {
         </div>
 
         {/* More Projects Button */}
-        {/* <div className="flex justify-center mt-14">
-          <button
-            className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium px-10 py-3 rounded-sm transition-colors duration-300"
-            dir="rtl"
-          >
+        <div className="text-right mt-14">
+          <Button className=" transition-colors duration-300" dir="rtl">
             پروژه های بیشتر
-          </button>
-        </div> */}
+          </Button>
+        </div>
       </div>
     </section>
   );
