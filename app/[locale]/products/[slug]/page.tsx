@@ -3,9 +3,10 @@
 import { useParams } from "next/navigation";
 
 import { trpc } from "@/lib/trpc/client";
+import { useDecodedParams } from "@/hooks/useDecodedParam";
 
 export default function ProductPage() {
-  const params = useParams();
+  const params = useDecodedParams<{ locale: string; slug: string }>();
 
   const locale = params.locale as string;
   const slug = params.slug as string;

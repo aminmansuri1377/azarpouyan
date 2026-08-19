@@ -98,7 +98,12 @@ export function Header({ locale, messages }: Props) {
           </svg>
         </button>
 
-        <Image src={Logo} alt="Logo" width={80} />
+        <Image
+          src={Logo}
+          alt="Logo"
+          width={80}
+          onClick={() => router.push(`/${locale}`)}
+        />
       </div>
 
       {/* بک‌دراپ موبایل */}

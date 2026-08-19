@@ -117,7 +117,7 @@ export default function HomePage() {
       </StickySection>
 
       {/* ===== بخش ۳ : WHY CHOOSE US ===== */}
-      <StickySection title="WHY CHOOSE US ?">
+      <StickySection title="? WHY CHOOSE US">
         <WhyKga locale={locale} />
       </StickySection>
 

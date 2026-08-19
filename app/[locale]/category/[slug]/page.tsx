@@ -14,9 +14,10 @@ import { Pagination } from "@/components/site/Pagination";
 
 import { useDebounce } from "@/hooks/useDebounce";
 import toast from "react-hot-toast";
+import { useDecodedParams } from "@/hooks/useDecodedParam";
 
 export default function CategoryPage() {
-  const params = useParams();
+  const params = useDecodedParams<{ locale: string; slug: string }>();
 
   const locale = params.locale as string;
 
@@ -55,7 +56,7 @@ export default function CategoryPage() {
   }
 
   return (
-    <div style={{ padding: 30 }}>
+    <div className="m-40">
       <h1>{data.category.name}</h1>
 
       <hr />
