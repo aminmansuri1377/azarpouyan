@@ -8,7 +8,8 @@ const en = {
   categories: "Categories",
 
   blogs: "Blog",
-
+  articles: "Articles",
+  workExamples: "Work Examples",
   news: "News",
   home: "Home",
   products: "Products",

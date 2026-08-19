@@ -19,7 +19,7 @@ export function Hero({ locale, users = 245 }: HeroProps) {
     <section className="relative isolate flex min-h-[85vh] w-full items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
-        src="/images/hero.jpg"
+        src="/images/hero.png"
         alt="Hero background"
         fill
         priority
@@ -33,12 +33,12 @@ export function Hero({ locale, users = 245 }: HeroProps) {
 
       {/* Content */}
       <div className="relative z-10 flex max-w-4xl flex-col items-center gap-4 px-6 text-center text-white">
-        <h1
-          className="hero-reveal md:text-5xl text-2xl font-peyda-bold font-bold tracking-tight mb-5 mt-10"
+        <p
+          className="hero-reveal md:text-4xl md:w-[70%] text-2xl font-peyda-bold font-bold tracking-tight mb-5 mt-10 leading-14"
           style={{ animationDelay: "1s" }}
         >
           {t.tagline}
-        </h1>
+        </p>
 
         <div className="relative w-full max-w-[633px] md:mx-auto text-justify flex flex-col items-center justify-center gap-4 my-5 md:flex-row md:gap-0">
           {/* خط بالای متن - فقط موبایل */}
@@ -48,10 +48,10 @@ export function Hero({ locale, users = 245 }: HeroProps) {
           />
 
           {/* Left horizontal line - فقط دسکتاپ */}
-          <div
+          {/* <div
             className="hidden lg:block absolute right-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
             aria-hidden="true"
-          />
+          /> */}
 
           <p
             className="hero-reveal text-sm font-peyda-regular font-medium text-popover text-center mx-8 md:mx-0"
@@ -61,10 +61,10 @@ export function Hero({ locale, users = 245 }: HeroProps) {
           </p>
 
           {/* Right horizontal line - فقط دسکتاپ */}
-          <div
+          {/* <div
             className="hidden lg:block absolute left-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
             aria-hidden="true"
-          />
+          /> */}
 
           {/* خط پایین متن - فقط موبایل */}
           <div
@@ -83,12 +83,12 @@ export function Hero({ locale, users = 245 }: HeroProps) {
           >
             {t.receiveConsulting}
           </Button>
-          <Button
+          {/* <Button
             className="hidden px-14 mt-4 md:mt-0 md:inline-flex"
             variant="secondary"
           >
             {t.seeServices}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </section>
