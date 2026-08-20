@@ -21,7 +21,7 @@ export default function ProjectCard({
       className={`group relative bg-white rounded-sm overflow-hidden shadow-sm ${className}`}
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/3] overflow-hidden">
+      <div className="relative w-full aspect-[1.5] overflow-hidden">
         <Image
           src={imageSrc}
           alt={imageAlt}
