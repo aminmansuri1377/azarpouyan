@@ -11,22 +11,18 @@ import {
 } from "@/types/contactRequest";
 
 import { trpc } from "@/lib/trpc/client";
-import { getMessages } from "@/messages";
+import { Button } from "../ui";
 
-import { Button, Form, FormField, Input } from "@/components/ui";
-import { GlassCard } from "../ui/GlassCard";
-
-export function ContactForm({ locale }: { locale: string }) {
+export function ContactForm() {
   const router = useRouter();
-  const t = getMessages(locale);
 
   const mutation = trpc.contactRequest.create.useMutation({
     onSuccess() {
-      toast.success(t.notif.contactMessageSentSuccessfully);
+      toast.success("پیام با موفقیت ارسال شد.");
       router.refresh();
     },
     onError(error) {
-      toast.error(error.message || t.notif.contactMessageSendFailed);
+      toast.error(error.message);
     },
   });
 
@@ -58,117 +54,189 @@ export function ContactForm({ locale }: { locale: string }) {
   };
 
   return (
-    <section className="relative isolate overflow-hidden py-24">
-      {/* Background image + dark overlay — replace the url() with your asset */}
-
-      <div className="mx-auto max-w-[1100px] px-6 text-center">
-        <div className="mt-16 grid gap-6 text-right md:grid-cols-2">
-          {/* Consultation request form */}
-          <GlassCard variant="light" radius="xl" className="p-10">
-            <h2 className="mb-8 text-center font-peyda-bold text-3xl text-white">
-              {t.ConsultationRequestForm}
-            </h2>
-
-            <Form
-              form={form}
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-5"
-            >
-              {Object.keys(errors).length > 0 && (
-                <div className="rounded-2xl border border-red-300 bg-red-50/90 p-3 text-sm text-red-600">
-                  {t.notif.contactMessageSendFailed}
-                </div>
-              )}
-
-              <FormField htmlFor="fullName" error={errors.fullName?.message}>
-                <Input
-                  id="fullName"
-                  variant="glass"
-                  placeholder={t.nameandSurname}
-                  error={!!errors.fullName}
-                  {...register("fullName")}
-                />
-              </FormField>
-
-              <FormField htmlFor="phone" error={errors.phone?.message}>
-                <Input
-                  id="phone"
-                  variant="glass"
-                  placeholder={t.phoneNumber}
-                  error={!!errors.phone}
-                  {...register("phone")}
-                />
-              </FormField>
-
-              <FormField htmlFor="email" error={errors.email?.message}>
-                <Input
-                  id="email"
-                  type="email"
-                  variant="glass"
-                  placeholder={t.email}
-                  error={!!errors.email}
-                  {...register("email")}
-                />
-              </FormField>
-
-              <FormField
-                htmlFor="companyName"
-                error={errors.companyName?.message}
-              >
-                <Input
-                  id="companyName"
-                  variant="glass"
-                  placeholder={t.companyName}
-                  error={!!errors.companyName}
-                  {...register("companyName")}
-                />
-              </FormField>
-
-              <FormField htmlFor="message" error={errors.message?.message}>
-                <Input
-                  id="message"
-                  variant="glass"
-                  placeholder={t.message}
-                  error={!!errors.message}
-                  {...register("message")}
-                />
-              </FormField>
-
-              <Button
-                type="submit"
-                disabled={mutation.isPending}
-                className="w-full rounded-2xl bg-[#D7A53A] py-3 font-peyda-regular text-white hover:bg-[#c4952f]"
-              >
-                {mutation.isPending ? "در حال ارسال..." : "ثبت درخواست"}
-              </Button>
-            </Form>
-          </GlassCard>
-
-          {/* Contact info */}
-          <GlassCard variant="light" radius="xl" className="p-10">
-            <h2 className="mb-8 text-center font-peyda-bold text-3xl text-white">
-              {t.contactInfo}
-            </h2>
-
-            <ul className="space-y-8">
-              <li className="flex items-center justify-center gap-4 text-white">
-                <span className="font-peyda-medium text-lg">0912-1234-123</span>
-              </li>
-              <li className="flex items-center justify-center gap-4 text-white">
-                <span className="font-peyda-medium text-lg">0912-1234-123</span>
-              </li>
-              <li className="flex items-center justify-center gap-4 text-white">
-                <span className="font-peyda-medium text-lg">@INFO . KIAN</span>
-              </li>
-              <li className="flex items-center justify-center gap-4 text-white">
-                <span className="font-peyda-medium text-lg">WWW.SITE.COM</span>
-              </li>
-              <li className="flex items-center justify-center gap-4 text-white">
-                <span className="font-peyda-medium text-lg">INSTAGRAM.COM</span>
-              </li>
-            </ul>
-          </GlassCard>
+    <section className="py-16 px-4 font-peyda-medium">
+      <div
+        className="max-w-5xl mx-auto rounded-3xl p-10 md:px-14"
+        style={{
+          background: "linear-gradient(to left, #C8A24A, #F6DEA3)",
+        }}
+      >
+        {/* عنوان */}
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+            {"تماس با ما"}
+          </h2>
+          <p className="text-gray-800 text-lg">
+            {"شما می‌توانید در این قسمت ما با در تماس باشید"}
+          </p>
         </div>
+
+        {/* فرم */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* پیام خطا */}
+          {Object.keys(errors).length > 0 && (
+            <div className="rounded-xl border border-red-300 bg-red-50/90 p-3 text-sm text-red-600 text-center">
+              {"ارسال پیام با شکست مواجه شد."}
+            </div>
+          )}
+
+          {/* ردیف نام و ایمیل */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* نام و نام خانوادگی */}
+            <div>
+              <label
+                htmlFor="fullName"
+                className="block text-right text-gray-800 font-medium mb-2"
+              >
+                {"نام و نام خانوادگی :"}
+              </label>
+              <input
+                id="fullName"
+                type="text"
+                placeholder={"نام خود را وارد کنید"}
+                className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
+                  errors.fullName ? "border-red-400" : "border-[#D4B96A]"
+                }`}
+                {...register("fullName")}
+              />
+              {errors.fullName && (
+                <p className="text-red-600 text-sm mt-1 text-right">
+                  {errors.fullName.message}
+                </p>
+              )}
+            </div>
+
+            {/* ایمیل */}
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-right text-gray-800 font-medium mb-2"
+              >
+                {"ایمیل :"}
+              </label>
+              <input
+                id="email"
+                type="email"
+                dir="ltr"
+                placeholder="example@email.com"
+                className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 text-right focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
+                  errors.email ? "border-red-400" : "border-[#D4B96A]"
+                }`}
+                {...register("email")}
+              />
+              {errors.email && (
+                <p className="text-red-600 text-sm mt-1 text-right">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* ردیف شرکت و تلفن */}
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                htmlFor="companyName"
+                className="block text-right text-gray-800 font-medium mb-2"
+              >
+                {"نام شرکت :"}
+              </label>
+              <input
+                id="companyName"
+                type="text"
+                placeholder={"نام شرکت خود را وارد کنید"}
+                className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
+                  errors.companyName ? "border-red-400" : "border-[#D4B96A]"
+                }`}
+                {...register("companyName")}
+              />
+              {errors.companyName && (
+                <p className="text-red-600 text-sm mt-1 text-right">
+                  {errors.companyName.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="phone"
+                className="block text-right text-gray-800 font-medium mb-2"
+              >
+                {"تلفن :"}
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                dir="ltr"
+                placeholder="09123456789"
+                className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 text-right focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
+                  errors.phone ? "border-red-400" : "border-[#D4B96A]"
+                }`}
+                {...register("phone")}
+              />
+              {errors.phone && (
+                <p className="text-red-600 text-sm mt-1 text-right">
+                  {errors.phone.message}
+                </p>
+              )}
+            </div>
+          </div> */}
+
+          {/* موضوع */}
+          {/* <div>
+            <label
+              htmlFor="subject"
+              className="block text-right text-gray-800 font-medium mb-2"
+            >
+              {"موضوع :"}
+            </label>
+            <input
+              id="subject"
+              type="text"
+              placeholder={"موضوع پیام خود را وارد کنید"}
+              className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
+                errors.subject ? "border-red-400" : "border-[#D4B96A]"
+              }`}
+              {...register("subject")}
+            />
+            {errors.subject && (
+              <p className="text-red-600 text-sm mt-1 text-right">
+                {errors.subject.message}
+              </p>
+            )}
+          </div> */}
+
+          {/* پیام */}
+          <div>
+            {/* <label
+              htmlFor="message"
+              className="block text-right text-gray-800 font-medium mb-2"
+            >
+              {"پیام شما به پویان :"}
+            </label> */}
+            <textarea
+              id="message"
+              rows={8}
+              placeholder={"پیام خود را بنویسید..."}
+              className={`w-full px-5 py-4 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all resize-none ${
+                errors.message ? "border-red-400" : "border-[#D4B96A]"
+              }`}
+              {...register("message")}
+            />
+            {errors.message && (
+              <p className="text-red-600 text-sm mt-1 text-right">
+                {errors.message.message}
+              </p>
+            )}
+          </div>
+
+          {/* دکمه ارسال */}
+          <div className="flex justify-center">
+            <Button type="submit" disabled={mutation.isPending}>
+              {mutation.isPending ? "در حال ارسال..." : "ارسال اطلاعات"}
+            </Button>
+          </div>
+        </form>
       </div>
     </section>
   );

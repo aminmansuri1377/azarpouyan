@@ -27,6 +27,7 @@ import StickySection from "../../components/ui/StickySection";
 import ProjectsSection from "@/components/site/ProjectsSection";
 import WhyUsSection from "@/components/site/WhyUsSection";
 import OurPartners from "@/components/site/OurPartners";
+import { ContactForm } from "@/components/contact/ContactForm";
 
 const Services = [
   {
@@ -89,6 +90,7 @@ export default function HomePage() {
       <ProjectsSection />
       <OurPartners />
       <WhyUsSection />
+      <ContactForm />
       {/* ===== جستجوی محصولات (بدون تیتر چسبان) ===== */}
       <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
