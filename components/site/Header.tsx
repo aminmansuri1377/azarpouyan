@@ -89,9 +89,9 @@ export function Header({ locale, messages, whiteText }: Props) {
             {messages.consulting}
           </Button>
 
-          <div className="ms-2 flex items-center gap-2">
+          {/* <div className="ms-2 flex items-center gap-2">
             <LanguageSwitcher />
-          </div>
+          </div> */}
         </div>
 
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
