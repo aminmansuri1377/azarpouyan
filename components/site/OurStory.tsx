@@ -24,6 +24,7 @@ function OurStory({ locale }: { locale: string }) {
             fill
             className="object-cover "
           />
+          <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
         </div>
 
         <div className="flex flex-col justify-center h-full">
@@ -41,13 +42,15 @@ function OurStory({ locale }: { locale: string }) {
               </Button>
             </div>
           </div>
-
-          <Image
-            src={Outlook}
-            alt="Outlook"
-            width={500}
-            className="mt-5 md:mx-auto"
-          />
+          <div className="relative">
+            <Image
+              src={Outlook}
+              alt="Outlook"
+              width={500}
+              className="mt-5 md:mx-auto"
+            />
+            <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
+          </div>
         </div>
       </div>
     </div>

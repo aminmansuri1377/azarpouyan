@@ -28,6 +28,7 @@ import ProjectsSection from "@/components/site/ProjectsSection";
 import WhyUsSection from "@/components/site/WhyUsSection";
 import OurPartners from "@/components/site/OurPartners";
 import { ContactForm } from "@/components/contact/ContactForm";
+import StatsSection from "@/components/site/about/StatsSection";
 
 const Services = [
   {
@@ -87,6 +88,8 @@ export default function HomePage() {
       <Hero locale={locale} />
 
       <OurStory locale={locale} />
+      <StatsSection locale={locale} />
+
       <ProjectsSection />
       <OurPartners />
       <WhyUsSection />

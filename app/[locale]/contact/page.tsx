@@ -40,15 +40,15 @@ export default function ContactPage() {
               </div>
             </div>
             <div className="relative">
-              <div className="absolute inset-0 border-2 border-[#C8A24A]/30 rounded-2xl transform translate-x-4 translate-y-4" />
               <Image
                 src="/images/project2.png"
                 alt="تماس با ما"
                 width={600}
                 height={400}
-                className="rounded-2xl shadow-xl relative z-10"
+                className=" shadow-xl"
                 priority
               />
+              <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
             </div>
           </div>
         </div>

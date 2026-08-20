@@ -26,7 +26,7 @@ export default function JournalCard({
     >
       <div className="relative">
         {/* Decorative corner brackets */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl sm:aspect-[16/10] md:rounded-2xl">
+        <div className="relative aspect-[4/3] w-full overflow-hidden  sm:aspect-[16/10] ">
           <Image
             src={image}
             alt={title}
@@ -34,6 +34,7 @@ export default function JournalCard({
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
           />
+          <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
         </div>
         <span className="pointer-events-none absolute -right-2 -top-2 hidden h-10 w-10 border-e-2 border-t-2 border-primary md:block" />
         <span className="pointer-events-none absolute -bottom-2 -left-2 hidden h-10 w-10 border-b-2 border-s-2 border-primary md:block" />

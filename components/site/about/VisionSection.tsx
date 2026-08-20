@@ -8,72 +8,70 @@ interface VisionSectionProps {
   description: string;
 }
 
-// Flag-shaped panel: a rectangle whose left edge is pulled into a single
-// point (like a bookmark/pennant), so the point pokes into the photo.
-// Coordinates are percentages of the panel's own box.
-const PANEL_CLIP_PATH =
-  "polygon(10% 0%, 100% 0%, 100% 100%, 10% 100%, 10% 64%, 0% 50%, 10% 36%)";
-
 export default function VisionSection({
   tagline,
   description,
 }: VisionSectionProps) {
   return (
-    <section className="px-4 py-10 md:px-12 md:py-16 lg:px-20" dir="rtl">
+    <section className="px-4 py-10 md:px-8 md:py-16 lg:px-16" dir="rtl">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center">
+        {/* عنوان و توضیحات بالایی */}
+        <div className="text-center mb-12 md:mb-16">
           <div className="flex justify-center">
             <SectionBorderTitle className="text-foreground">
               چشم انداز بناگستر آذر پویان
             </SectionBorderTitle>
           </div>
 
-          <p className="mx-auto mt-2 max-w-4xl font-peyda-regular text-xs leading-loose text-foreground/70 md:text-sm lg:text-base">
+          <p className="mx-auto mt-4 max-w-3xl font-peyda-regular text-sm leading-loose text-foreground/70 md:text-base">
             {description}
           </p>
         </div>
 
-        <div className="relative mt-10 md:mt-14">
-          {/* Full, uncropped photo */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:aspect-[2/1] ">
-            <Image
-              src={VisionImage}
-              alt="پروژه مسکونی آذر پویان"
-              fill
-              sizes="100vw"
-              className="object-cover"
-              priority
-            />
+        {/* کانتینر اصلی - دو ستونه */}
+        <div className="relative mt-20 md:mt-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
+            {/* سمت راست - پنل متنی شش‌ضلعی */}
+            <div className="relative -mt-20 lg:mt-0 z-10 my-10 md:my-0 ">
+              <div
+                className="relative py-10 px-6 sm:py-12 sm:px-8 md:px-10 lg:px-12"
+                style={{
+                  clipPath:
+                    "polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%)",
+                  backgroundColor: "#F6DEA3",
+                }}
+              >
+                {/* محتوا داخل پنل */}
+                <div className="text-right pr-4 sm:pr-6">
+                  <h3 className="font-peyda-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl leading-relaxed text-foreground">
+                    هر خانه، نقطه آغاز یک داستان است
+                  </h3>
 
-            {/* Decorative inset frame */}
-            <div className="pointer-events-none absolute inset-4 hidden border border-white/60 sm:block md:inset-6" />
-          </div>
+                  <h4 className="font-peyda-bold text-lg sm:text-xl lg:text-2xl mt-3 sm:mt-4 leading-relaxed text-foreground/90">
+                    داستان آرامش، امنیت، رشد و آینده
+                  </h4>
 
-          {/* Flag-shaped text panel, overlapping the photo — desktop only */}
-          <div
-            className="pointer-events-none absolute inset-y-0 left-[34%] hidden w-[66%] items-center bg-primary/90 py-10 pe-10 ps-16 lg:flex xl:pe-14 xl:ps-24"
-            style={{ clipPath: PANEL_CLIP_PATH }}
-          >
-            <div className="pointer-events-auto max-w-xl">
-              <h3 className="font-peyda-bold text-2xl leading-relaxed text-foreground xl:text-3xl">
-                {tagline}
-              </h3>
-
-              <p className="mt-5 text-justify font-peyda-regular text-xs leading-loose text-foreground/80 xl:text-sm xl:leading-8">
-                {description}
-              </p>
+                  <p className="mt-6 sm:mt-8 text-justify font-peyda-regular text-xs sm:text-sm md:text-base leading-loose text-foreground/80 lg:leading-8">
+                    {description}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+            <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[500px] xl:h-[600px] lg:-mr-16 xl:-mr-24">
+              <div className="relative w-full h-full overflow-hidden">
+                <Image
+                  src={VisionImage}
+                  alt="پروژه مسکونی آذر پویان"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
 
-          {/* Compact overlay panel — mobile/tablet */}
-          <div className="absolute inset-x-0 bottom-0 rounded-b-2xl bg-background/95 p-5 sm:p-8 lg:hidden">
-            <h3 className="font-peyda-bold text-base leading-relaxed text-foreground sm:text-xl">
-              {tagline}
-            </h3>
-
-            <p className="mt-3 text-justify font-peyda-regular text-xs leading-loose text-foreground/80 sm:text-sm">
-              {description}
-            </p>
+                {/* کادر تزئینی سفید */}
+                <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

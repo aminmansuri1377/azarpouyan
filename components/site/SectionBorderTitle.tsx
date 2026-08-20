@@ -61,7 +61,7 @@ export default function SectionBorderTitle({
       </svg>
 
       {/* Content */}
-      <div className="relative px-24 py-4 text-center font-bold text-2xl font-peyda-bold">
+      <div className="relative px-5 md:px-24 py-4 text-center font-bold text-2xl font-peyda-bold">
         {children}
       </div>
     </div>

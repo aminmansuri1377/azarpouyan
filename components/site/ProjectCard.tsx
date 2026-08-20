@@ -30,6 +30,7 @@ export default function ProjectCard({
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           priority={false}
         />
+        <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
 
         {/* Title Overlay on Image */}
         <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-sm">
