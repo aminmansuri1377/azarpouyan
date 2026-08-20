@@ -14,13 +14,13 @@ const SectionTitle = ({ children, sticky = true, className }) => {
         className,
       )}
     >
-      <div className="h-px flex-1 bg-black/70" />
+      <div className="h-px flex-1 bg-primary" />
 
       <h2 className="text-outline whitespace-nowrap text-4xl md:text-6xl">
         {children}
       </h2>
 
-      <div className="h-px flex-1 bg-black/70" />
+      <div className="h-px flex-1 bg-primary" />
     </div>
   );
 };

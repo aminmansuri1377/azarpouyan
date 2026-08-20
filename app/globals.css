@@ -27,7 +27,7 @@
   .text-outline {
     font-family: var(--font-peyda-black);
     color: transparent;
-    -webkit-text-stroke: 1px #3b302a;
+    -webkit-text-stroke: 1px #c8a24a;
     background: transparent;
   }
 }
