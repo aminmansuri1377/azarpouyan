@@ -26,6 +26,7 @@ import LatestArticles from "@/components/site/LatestArticles";
 import StickySection from "../../components/ui/StickySection";
 import ProjectsSection from "@/components/site/ProjectsSection";
 import WhyUsSection from "@/components/site/WhyUsSection";
+import OurPartners from "@/components/site/OurPartners";
 
 const Services = [
   {
@@ -85,51 +86,9 @@ export default function HomePage() {
       <Hero locale={locale} />
 
       <OurStory locale={locale} />
-      {/* <Collaboration locale={locale} /> */}
       <ProjectsSection />
+      <OurPartners />
       <WhyUsSection />
-
-      {/* ===== بخش ۱ : WHAT WE DO ===== */}
-      <StickySection title="WHAT WE DO">
-        <div>
-          <h1 className="mx-auto mb-4 mt-10 text-center font-peyda-bold text-2xl">
-            {t.baseServices}
-          </h1>
-          <h2 className="mx-5 mb-10 text-justify font-peyda-regular md:mx-auto md:w-[50%] md:text-center">
-            {t.hero.description}
-          </h2>
-        </div>
-
-        <div>
-          {Services?.map((s) => (
-            <div key={s.id}>
-              <ServiceBanner
-                image={s.image}
-                title={s.title}
-                description={s.description}
-                primaryButton={t.hero.seeServices}
-                secondaryButton={t.hero.receiveConsulting}
-              />
-            </div>
-          ))}
-        </div>
-      </StickySection>
-
-      {/* ===== بخش ۲ : HOW IT WORKS ===== */}
-      <StickySection title="HOW IT WORKS" dir="rtl">
-        <HowItWorks />
-      </StickySection>
-
-      {/* ===== بخش ۳ : WHY CHOOSE US ===== */}
-      <StickySection title="? WHY CHOOSE US">
-        <WhyKga locale={locale} />
-      </StickySection>
-
-      {/* ===== بخش ۴ : ARTICLES ===== */}
-      <StickySection title="ARTICLES" dir="rtl">
-        <LatestArticles locale={locale} />
-      </StickySection>
-
       {/* ===== جستجوی محصولات (بدون تیتر چسبان) ===== */}
       <div className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
