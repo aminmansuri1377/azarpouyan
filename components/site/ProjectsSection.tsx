@@ -1,4 +1,5 @@
 // components/ProjectsSection.tsx
+"use client";
 import ProjectCard from "./ProjectCard";
 import DotPattern from "./DotPattern";
 import SectionBorderTitle from "./SectionBorderTitle";
@@ -64,7 +65,11 @@ const projects: Project[] = [
   },
 ];
 
-export default function ProjectsSection() {
+export default function ProjectsSection({
+  withMore = false,
+}: {
+  withMore?: boolean;
+}) {
   return (
     <section className="relative bg-neutral-900 py-20 px-6 md:px-12 lg:px-20 overflow-hidden font-peyda-medium">
       {/* Dot Pattern Background */}
@@ -104,11 +109,13 @@ export default function ProjectsSection() {
         </div>
 
         {/* More Projects Button */}
-        <div className="text-right mt-14">
-          <Button className=" transition-colors duration-300" dir="rtl">
-            پروژه های بیشتر
-          </Button>
-        </div>
+        {withMore && (
+          <div className="text-right mt-14">
+            <Button className=" transition-colors duration-300" dir="rtl">
+              پروژه های بیشتر
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

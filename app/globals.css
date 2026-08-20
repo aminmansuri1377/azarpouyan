@@ -31,6 +31,14 @@
     background: transparent;
   }
 }
+@layer components {
+  .text-outline-black {
+    font-family: var(--font-peyda-black);
+    color: transparent;
+    -webkit-text-stroke: 1px #0a0a0a;
+    background: transparent;
+  }
+}
 /*
  * ============================================================================
  *  DESIGN SYSTEM TOKENS  (Tailwind v4 — CSS-first @theme)

@@ -9,6 +9,7 @@ import { cn } from "@/lib/cn";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Button, Separator } from "../ui";
 import Logo from "../../public/images/logo.png";
+import BlackLogo from "../../public/images/blacklogo.png";
 
 interface Props {
   locale: string;
@@ -123,7 +124,7 @@ export function Header({ locale, messages, whiteText }: Props) {
         <button
           onClick={() => setIsMenuOpen(true)}
           aria-label="باز کردن منو"
-          className="flex size-10 items-center justify-center rounded-full border border-white/20 text-white md:hidden"
+          className={`flex size-10 items-center justify-center rounded-full border  ${whiteText ? "text-white border-white/20" : "text-black border-black"} md:hidden`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +147,7 @@ export function Header({ locale, messages, whiteText }: Props) {
             Logo
         ========================== */}
         <Image
-          src={Logo}
+          src={whiteText ? Logo : BlackLogo}
           alt="Logo"
           width={80}
           onClick={() => router.push(`/${locale}`)}

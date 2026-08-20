@@ -90,7 +90,7 @@ export default function HomePage() {
       <OurStory locale={locale} />
       <StatsSection locale={locale} />
 
-      <ProjectsSection />
+      <ProjectsSection withMore />
       <OurPartners />
       <WhyUsSection />
       <ContactForm />
