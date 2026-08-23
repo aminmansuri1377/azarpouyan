@@ -1,5 +1,3 @@
-import { email } from "zod";
-
 const en = {
   siteName: "KGA Commerce",
 
@@ -53,11 +51,21 @@ const en = {
   learnWithTitle: "Learn with Kian Gostar",
   readMore: "read more",
   latestArticles: "latest Articles",
+  projects: "Projects",
+  moreProjects: "More Projects",
+  projectSummary: "Project Summary",
+  projectSpecifications: "Key Specifications",
+  projectGallery: "Image Gallery:",
   notif: {
     adminConfigMissing: "Admin login configuration is missing",
     passwordRequired: "Please enter your password",
     invalidPassword: "The password you entered is incorrect",
     adminLoginFailed: "Failed to log in to the admin panel",
+
+    projectCreateFailed: "Failed to create project",
+    projectUpdateFailed: "Failed to update project",
+    projectDeleteFailed: "Failed to delete project",
+    projectDeletedSuccessfully: "Project deleted successfully",
 
     categoryHasProducts:
       "This category (or one of its subcategories) contains products and cannot be deleted",

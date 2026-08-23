@@ -52,11 +52,21 @@ const fa = {
   learnWithTitle: "با کیان گستر یاد بگیرید",
   readMore: "مطالعه بیشتر",
   latestArticles: "آخرین مقالات کیان گستر",
+  projects: "پروژه‌ها",
+  moreProjects: "پروژه‌های بیشتر",
+  projectSummary: "خلاصه‌ای درباره پروژه",
+  projectSpecifications: "مشخصات کلیدی پروژه",
+  projectGallery: "گالری تصاویر:",
   notif: {
     adminConfigMissing: "تنظیمات ورود مدیر ناقص است",
     passwordRequired: "رمز عبور را وارد کنید",
     invalidPassword: "رمز عبور وارد شده صحیح نیست",
     adminLoginFailed: "خطا در ورود به پنل مدیریت",
+
+    projectCreateFailed: "خطا در ایجاد پروژه",
+    projectUpdateFailed: "خطا در بروزرسانی پروژه",
+    projectDeleteFailed: "خطا در حذف پروژه",
+    projectDeletedSuccessfully: "پروژه با موفقیت حذف شد",
 
     categoryHasProducts:
       "این کتگوری (یا یکی از زیرشاخه‌هایش) دارای محصول است و قابل حذف نیست.",

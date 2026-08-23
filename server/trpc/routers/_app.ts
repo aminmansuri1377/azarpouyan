@@ -9,12 +9,15 @@ import { publicRouter } from "./public";
 import { contentRouter } from "./content";
 import { priceTickerRouter } from "./priceTicker";
 import { contactRequestRouter } from "./contactRequest";
+import { projectRouter } from "./project";
+
 export const appRouter = router({
   health: healthRouter,
   adminAuth: adminAuthRouter,
   language: languageRouter,
   category: categoryRouter,
   product: productRouter,
+  project: projectRouter,
   public: publicRouter,
   content: contentRouter,
   priceTicker: priceTickerRouter,

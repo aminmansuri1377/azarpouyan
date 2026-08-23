@@ -18,6 +18,7 @@ model Language {
   contentTranslations  ContentTranslation[]
   tickerTranslations   PriceTickerTranslation[]
   productTranslations  ProductTranslation[]
+  projectTranslations  ProjectTranslation[]
 }
 
 model Category {
@@ -168,6 +169,39 @@ model ContactRequest {
   @@index([isRead])
   @@index([createdAt])
 }
+
+model Project {
+  id           String               @id @default(cuid())
+  slug         String               @unique
+  imageUrl     String
+  images       Json?
+  published    Boolean              @default(true)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  translations ProjectTranslation[]
+
+  @@index([published])
+}
+
+model ProjectTranslation {
+  id             String   @id @default(cuid())
+  projectId      String
+  languageId     String
+  name           String
+  slug           String
+  summary        String?  @db.Text
+  specifications String?  @db.Text
+  description    String   @db.Text
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String?
+  language       Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, languageId])
+  @@unique([languageId, slug])
+}
+
 enum ContentType {
   BLOG
   NEWS

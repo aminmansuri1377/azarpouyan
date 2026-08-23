@@ -145,6 +145,130 @@ export const publicRouter = router({
         },
       });
     }),
+  getProjects: publicProcedure
+    .input(
+      z.object({
+        locale: z.string().min(1),
+        search: z.string().optional(),
+        page: z.number().min(1).default(1),
+        limit: z.number().min(1).max(100).default(12),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const page = input.page;
+      const limit = input.limit;
+      const skip = (page - 1) * limit;
+
+      const where = {
+        published: true,
+        translations: {
+          some: {
+            language: {
+              code: input.locale,
+            },
+            ...(input.search?.trim()
+              ? {
+                  OR: [
+                    {
+                      name: {
+                        contains: input.search.trim(),
+                        mode: "insensitive" as const,
+                      },
+                    },
+                    {
+                      summary: {
+                        contains: input.search.trim(),
+                        mode: "insensitive" as const,
+                      },
+                    },
+                    {
+                      slug: {
+                        contains: input.search.trim(),
+                        mode: "insensitive" as const,
+                      },
+                    },
+                  ],
+                }
+              : {}),
+          },
+        },
+      };
+
+      const [total, projects] = await Promise.all([
+        ctx.prisma.project.count({ where }),
+        ctx.prisma.project.findMany({
+          where,
+          include: {
+            translations: {
+              where: {
+                language: {
+                  code: input.locale,
+                },
+              },
+              include: {
+                language: true,
+              },
+            },
+          },
+          skip,
+          take: limit,
+          orderBy: {
+            createdAt: "desc",
+          },
+        }),
+      ]);
+
+      return {
+        items: projects,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      };
+    }),
+  getProjectBySlug: publicProcedure
+    .input(
+      z.object({
+        locale: z.string().min(1),
+        slug: z.string().min(1),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const decodedSlug = decodeURIComponent(input.slug);
+
+      const translation = await ctx.prisma.projectTranslation.findFirst({
+        where: {
+          slug: decodedSlug,
+          language: {
+            code: input.locale,
+          },
+          project: {
+            published: true,
+          },
+        },
+        include: {
+          project: true,
+          language: true,
+        },
+      });
+
+      if (!translation) {
+        return null;
+      }
+
+      return {
+        project: translation.project,
+        translation,
+        name: translation.name,
+        slug: translation.slug,
+        summary: translation.summary,
+        specifications: translation.specifications,
+        description: translation.description,
+        seoTitle: translation.seoTitle,
+        seoDescription: translation.seoDescription,
+        seoKeywords: translation.seoKeywords,
+      };
+    }),
   getBlogs: publicProcedure
     .input(
       z.object({
@@ -515,7 +639,14 @@ export const publicRouter = router({
       //
       // LIST PAGES
       //
-      const listingPages = ["blog", "news", "articles", "price-ticker"];
+      const listingPages = [
+        "blog",
+        "news",
+        "articles",
+        "price-ticker",
+        "workExamples",
+        "projects",
+      ];
 
       if (listingPages.includes(pageType) && !slug) {
         return {
@@ -645,6 +776,31 @@ export const publicRouter = router({
           path: translated
             ? `/${input.targetLocale}/articles/${translated.slug}`
             : `/${input.targetLocale}/articles`,
+        };
+      }
+
+      //
+      // WORK EXAMPLES / PROJECTS
+      //
+      if ((pageType === "workExamples" || pageType === "projects") && slug) {
+        const translated = await resolveLocalizedSlug({
+          prisma: ctx.prisma,
+
+          translationModel: ctx.prisma.projectTranslation,
+
+          entityIdField: "projectId",
+
+          slug,
+
+          currentLocale: input.currentLocale,
+
+          targetLocale: input.targetLocale,
+        });
+
+        return {
+          path: translated
+            ? `/${input.targetLocale}/${pageType}/${translated.slug}`
+            : `/${input.targetLocale}/${pageType}`,
         };
       }
 

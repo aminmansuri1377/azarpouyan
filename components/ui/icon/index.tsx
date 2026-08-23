@@ -160,3 +160,24 @@ export const DollarSignIcon = make(
     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
   </>,
 );
+export const BuildingIcon = make(
+  <>
+    <rect width="16" height="20" x="4" y="2" rx="2" ry="2" />
+    <path d="M9 22v-4h6v4" />
+    <path d="M8 6h.01" />
+    <path d="M16 6h.01" />
+    <path d="M12 6h.01" />
+    <path d="M12 10h.01" />
+    <path d="M12 14h.01" />
+    <path d="M16 10h.01" />
+    <path d="M16 14h.01" />
+    <path d="M8 10h.01" />
+    <path d="M8 14h.01" />
+  </>,
+);
+export const BriefcaseIcon = make(
+  <>
+    <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </>,
+);

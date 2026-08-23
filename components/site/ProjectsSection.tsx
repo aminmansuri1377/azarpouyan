@@ -1,64 +1,64 @@
 // components/ProjectsSection.tsx
 "use client";
+
+import { useParams, useRouter } from "next/navigation";
 import ProjectCard from "./ProjectCard";
 import DotPattern from "./DotPattern";
 import SectionBorderTitle from "./SectionBorderTitle";
 import { Button } from "../ui";
-// import Img1 from "../../public/images/project1.png";
-// import Img12 from "../../public/images/project2.png";
-interface Project {
-  id: number;
-  imageSrc: string;
-  title: string;
-  description: string;
-  imageAlt: string;
-}
+import { trpc } from "@/lib/trpc/client";
 
-const projects: Project[] = [
+const defaultDemoProjects = [
   {
-    id: 1,
+    id: "demo-1",
+    slug: "project-1",
     imageSrc: "/images/project1.png",
-    title: "پروژه های ما:",
+    title: "پردیس پویان",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.",
     imageAlt: "پروژه ۱",
   },
   {
-    id: 2,
+    id: "demo-2",
+    slug: "project-2",
     imageSrc: "/images/project2.png",
-    title: "پروژه های ما:",
+    title: "مجتمع تجاری اداری پویان",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.",
     imageAlt: "پروژه ۲",
   },
   {
-    id: 3,
+    id: "demo-3",
+    slug: "project-3",
     imageSrc: "/images/project1.png",
-    title: "پروژه های ما:",
+    title: "برج مسکونی آرامش",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.",
     imageAlt: "پروژه ۳",
   },
   {
-    id: 4,
+    id: "demo-4",
+    slug: "project-4",
     imageSrc: "/images/project2.png",
-    title: "پروژه های ما:",
+    title: "شهرک ویلایی سروستان",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.",
-    imageAlt: "پروژه ",
+    imageAlt: "پروژه ۴",
   },
   {
-    id: 5,
+    id: "demo-5",
+    slug: "project-5",
     imageSrc: "/images/project1.png",
-    title: "پروژه های ما:",
+    title: "پروژه مسکونی نگین",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.",
     imageAlt: "پروژه ۵",
   },
   {
-    id: 6,
+    id: "demo-6",
+    slug: "project-6",
     imageSrc: "/images/project2.png",
-    title: "پروژه های ما:",
+    title: "مجتمع اقامتی رویال",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.",
     imageAlt: "پروژه ۶",
@@ -67,9 +67,39 @@ const projects: Project[] = [
 
 export default function ProjectsSection({
   withMore = false,
+  locale: propLocale,
 }: {
   withMore?: boolean;
+  locale?: string;
 }) {
+  const params = useParams();
+  const router = useRouter();
+  const locale = propLocale || (params?.locale as string) || "fa";
+
+  const { data } = trpc.public.getProjects.useQuery(
+    {
+      locale,
+      limit: 6,
+    },
+    {
+      retry: false,
+    },
+  );
+
+  const projects =
+    data?.items && data.items.length > 0
+      ? data.items.map((item) => ({
+          id: item.id,
+          slug: item.translations?.[0]?.slug || item.slug,
+          imageSrc: item.imageUrl || "/images/project1.png",
+          title: item.translations?.[0]?.name || item.slug,
+          description:
+            item.translations?.[0]?.summary ||
+            "پروژه ساختمانی و عمرانی مدرن با امکانات رفاهی کامل",
+          imageAlt: item.translations?.[0]?.name || item.slug,
+        }))
+      : defaultDemoProjects;
+
   return (
     <section className="relative bg-neutral-900 py-20 px-6 md:px-12 lg:px-20 overflow-hidden font-peyda-medium">
       {/* Dot Pattern Background */}
@@ -103,6 +133,7 @@ export default function ProjectsSection({
               title={project.title}
               description={project.description}
               imageAlt={project.imageAlt}
+              href={`/${locale}/workExamples/${project.slug}`}
               className={index % 2 === 0 ? "md:order-1" : "md:order-2"}
             />
           ))}
@@ -111,7 +142,11 @@ export default function ProjectsSection({
         {/* More Projects Button */}
         {withMore && (
           <div className="text-right mt-14">
-            <Button className=" transition-colors duration-300" dir="rtl">
+            <Button
+              onClick={() => router.push(`/${locale}/workExamples`)}
+              className="transition-colors duration-300 cursor-pointer"
+              dir="rtl"
+            >
               پروژه های بیشتر
             </Button>
           </div>
