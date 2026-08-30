@@ -37,13 +37,13 @@ export default function PartnerCard({
           {description}
         </p>
 
-        <Button
+        {/* <Button
           asChild
           variant="outline"
           className="mt-5 px-8 font-peyda-bold md:mt-6"
         >
           <a href={href}>{ctaLabel}</a>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

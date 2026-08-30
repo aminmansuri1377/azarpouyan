@@ -22,7 +22,10 @@ export default function SectionBorderTitle({
   return (
     <div
       ref={ref}
-      className={cn("relative inline-block", className)}
+      className={cn(
+        "relative block w-2/3 md:inline-block md:w-auto text-center mx-auto",
+        className,
+      )}
       dir="rtl"
     >
       {/* SVG Border - ترکیب Vector 4 و Vector 5 */}
@@ -39,7 +42,7 @@ export default function SectionBorderTitle({
           d="M179.601 0.5H19.6547L0.60144 29.2478L19.6547 57.5"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          strokeWidth="1"
           vectorEffect="non-scaling-stroke"
         />
 
@@ -50,7 +53,7 @@ export default function SectionBorderTitle({
           d="M220 57.2795H379.947L399 28.5317L379.947 0.279542"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          strokeWidth="1"
           vectorEffect="non-scaling-stroke"
         />
       </svg>
@@ -58,7 +61,7 @@ export default function SectionBorderTitle({
       {/* Content */}
       <div
         className={cn(
-          "sbt-text relative px-5 md:px-24 py-4 text-center font-bold text-2xl font-peyda-bold",
+          "sbt-text relative px-8 md:px-24 md:py-4 py-2 text-center font-bold md:text-2xl text-lg font-peyda-bold",
           inView && "is-in",
         )}
       >

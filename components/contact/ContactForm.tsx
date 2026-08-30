@@ -57,7 +57,7 @@ export function ContactForm() {
   return (
     <section className="py-16 px-4 font-peyda-medium">
       <Reveal
-        className="max-w-5xl mx-auto rounded-3xl p-10 md:px-14"
+        className="max-w-5xl mx-auto rounded-3xl md:py-10 p-5 md:px-14"
         style={{
           background: "linear-gradient(to left, #C8A24A, #F6DEA3)",
         }}
@@ -67,7 +67,7 @@ export function ContactForm() {
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             {"تماس با ما"}
           </h2>
-          <p className="text-gray-800 text-lg">
+          <p className="text-gray-800 md:text-lg">
             {"شما می‌توانید در این قسمت ما با در تماس باشید"}
           </p>
         </div>
@@ -96,7 +96,7 @@ export function ContactForm() {
                 type="text"
                 placeholder={"نام خود را وارد کنید"}
                 className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
-                  errors.fullName ? "border-red-400" : "border-[#D4B96A]"
+                  errors.fullName ? "border-red-400" : "border-white"
                 }`}
                 {...register("fullName")}
               />
@@ -121,7 +121,7 @@ export function ContactForm() {
                 dir="ltr"
                 placeholder="example@email.com"
                 className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 text-right focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
-                  errors.email ? "border-red-400" : "border-[#D4B96A]"
+                  errors.email ? "border-red-400" : "border-white"
                 }`}
                 {...register("email")}
               />
@@ -147,7 +147,7 @@ export function ContactForm() {
                 type="text"
                 placeholder={"نام شرکت خود را وارد کنید"}
                 className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
-                  errors.companyName ? "border-red-400" : "border-[#D4B96A]"
+                  errors.companyName ? "border-red-400" : "border-white"
                 }`}
                 {...register("companyName")}
               />
@@ -171,7 +171,7 @@ export function ContactForm() {
                 dir="ltr"
                 placeholder="09123456789"
                 className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 text-right focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
-                  errors.phone ? "border-red-400" : "border-[#D4B96A]"
+                  errors.phone ? "border-red-400" : "border-white"
                 }`}
                 {...register("phone")}
               />
@@ -196,7 +196,7 @@ export function ContactForm() {
               type="text"
               placeholder={"موضوع پیام خود را وارد کنید"}
               className={`w-full px-5 py-3.5 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all ${
-                errors.subject ? "border-red-400" : "border-[#D4B96A]"
+                errors.subject ? "border-red-400" : "border-white"
               }`}
               {...register("subject")}
             />
@@ -220,7 +220,7 @@ export function ContactForm() {
               rows={8}
               placeholder={"پیام خود را بنویسید..."}
               className={`w-full px-5 py-4 rounded-lg bg-[#F0E4C4] border text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C8A24A] focus:border-transparent transition-all resize-none ${
-                errors.message ? "border-red-400" : "border-[#D4B96A]"
+                errors.message ? "border-red-400" : "border-white"
               }`}
               {...register("message")}
             />

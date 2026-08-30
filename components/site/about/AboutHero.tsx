@@ -21,6 +21,16 @@ export default function AboutHero({
         </h1>
 
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl md:aspect-[3/2] md:rounded-2xl md:order-2">
+            <Image
+              src={HeroImage}
+              alt="جلسه کاری تیم آذر پویان"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+              priority
+            />
+          </div>
           <div>
             <h2 className="font-peyda-bold text-xl leading-relaxed text-foreground md:text-2xl lg:text-3xl">
               {tagline}
@@ -30,16 +40,6 @@ export default function AboutHero({
               {description}
               {description}
             </p>
-          </div>
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl md:aspect-[3/2] md:rounded-2xl">
-            <Image
-              src={HeroImage}
-              alt="جلسه کاری تیم آذر پویان"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
           </div>
         </div>
       </div>

@@ -105,7 +105,7 @@ export default function WhyUsSection() {
   return (
     <section className="relative py-20 px-6 md:px-12 lg:px-20 overflow-hidden font-peyda-medium">
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto ">
         {/* Header */}
         <div className="text-center mb-6">
           <Reveal>
@@ -121,8 +121,8 @@ export default function WhyUsSection() {
               dir="rtl"
             >
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است. لورم ایپسوم متن ساختگی با تولید سادگی
-              نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+              استفاده از طراحان گرافیک است. لورم ایپسوم متن ساختگی با تولید
+              سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
             </p>
           </Reveal>
         </div>

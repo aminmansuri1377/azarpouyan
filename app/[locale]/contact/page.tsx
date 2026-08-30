@@ -8,7 +8,18 @@ export default function ContactPage() {
       {/* بخش بالایی - تصویر و معرفی */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ">
+            <div className="relative md:order-2">
+              <Image
+                src="/images/project2.png"
+                alt="تماس با ما"
+                width={600}
+                height={400}
+                className=" shadow-xl"
+                priority
+              />
+              <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
+            </div>
             <div className="text-right space-y-6">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -39,17 +50,6 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
-            <div className="relative">
-              <Image
-                src="/images/project2.png"
-                alt="تماس با ما"
-                width={600}
-                height={400}
-                className=" shadow-xl"
-                priority
-              />
-              <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
-            </div>
           </div>
         </div>
       </section>
@@ -62,8 +62,8 @@ export default function ContactPage() {
         <div className="max-w-4xl mx-auto">
           <SectionTitle className={""}>CONTACT US</SectionTitle>
           {/* باکس اطلاعات تماس */}
-          <div className="border-2 border-gray-300 rounded-2xl p-8 md:p-12 bg-white">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-10">
+          <div className="border-2 border-gray-300 rounded-2xl p-4 md:p-12 bg-white">
+            <h3 className="md:text-2xl font-bold text-gray-900 text-center mb-10">
               راه‌های ارتباطی با گروه فنی مهندسی آذر پویان
             </h3>
 

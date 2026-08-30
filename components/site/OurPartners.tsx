@@ -27,14 +27,14 @@ function OurPartners() {
           {partners.map((partner) => (
             <div
               key={partner.id}
-              className=" flex-shrink-0 p-4 flex items-center justify-center h-32"
+              className="flex-shrink-0 p-4 flex items-center justify-center h-32"
             >
               <Image
                 src={partner.logo}
                 alt={partner.name}
                 width={150}
                 height={80}
-                className="object-contain mx-10 opacity-80 transition-opacity duration-300 hover:opacity-100"
+                className="w-[100px] md:w-[150px] h-auto object-contain mx-0 md:mx-10 opacity-80 transition-opacity duration-300 hover:opacity-100"
               />
             </div>
           ))}
