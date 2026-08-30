@@ -90,15 +90,20 @@ export default function BlogSinglePage() {
   return (
     <main dir="rtl" className="w-full text-right">
       {data.content.coverImage && (
-        <div className="relative mb-8 h-[280px] w-full overflow-hidden md:h-[500px]">
-          <Image
-            src={data.content.coverImage}
-            alt={data.title}
-            fill
-            priority
-            className="h-auto w-full object-cover md:object-center"
-          />
-        </div>
+        <section className="px-5 pt-24 md:px-10 md:pt-28">
+          <div className="mx-auto max-w-6xl">
+            <div className="relative h-[220px] w-full overflow-hidden rounded-3xl md:h-[360px]">
+              <Image
+                src={data.content.coverImage}
+                alt={data.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 1200px"
+                className="object-cover object-center"
+              />
+            </div>
+          </div>
+        </section>
       )}
       <div className="mx-auto px-5 py-20 md:px-20">
         <h1 className="mb-6 font-peyda-bold text-3xl leading-[1.7] md:text-4xl">

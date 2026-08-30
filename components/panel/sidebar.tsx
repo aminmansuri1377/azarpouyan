@@ -28,6 +28,7 @@ const links = [
   { href: "/panel/price-ticker", label: "لیست قیمت ها", icon: DollarSignIcon },
   { href: "/panel/contact-requests", label: "درخواست مشاوره", icon: InboxIcon },
   { href: "/panel/settings", label: "تنظیمات", icon: SettingsIcon },
+  // { href: "/panel/languages", label: "زبان", icon: SettingsIcon },
   { href: "/panel/ui-preview", label: "UI Preview", icon: SettingsIcon },
 ];
 
