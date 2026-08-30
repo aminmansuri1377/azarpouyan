@@ -3,6 +3,7 @@ import WhyUsCard from "./WhyUsCard";
 import HexIcon from "../ui/HexIcon";
 import QuestionMark from "../ui/QuestionMark";
 import SectionBorderTitle from "./SectionBorderTitle";
+import { Reveal } from "../ui/Reveal";
 
 // آیکون‌های SVG برای هر کارت
 const TrophyIcon = () => (
@@ -107,38 +108,47 @@ export default function WhyUsSection() {
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="flex justify-center mb-6">
-            <SectionBorderTitle className="text-gray-900">
-              به من بگو چرا؟
-            </SectionBorderTitle>
-          </div>
-          <p
-            className="text-gray-600 text-sm max-w-3xl mx-auto leading-8"
-            dir="rtl"
-          >
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است. لورم ایپسوم متن ساختگی با تولید سادگی
-            نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-          </p>
+          <Reveal>
+            <div className="flex justify-center mb-6">
+              <SectionBorderTitle className="text-gray-900">
+                به من بگو چرا؟
+              </SectionBorderTitle>
+            </div>
+          </Reveal>
+          <Reveal delay={150}>
+            <p
+              className="text-gray-600 text-sm max-w-3xl mx-auto leading-8"
+              dir="rtl"
+            >
+              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+              استفاده از طراحان گرافیک است. لورم ایپسوم متن ساختگی با تولید سادگی
+              نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+            </p>
+          </Reveal>
         </div>
 
         {/* Cards with Question Marks */}
         <div className="relative mt-14">
-          {/* Left Question Mark */}
-          <QuestionMark position="left" className="hidden lg:block" />
+          {/* Left Question Mark — شناور آرام */}
+          <div className="animate-float">
+            <QuestionMark position="left" className="hidden lg:block" />
+          </div>
 
-          {/* Right Question Mark */}
-          <QuestionMark position="right" className="hidden lg:block" />
+          {/* Right Question Mark — شناور آرام با تأخیر */}
+          <div className="animate-float [animation-delay:1.8s]">
+            <QuestionMark position="right" className="hidden lg:block" />
+          </div>
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:mx-12">
             {cards.map((card, index) => (
-              <WhyUsCard
-                key={index}
-                icon={<HexIcon>{card.icon}</HexIcon>}
-                title={card.title}
-                description={card.description}
-              />
+              <Reveal key={index} delay={index * 130} className="h-full">
+                <WhyUsCard
+                  icon={<HexIcon>{card.icon}</HexIcon>}
+                  title={card.title}
+                  description={card.description}
+                />
+              </Reveal>
             ))}
           </div>
         </div>

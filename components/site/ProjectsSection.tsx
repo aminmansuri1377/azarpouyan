@@ -6,6 +6,7 @@ import ProjectCard from "./ProjectCard";
 import DotPattern from "./DotPattern";
 import SectionBorderTitle from "./SectionBorderTitle";
 import { Button } from "../ui";
+import { Reveal } from "../ui/Reveal";
 import { trpc } from "@/lib/trpc/client";
 
 const defaultDemoProjects = [
@@ -109,47 +110,54 @@ export default function ProjectsSection({
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <SectionBorderTitle className="text-white">
-              پروژه های ما
-            </SectionBorderTitle>
-          </div>
-          <p
-            className="text-gray-400 text-sm max-w-3xl mx-auto leading-relaxed"
-            dir="rtl"
-          >
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است.
-          </p>
+          <Reveal>
+            <div className="flex justify-center mb-6">
+              <SectionBorderTitle className="text-white">
+                پروژه های ما
+              </SectionBorderTitle>
+            </div>
+          </Reveal>
+          <Reveal delay={150}>
+            <p
+              className="text-gray-400 text-sm max-w-3xl mx-auto leading-relaxed"
+              dir="rtl"
+            >
+              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+              استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
+              ستون و سطرآنچنان که لازم است.
+            </p>
+          </Reveal>
         </div>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              imageSrc={project.imageSrc}
-              title={project.title}
-              description={project.description}
-              imageAlt={project.imageAlt}
-              href={`/${locale}/workExamples/${project.slug}`}
-              className={index % 2 === 0 ? "md:order-1" : "md:order-2"}
-            />
+            <Reveal key={project.id} delay={Math.floor(index / 2) * 150 + (index % 2) * 100}>
+              <ProjectCard
+                imageSrc={project.imageSrc}
+                title={project.title}
+                description={project.description}
+                imageAlt={project.imageAlt}
+                href={`/${locale}/workExamples/${project.slug}`}
+                className={index % 2 === 0 ? "md:order-1" : "md:order-2"}
+              />
+            </Reveal>
           ))}
         </div>
 
         {/* More Projects Button */}
         {withMore && (
-          <div className="text-right mt-14">
-            <Button
-              onClick={() => router.push(`/${locale}/workExamples`)}
-              className="transition-colors duration-300 cursor-pointer"
-              dir="rtl"
-            >
-              پروژه های بیشتر
-            </Button>
-          </div>
+          <Reveal delay={200}>
+            <div className="text-right mt-14">
+              <Button
+                onClick={() => router.push(`/${locale}/workExamples`)}
+                className="transition-colors duration-300 cursor-pointer"
+                dir="rtl"
+              >
+                پروژه های بیشتر
+              </Button>
+            </div>
+          </Reveal>
         )}
       </div>
     </section>

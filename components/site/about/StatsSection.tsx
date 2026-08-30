@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
 import { useInView } from "@/hooks/useInView";
+import { Reveal } from "../../ui/Reveal";
 
 interface StatItem {
   value: number;
@@ -52,7 +53,11 @@ export default function StatsSection({ locale = "fa" }: { locale?: string }) {
         className="mx-auto flex max-w-5xl items-center justify-between"
       >
         {STATS.map((stat, index) => (
-          <div key={stat.label} className="flex items-center flex-1">
+          <Reveal
+            key={stat.label}
+            delay={index * 120}
+            className="flex flex-1 items-center"
+          >
             <StatItemView stat={stat} locale={locale} enabled={inView} />
             {index < STATS.length - 1 && (
               <Image
@@ -63,7 +68,7 @@ export default function StatsSection({ locale = "fa" }: { locale?: string }) {
                 className="h-16 w-auto"
               />
             )}
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

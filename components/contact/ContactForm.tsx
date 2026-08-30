@@ -12,6 +12,7 @@ import {
 
 import { trpc } from "@/lib/trpc/client";
 import { Button } from "../ui";
+import { Reveal } from "../ui/Reveal";
 
 export function ContactForm() {
   const router = useRouter();
@@ -55,7 +56,7 @@ export function ContactForm() {
 
   return (
     <section className="py-16 px-4 font-peyda-medium">
-      <div
+      <Reveal
         className="max-w-5xl mx-auto rounded-3xl p-10 md:px-14"
         style={{
           background: "linear-gradient(to left, #C8A24A, #F6DEA3)",
@@ -237,7 +238,7 @@ export function ContactForm() {
             </Button>
           </div>
         </form>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -6,6 +6,7 @@ import Image from "next/image";
 import OurStoryImage from "../../public/images/ourStory.png";
 import Outlook from "../../public/images/Outlook.png";
 import { Button } from "../ui";
+import { Reveal } from "../ui/Reveal";
 import { useRouter } from "next/navigation";
 import SectionBorderTitle from "./SectionBorderTitle";
 
@@ -16,8 +17,7 @@ function OurStory({ locale }: { locale: string }) {
   return (
     <div className="my-20">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch lg:mx-40 md:mx-10 mx-5">
-        <div className="relative w-full h-full min-h-[300px]">
-          {" "}
+        <Reveal direction="right" className="relative w-full h-full min-h-[300px]">
           <Image
             src={OurStoryImage}
             alt="Our Story"
@@ -25,9 +25,12 @@ function OurStory({ locale }: { locale: string }) {
             className="object-cover "
           />
           <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
-        </div>
+        </Reveal>
 
-        <div className="flex flex-col justify-center h-full">
+        <Reveal
+          delay={150}
+          className="flex flex-col justify-center h-full"
+        >
           <div className="lg:px-10">
             <SectionBorderTitle>درباره ما</SectionBorderTitle>{" "}
             <p className="font-peyda-regular text-justify mt-5">
@@ -42,16 +45,18 @@ function OurStory({ locale }: { locale: string }) {
               </Button>
             </div>
           </div>
-          <div className="relative">
-            <Image
-              src={Outlook}
-              alt="Outlook"
-              width={500}
-              className="mt-5 md:mx-auto"
-            />
-            <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
-          </div>
-        </div>
+          <Reveal delay={300}>
+            <div className="relative animate-float">
+              <Image
+                src={Outlook}
+                alt="Outlook"
+                width={500}
+                className="mt-5 md:mx-auto"
+              />
+              <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
+            </div>
+          </Reveal>
+        </Reveal>
       </div>
     </div>
   );

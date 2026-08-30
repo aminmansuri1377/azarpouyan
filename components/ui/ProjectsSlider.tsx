@@ -15,6 +15,7 @@ export default function ProjectsSlider({
   const trackRef = useRef<HTMLDivElement>(null);
 
   const [isDragging, setIsDragging] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
@@ -26,7 +27,8 @@ export default function ProjectsSlider({
     let animationFrame: number;
 
     const animate = () => {
-      if (!isDragging) {
+      // هنگام درگ یا hover حرکت خودکار متوقف می‌شود
+      if (!isDragging && !isHovering) {
         slider.scrollLeft += speed;
 
         // ریست وقتی به نصف رسید (چون children دو بار تکرار شده)
@@ -41,7 +43,7 @@ export default function ProjectsSlider({
     animationFrame = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrame);
-  }, [isDragging, speed]);
+  }, [isDragging, isHovering, speed]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -81,7 +83,11 @@ export default function ProjectsSlider({
       dir="ltr"
       className="overflow-x-hidden cursor-grab select-none"
       onMouseDown={handleMouseDown}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => {
+        setIsHovering(false);
+        handleMouseLeave();
+      }}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
     >

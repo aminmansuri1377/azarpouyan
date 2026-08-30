@@ -29,6 +29,14 @@ const blurMap = {
   lg: "backdrop-blur-lg",
 };
 
+/**
+ * GlassCard — کارت شیشه‌ای با درخشش خودکار و همیشگی:
+ * یک پرتو نور متحرک به‌صورت دوره‌ای از روی کارت رد می‌شود (بدون نیاز به hover)
+ * و یک درخشش ثابت در گوشه‌ی کارت همیشه روشن است.
+ * رنگ پرتو با متغیر CSS ـِ --shine-color تنظیم می‌شود:
+ *   - حالت light: درخشش طلایی هماهنگ با برند
+ *   - حالت dark : درخشش سفید
+ */
 export function GlassCard({
   variant = "light",
   radius = "xl",
@@ -41,13 +49,15 @@ export function GlassCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden border",
+        "glass-shine relative overflow-hidden border",
         radiusMap[radius],
         blurMap[blur],
         // حالت روشن: دقیقاً مطابق مقدار فیگما rgba(217,217,217,0.2)
-        variant === "light" && "border-white/25 bg-[rgba(217,217,217,0.2)]",
+        variant === "light" &&
+          "border-white/25 bg-[rgba(217,217,217,0.2)] [--shine-color:rgba(215,165,57,0.42)] [--sheen-static:rgba(255,255,255,0.30)]",
         // حالت تیره: برای روی عکس/بک‌گراند تیره (مثل HowItWorks موبایل)
-        variant === "dark" && "border-white/10 bg-white/10",
+        variant === "dark" &&
+          "border-white/10 bg-white/10 [--shine-color:rgba(255,255,255,0.50)] [--sheen-static:rgba(255,255,255,0.18)]",
         "shadow-[0_8px_32px_rgba(0,0,0,0.15)]",
         className,
       )}
@@ -59,7 +69,7 @@ export function GlassCard({
           className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/25 via-white/5 to-transparent"
         />
       )}
-      <div className="relative">{children}</div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }

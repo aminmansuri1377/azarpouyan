@@ -16,10 +16,7 @@ export function BlogCard({
   href = "#",
 }: BlogCardProps) {
   return (
-    <Link
-      href={href}
-      className="block rounded-3xl bg-white shadow-sm overflow-hidden"
-    >
+    <Link href={href} className="block bg-white shadow-sm overflow-hidden">
       <div className="relative w-full aspect-[16/9]">
         <Image
           src={image}

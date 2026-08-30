@@ -29,6 +29,8 @@ import WhyUsSection from "@/components/site/WhyUsSection";
 import OurPartners from "@/components/site/OurPartners";
 import { ContactForm } from "@/components/contact/ContactForm";
 import StatsSection from "@/components/site/about/StatsSection";
+import { ScrollProgress } from "@/components/site/ScrollProgress";
+import { Reveal } from "@/components/ui/Reveal";
 
 const Services = [
   {
@@ -85,6 +87,7 @@ export default function HomePage() {
 
   return (
     <div>
+      <ScrollProgress />
       <Hero locale={locale} />
 
       <OurStory locale={locale} />
@@ -95,9 +98,9 @@ export default function HomePage() {
       <WhyUsSection />
       <ContactForm />
       {/* ===== جستجوی محصولات (بدون تیتر چسبان) ===== */}
-      <div className="m-20">
+      <Reveal className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
-      </div>
+      </Reveal>
 
       {shouldSearch ? (
         <>

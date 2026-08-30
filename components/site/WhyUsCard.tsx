@@ -16,7 +16,7 @@ export default function WhyUsCard({
 }: WhyUsCardProps) {
   return (
     <div
-      className={`relative border border-black bg-background p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow duration-300 ${className}`}
+      className={`whyus-card relative border border-black bg-background p-8 flex flex-col items-center text-center shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1.5 ${className}`}
       dir="rtl"
     >
       {/* Hexagon Icon */}

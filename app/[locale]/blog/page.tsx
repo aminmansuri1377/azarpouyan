@@ -14,6 +14,7 @@ import BlogImage from "../../../public/images/bloghero.jpg";
 
 import { BlogCard } from "@/components/site/BlogCard";
 import { Button } from "@/components/ui";
+import SectionBorderTitle from "@/components/site/SectionBorderTitle";
 
 const Samples = [
   {
@@ -105,82 +106,12 @@ export default function BlogPage() {
 
   return (
     <div dir="rtl" className="bg-background">
-      {/* =========================
-          Hero دسکتاپ
-      ========================== */}
-      <section className="relative hidden md:block">
-        <Image
-          src={BlogImage}
-          alt="Blog background"
-          className="h-auto w-full object-cover object-[50%_center] md:object-center"
-          priority
-        />
+      <div className=" mt-28 text-center">
+        <SectionBorderTitle> مقالات و نشریات شرکت آذر پویان</SectionBorderTitle>
+      </div>
 
-        <div className="absolute inset-0 mt-30 text-center">
-          <h1 className="font-peyda-bold text-4xl text-white lg:mt-20">
-            {t.newestBlogs}
-          </h1>
-
-          <p className="mx-auto my-10 w-[40%] font-peyda-regular text-white">
-            {t.hero.description}
-          </p>
-
-          <div className="order-2 mx-5 mt-20 rounded-[40px] bg-white/20 p-5 text-start backdrop-blur-sm md:order-1 lg:mx-20 lg:p-16">
-            <h2 className="font-peyda-bold text-white lg:text-2xl">
-              {t.learnWithTitle}
-            </h2>
-
-            <p className="my-10 font-peyda-regular text-white">
-              {t.hero.description}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          Hero موبایل
-      ========================== */}
-      <section className="relative isolate overflow-hidden md:hidden">
-        <div
-          className="absolute inset-0 -z-10 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/bloghero.jpg')",
-          }}
-        />
-
-        <div className="absolute inset-0 -z-10 bg-[rgba(15,28,45,0.65)]" />
-
-        <div className="px-6 pb-10 pt-24 text-center">
-          <h1 className="font-peyda-bold text-3xl leading-[1.5] text-white">
-            {t.newestBlogs}
-          </h1>
-
-          <p className="mx-auto mt-4 font-peyda-regular text-base leading-[1.8] text-white">
-            {t.hero.description}
-          </p>
-
-          <Button className="mt-8 px-10 font-peyda-bold">دریافت مشاوره</Button>
-        </div>
-      </section>
-
-      {/* =========================
-          توضیحات موبایل
-      ========================== */}
-      <section className="px-6 py-10 md:hidden">
-        <h2 className="mb-4 font-peyda-bold text-2xl text-black">
-          {t.learnWithTitle}
-        </h2>
-
-        <p className="font-peyda-regular text-sm leading-[1.8] text-black/80">
-          {t.hero.description}
-        </p>
-      </section>
-
-      {/* =========================
-          دسکتاپ: نمونه‌ها + دیتابیس
-      ========================== */}
       <section className="hidden bg-background px-6 py-20 md:block">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-8">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-3 gap-8">
           {/* ابتدا نمونه‌های ثابت */}
           {Samples.map((sample) => (
             <BlogCard

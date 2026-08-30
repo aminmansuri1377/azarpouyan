@@ -17,7 +17,7 @@ export default function DotPattern({ className = "" }: { className?: string }) {
           }
         }
         .animate-dot-drift {
-          animation: dot-drift 2s linear infinite;
+          animation: dot-drift 12s ease-in-out infinite alternate;
         }
       `}</style>
 

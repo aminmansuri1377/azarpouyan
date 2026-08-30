@@ -532,3 +532,189 @@
 
   /* ... بقیه کد بدون تغییر */
 }
+
+/* ============================================================================
+ *  UI MOTION — انیمیشن‌های سبک اختصاصی (بدون هیچ وابستگی خارجی)
+ * ----------------------------------------------------------------------------
+ *  همه‌ی افکت‌ها فقط روی transform / opacity اجرا می‌شوند (GPU-friendly) و
+ *  با prefers-reduced-motion به‌صورت خودکار غیرفعال می‌شوند.
+ * ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+ * ۱) سیستم Reveal اسکرولی — ورود نرم المان‌ها هنگام اسکرول
+ * ------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal[data-direction="left"] {
+  transform: translateX(-48px);
+}
+
+.reveal[data-direction="right"] {
+  transform: translateX(48px);
+}
+
+.reveal[data-direction="scale"] {
+  transform: scale(0.94) translateY(10px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * ۲) درخشش شیشه‌ای خودکار — GlassCard
+ * ------------------------------------------------------------------------- */
+.glass-shine {
+  --shine-color: rgba(255, 255, 255, 0.35);
+  --sheen-static: rgba(255, 255, 255, 0.08);
+  isolation: isolate;
+}
+
+/* پرتو متحرک — ~۴.۵ ثانیه حرکت + ~۱.۵ ثانیه مکث */
+.glass-shine::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  left: 0;
+  width: 44%;
+  z-index: 1;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    var(--shine-color) 50%,
+    transparent 70%
+  );
+  transform: translateX(-340%) skewX(-14deg);
+  animation: kga-shine 6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* درخشش ثابت — با تنفس آرام */
+.glass-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg, var(--sheen-static), transparent 45%);
+  animation: kga-sheen-breathe 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes kga-shine {
+  0% {
+    transform: translateX(-340%) skewX(-14deg);
+  }
+  75%,
+  100% {
+    transform: translateX(340%) skewX(-14deg);
+  }
+}
+
+@keyframes kga-sheen-breathe {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * ۳) تیترهای قاب‌دار SectionBorderTitle — خطوط با انیمیشن draw کشیده می‌شوند
+ * ------------------------------------------------------------------------- */
+.sbt-draw {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sbt-draw.is-in {
+  stroke-dashoffset: 0;
+}
+
+.sbt-text {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.7s ease 0.4s,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}
+
+.sbt-text.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * ۴) حرکت آرام و شناور (برای تصاویر و تزئینات)
+ * ------------------------------------------------------------------------- */
+.animate-float {
+  animation: kga-float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes kga-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * ۵) کارت‌های WhyUs — خط طلایی که روی hover از مرکز باز می‌شود
+ * ------------------------------------------------------------------------- */
+.whyus-card {
+  position: relative;
+}
+
+.whyus-card::after {
+  content: "";
+  position: absolute;
+  inset-inline: 30%;
+  bottom: 0;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.whyus-card:hover::after {
+  transform: scaleX(1);
+}
+
+/* ---------------------------------------------------------------------------
+ * ۶) نوار پیشرفت اسکرول بالای صفحه
+ * ------------------------------------------------------------------------- */
+.scroll-progress-inner {
+  transform-origin: left;
+}
+
+:dir(rtl) .scroll-progress-inner {
+  transform-origin: right;
+}
+
+/* ---------------------------------------------------------------------------
+ * ۷) پولیش سراسری سبک
+ * ------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 35%, transparent);
+}
