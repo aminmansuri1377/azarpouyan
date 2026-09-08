@@ -10,6 +10,7 @@ import { Pagination } from "@/components/site/Pagination";
 import { useDebounce } from "@/hooks/useDebounce";
 import SectionBorderTitle from "@/components/site/SectionBorderTitle";
 import Office from "../../../public/images/office.jpg";
+import DotPattern from "@/components/site/DotPattern";
 
 export default function WorkExamplesPage() {
   const params = useParams();
@@ -50,30 +51,45 @@ export default function WorkExamplesPage() {
         </div>
         <div className="order-1 mt-6 md:mt-0">
           <div className="mb-4">
-            <span className="text-primary font-bold text-lg">نمونه کارهای ما :</span>
+            <span className="text-black font-bold text-lg">
+              نمونه کارهای ما :
+            </span>
           </div>
-          <h1 className="font-bold my-6 md:my-8 text-2xl md:text-3xl lg:text-4xl leading-relaxed text-foreground">
-            هر خــانه، نقطه آغــاز یــک داستـان اســت؛ داستان آرامش، امنیت، رشد و آینده
+          <h1 className="font-bold my-6 md:my-8 text-2xl md:text-3xl leading-relaxed text-foreground">
+            ایده‌هایی که ساخته‌ایم، ارزش‌هایی که خلق کرده‌ایم{" "}
           </h1>
           <p className="text-justify text-muted-foreground leading-loose text-sm md:text-base">
-            ما با اتکا به تجربه، نوآوری و استانداردهای روز بین‌المللی در زمینه طراحی و ساخت پروژه‌های ساختمانی، تجاری و مسکونی پیشرو هستیم. هدف ما خلق فضاهایی پایدار، مدرن و باکیفیت برای نسل‌های آینده است.
+            هر پروژه برای پویان، فرصتی است برای تبدیل یک ایده به فضایی برای
+            زندگی. از نخستین نگاه به زمین و شناخت ظرفیت‌های آن تا طراحی معماری،
+            انتخاب مصالح و اجرای نهایی، تلاش می‌کنیم میان زیبایی، کارایی، کیفیت
+            و ارزش ماندگار تعادل ایجاد کنیم. برای ما، ساختن تنها به معنای
+            شکل‌دادن به یک بنا نیست؛ بلکه اندیشیدن به زندگی‌ای است که در آن
+            جریان پیدا می‌کند. در این مسیر، هر انتخاب اهمیت دارد؛ از نور و تناسب
+            فضاها تا جزئیاتی که بر آسایش و تجربه روزمره ساکنان تأثیر می‌گذارند.
+            هدف ما خلق فضاهایی است که نه‌تنها در نگاه اول، بلکه در گذر زمان نیز
+            دلپذیر و کارآمد بمانند و حس آرامش و تعلق را حفظ کنند. آنچه در ادامه
+            می‌بینید، بخشی از مسیر پویان در تبدیل این نگاه به واقعیت است. هر
+            پروژه، روایت ایده‌ها و انتخاب‌هایی است که در کنار هم به یک بنا هویت
+            می‌بخشند؛ بنایی که پایان ساخت آن، آغاز زندگی و شکل‌گیری خاطره‌های
+            تازه است.{" "}
           </p>
         </div>
       </div>
 
       {/* Projects listing section */}
       <section className="py-16 px-6 sm:px-10 md:px-20 bg-muted/30 border-t border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-            <div className="text-center md:text-right">
-              <SectionBorderTitle className="text-foreground">
-                همه پروژه‌ها و نمونه‌کارها
-              </SectionBorderTitle>
-              <p className="text-sm text-muted-foreground mt-2">
-                مجموع پروژه‌های ثبتی: {data?.total ?? 0}
-              </p>
+        <div className="max-w-7xl mx-auto ">
+          <div>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+              <div className="text-center md:text-right">
+                <SectionBorderTitle className="text-foreground">
+                  همه پروژه‌ها و نمونه‌کارها
+                </SectionBorderTitle>
+                <p className="text-sm text-muted-foreground mt-2">
+                  مجموع پروژه‌های ثبتی: {data?.total ?? 0}
+                </p>
+              </div>
             </div>
-
             <div className="w-full md:w-80">
               <ProductSearch
                 value={search}
