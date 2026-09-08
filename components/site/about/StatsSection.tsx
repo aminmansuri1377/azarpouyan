@@ -49,6 +49,13 @@ export default function StatsSection({ locale = "fa" }: { locale?: string }) {
 
   return (
     <section className="px-4 py-10 md:px-12 md:py-14 lg:px-20" dir="rtl">
+      <p className="mx-auto text-center mb-10 font-peyda-bold text-xl md:text-4xl md:w-[75%] md:leading-16">
+        دست آورد ها و افتخاراتی که{" "}
+        <span className="text-primary">شرکت آذر پویان</span> با نزدیک به{" "}
+        <span className="text-primary">دو دهه</span> تجربه کار در{" "}
+        <span className="text-primary">حوزه ساخت و ساز</span> و مهندسی ساختمان
+        به دست آورده است{" "}
+      </p>
       {/* تغییرات اصلی: استفاده از grid، ۲ ستون در موبایل و ۴ ستون در دسکتاپ */}
       <div
         ref={ref}

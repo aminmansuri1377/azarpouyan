@@ -122,9 +122,10 @@ export default function ProjectsSection({
               className="text-gray-400 text-sm max-w-3xl mx-auto leading-relaxed"
               dir="rtl"
             >
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-              ستون و سطرآنچنان که لازم است.
+              پروژه‌های ساختمانی آذر پویان با تمرکز بر کیفیت ساخت، طراحی معماری،
+              کارایی فضا و نیازهای زندگی امروز توسعه می‌یابند. از برنامه‌ریزی و
+              طراحی تا اجرا و نظارت تخصصی، هر مرحله با دقت و بر پایه
+              استانداردهای فنی و مهندسی پیش می‌رود.{" "}
             </p>
           </Reveal>
         </div>
@@ -132,7 +133,10 @@ export default function ProjectsSection({
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project, index) => (
-            <Reveal key={project.id} delay={Math.floor(index / 2) * 150 + (index % 2) * 100}>
+            <Reveal
+              key={project.id}
+              delay={Math.floor(index / 2) * 150 + (index % 2) * 100}
+            >
               <ProjectCard
                 imageSrc={project.imageSrc}
                 title={project.title}

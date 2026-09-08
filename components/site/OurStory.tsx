@@ -3,7 +3,7 @@
 import { getMessages } from "@/messages";
 import React from "react";
 import Image from "next/image";
-import OurStoryImage from "../../public/images/ourStory.png";
+import OurStoryImage from "../../public/images/manager.png";
 import Outlook from "../../public/images/Outlook.png";
 import { Button } from "../ui";
 import { Reveal } from "../ui/Reveal";
@@ -35,7 +35,7 @@ function OurStory({ locale }: { locale: string }) {
               </Button>
             </div>
           </div>
-          <Reveal delay={300}>
+          {/* <Reveal delay={300}>
             <div className="relative animate-float">
               <Image
                 src={Outlook}
@@ -45,11 +45,11 @@ function OurStory({ locale }: { locale: string }) {
               />
               <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
             </div>
-          </Reveal>
+          </Reveal> */}
         </Reveal>
         <Reveal
           direction="right"
-          className="relative w-full h-full min-h-[300px] md:order-1"
+          className="relative w-full h-full min-h-[400px] md:order-1"
         >
           <Image
             src={OurStoryImage}

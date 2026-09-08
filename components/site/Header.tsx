@@ -80,7 +80,7 @@ export function Header({ locale, messages, whiteText }: Props) {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         isScrolled
-          ? "backdrop-blur-md shadow-sm bg-[rgba(var(--secondary-foreground-rgb),0.55)]"
+          ? "backdrop-blur-md shadow-sm bg-[rgba(var(--secondary-foreground-rgb),0.25)]"
           : "",
       )}
     >

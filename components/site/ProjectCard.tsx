@@ -40,16 +40,12 @@ export default function ProjectCard({
           </div>
         )}
         <div className="absolute inset-3 sm:inset-4 border-2 border-white/70 pointer-events-none" />
-
-        {/* Title Overlay on Image */}
-        <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-4 py-1.5 rounded-sm max-w-[80%]">
-          <h3 className="text-sm font-bold text-gray-900 dark:text-white truncate">
-            {title}
-          </h3>
-        </div>
       </div>
 
       {/* Content */}
+      <h3 className="text-sm md:text-xl font-bold text-gray-900 dark:text-white truncate m-5">
+        {title}
+      </h3>
       <div className="p-5 flex items-center justify-between" dir="rtl">
         <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed flex-1 line-clamp-2">
           {description}
@@ -79,7 +75,10 @@ export default function ProjectCard({
 
   if (href) {
     return (
-      <Link href={href} className="block transition-transform duration-200 hover:-translate-y-1">
+      <Link
+        href={href}
+        className="block transition-transform duration-200 hover:-translate-y-1"
+      >
         {content}
       </Link>
     );

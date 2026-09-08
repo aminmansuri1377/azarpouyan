@@ -98,11 +98,11 @@ export default function HomePage() {
       <WhyUsSection />
       <ContactForm />
       {/* ===== جستجوی محصولات (بدون تیتر چسبان) ===== */}
-      <Reveal className="m-20">
+      {/* <Reveal className="m-20">
         <ProductSearch value={search} onChange={setSearch} />
-      </Reveal>
+      </Reveal> */}
 
-      {shouldSearch ? (
+      {/* {shouldSearch ? (
         <>
           {isFetching && <div className="mb-3">Searching...</div>}
 
@@ -135,7 +135,7 @@ export default function HomePage() {
             <PublicCategoryTree locale={locale} categories={categories} />
           )}
         </>
-      )}
+      )} */}
     </div>
   );
 }
