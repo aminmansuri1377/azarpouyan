@@ -30,7 +30,8 @@ const en = {
       "We are an international trading company that provides industrial goods supply and access to real-time global market data together. Our goal is to simplify the process of purchasing, supplying, and decision-making in global trade.",
     usersLabel: "active users",
   },
-
+  aboutUsDes: "",
+  aboutUsTag: "About azarpouyan : A Development Defined by Quality",
   footer: "All rights reserved",
   contactus: "contact Us",
   nameandSurname: "Name and Surname",

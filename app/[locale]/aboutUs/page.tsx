@@ -21,8 +21,8 @@ function AboutUs() {
     <main className="overflow-hidden bg-background text-foreground mt-10">
       <AboutHero
         label={t.aboutUs}
-        tagline={t.hero.tagline}
-        description={t.hero.description}
+        tagline={t.aboutUsTag}
+        description={t.aboutUsDes}
       />
 
       <VisionSection

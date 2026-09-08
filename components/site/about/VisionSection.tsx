@@ -24,7 +24,9 @@ export default function VisionSection({
           </div>
 
           <p className="mx-auto mt-4 max-w-3xl font-peyda-regular text-sm leading-loose text-foreground/70 md:text-base">
-            {description}
+            آینده را می‌سازیم؛ با توسعه‌ای که کیفیت، زندگی و ارزش را در کنار هم
+            قرار می‌دهد.هدف ما، ساختن نامی ماندگار در صنعت ساختمان و خلق
+            پروژه‌هایی است که ارزششان در گذر زمان حفظ شود.
           </p>
         </div>
 
@@ -55,12 +57,15 @@ export default function VisionSection({
             >
               <div className="text-right">
                 <h3 className="font-peyda-bold text-lg leading-relaxed text-foreground">
-                  هر خانه، نقطه آغاز یک داستان است
+                  آینده را می‌سازیم؛ با توسعه‌ای که کیفیت، زندگی و ارزش را در
+                  کنار هم قرار می‌دهد. هدف ما، ساختن نامی ماندگار در صنعت
+                  ساختمان و خلق پروژه‌هایی است که ارزششان در گذر زمان حفظ
+                  شود.{" "}
                 </h3>
 
-                <h4 className="font-peyda-bold text-base mt-2 leading-relaxed text-foreground/90">
+                {/* <h4 className="font-peyda-bold text-base mt-2 leading-relaxed text-foreground/90">
                   داستان آرامش، امنیت، رشد و آینده
-                </h4>
+                </h4> */}
 
                 <p className="mt-4 text-justify font-peyda-regular text-xs leading-loose text-foreground/80">
                   {description}
@@ -81,16 +86,35 @@ export default function VisionSection({
             >
               {/* محتوا داخل پنل */}
               <div className="text-right pr-4 sm:pr-6">
-                <h3 className="font-peyda-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl leading-relaxed text-foreground">
-                  هر خانه، نقطه آغاز یک داستان است
+                <h3 className="font-peyda-bold text-xl lg:text-xl leading-relaxed text-foreground mx-3">
+                  آینده را می‌سازیم؛ با توسعه‌ای که کیفیت، زندگی و ارزش را در
+                  کنار هم قرار می‌دهد. هدف ما، ساختن نامی ماندگار در صنعت
+                  ساختمان و خلق پروژه‌هایی است که ارزششان در گذر زمان حفظ
+                  شود.{" "}
                 </h3>
 
-                <h4 className="font-peyda-bold text-lg sm:text-xl lg:text-2xl mt-3 sm:mt-4 leading-relaxed text-foreground/90">
+                {/* <h4 className="font-peyda-bold text-lg sm:text-xl lg:text-2xl mt-3 sm:mt-4 leading-relaxed text-foreground/90">
                   داستان آرامش، امنیت، رشد و آینده
-                </h4>
+                </h4> */}
 
-                <p className="mt-6 ml-10 sm:mt-8 text-justify font-peyda-regular text-xs sm:text-sm md:text-base leading-loose text-foreground/80 lg:leading-8">
-                  {description}
+                <p className="mt-6 ml-10 sm:mt-8 text-justify font-peyda-regular text-xs sm:text-sm  leading-loose text-foreground/80 lg:leading-6">
+                  چشم‌انداز آذرپویان، تبدیل شدن به مجموعه‌ای معتبر و اثرگذار در
+                  صنعت ساختمان است؛ مجموعه‌ای که توسعه را بر پایه تخصص، کیفیت و
+                  شناخت دقیق بازار پیش می‌برد. در مسیر رشد، افزایش سبد پروژه‌ها
+                  و حضور در بازارهای جدید، همراه با حفظ استانداردهای طراحی و
+                  ساخت دنبال خواهد شد. توسعه همکاری با متخصصان و مجموعه‌های
+                  توانمند، استفاده از فناوری‌های روز و بهبود مستمر فرآیندهای
+                  طراحی و اجرا، بخش مهمی از مسیر آینده آذرپویان خواهد بود. شناخت
+                  تغییرات سبک زندگی و نیازهای نسل‌های جدید نیز در انتخاب و طراحی
+                  پروژه‌های آینده مورد توجه قرار می‌گیرد. هدف، ایجاد فضاهایی است
+                  که از نظر معماری، کیفیت ساخت، امکانات و کارایی، پاسخگوی
+                  نیازهای امروز و آینده باشند. در کنار توسعه پروژه‌ها، ایجاد
+                  ارزش پایدار برای ساکنان، سرمایه‌گذاران و شرکای تجاری نیز دنبال
+                  می‌شود.آذرپویان می‌خواهد رشد خود را با حفظ کیفیت و اعتماد پیش
+                  ببرد و در هر پروژه، تجربه‌ای کامل‌تر از پروژه پیشین ارائه دهد.
+                  چشم‌انداز نهایی، ساختن برندی ماندگار است؛ برندی که نام پویان
+                  را با کیفیت، اعتبار و ارزش‌آفرینی در صنعت ساختمان پیوند
+                  دهد.{" "}
                 </p>
               </div>
             </div>

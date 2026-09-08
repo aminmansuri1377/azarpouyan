@@ -41,7 +41,10 @@ export default function PartnersSection({
           </div>
 
           <p className="mx-auto mt-2 max-w-3xl font-peyda-regular text-xs leading-loose text-foreground/70 md:text-sm lg:text-base">
-            {description}
+            توسعه پروژه‌های باکیفیت، حاصل همکاری مجموعه‌ای از متخصصان و شرکت‌های
+            توانمند در حوزه‌های مختلف است. پویان با تکیه بر این همکاری‌های
+            تخصصی، دانش و تجربه را در مسیر طراحی، اجرا و توسعه پروژه‌ها به کار
+            می‌گیرد.{" "}
           </p>
         </div>
 

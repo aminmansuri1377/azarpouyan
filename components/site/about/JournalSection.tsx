@@ -22,7 +22,9 @@ export default function JournalSection({ description }: JournalSectionProps) {
           </div>
 
           <p className="mx-auto mt-2 max-w-3xl font-peyda-regular text-xs leading-loose text-white/60 md:text-sm lg:text-base">
-            {description}
+            گاهنامه آذرپویان، روایت پروژه‌ها، ایده‌ها و مسیر توسعه‌ای است که پشت
+            هر پروژه شکل می‌گیرد.در هر شماره، نگاهی دقیق‌تر به معماری، کیفیت،
+            تجربه زندگی و فرصت‌های پیش‌روی آذرپویان خواهیم داشت.{" "}
           </p>
           <div className="mt-10 rounded-2xl bg-white/5 p-6 md:mt-14 md:rounded-3xl md:p-12">
             <JournalCard
