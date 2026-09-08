@@ -1,18 +1,13 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { Header } from "@/components/site/Header";
+import type { getMessages } from "@/messages";
 
 interface Props {
   locale: string;
-  messages: any;
+  messages: ReturnType<typeof getMessages>;
 }
 
 export function SiteHeader({ locale, messages }: Props) {
-  const pathname = usePathname();
-
-  // فقط مسیر /fa یا /en یا هر locale دیگری
-  const isHomePage = pathname === `/${locale}`;
-
-  return <Header locale={locale} messages={messages} whiteText={isHomePage} />;
+  return <Header locale={locale} messages={messages} />;
 }

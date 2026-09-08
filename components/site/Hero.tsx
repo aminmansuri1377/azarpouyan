@@ -1,95 +1,64 @@
-"use client";
+import Link from "next/link";
 
-import Image from "next/image";
 import { getMessages } from "@/messages";
-import { formatLocaleNumber, useCountUp } from "@/hooks/useCountUp";
-import { Button } from "../ui/Button";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/Button";
 
 interface HeroProps {
   locale: string;
-  users?: number;
 }
 
-export function Hero({ locale, users = 245 }: HeroProps) {
+export function Hero({ locale }: HeroProps) {
   const t = getMessages(locale).hero;
-  const router = useRouter();
 
   return (
-    <section className="relative isolate flex min-h-[85vh] w-full items-center justify-center overflow-hidden">
-      {/* Background image */}
-      <Image
-        src="/images/hero.png"
-        alt="Hero background"
-        fill
-        priority
-        className="object-cover object-[75%_center] md:object-center"
-      />
-
-      {/* Dark overlay */}
-      {/* <div className="absolute inset-0 bg-slate-900/60" /> */}
-
-      {/* Optional gradient like the Figma */}
-
-      {/* Content */}
-      <div className="relative z-10 flex max-w-4xl flex-col items-center gap-4 px-6 text-center text-white">
-        <p
-          className="hero-reveal md:text-4xl md:w-[70%] text-2xl font-peyda-bold font-bold tracking-tight mb-5 mt-10 leading-14"
-          style={{ animationDelay: "1s" }}
-        >
-          {t.tagline}
-        </p>
-
-        <div className="relative w-full max-w-[633px] md:mx-auto text-justify flex flex-col items-center justify-center gap-4 my-5 md:flex-row md:gap-0">
-          {/* خط بالای متن - فقط موبایل */}
-          <div
-            className="h-px w-full max-w-[240px] bg-white/70 md:hidden"
-            aria-hidden="true"
-          />
-
-          {/* Left horizontal line - فقط دسکتاپ */}
-          {/* <div
-            className="hidden lg:block absolute right-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
-            aria-hidden="true"
-          /> */}
-
-          <p
-            className="hero-reveal text-sm font-peyda-regular font-medium text-popover text-center mx-8 md:mx-0"
-            style={{ animationDelay: "2s" }}
+    <section
+      aria-labelledby="hero-heading"
+      className="relative isolate w-full overflow-hidden bg-[#f8f5ed] text-[#0f172a] lg:flex lg:aspect-video lg:items-center"
+    >
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-32 pb-8 sm:px-10 lg:px-20 lg:pt-24 lg:pb-12">
+        <div className="flex flex-col items-start gap-6 text-start lg:ml-auto lg:w-1/2">
+          <h1
+            id="hero-heading"
+            className="whitespace-pre-line font-peyda-bold text-3xl leading-relaxed font-bold sm:text-4xl lg:text-[clamp(1.5rem,2.6vw,2.75rem)]"
           >
+            {t.tagline}
+          </h1>
+
+          <p className="font-peyda-regular text-base leading-8 lg:text-lg">
             {t.description}
           </p>
 
-          {/* Right horizontal line - فقط دسکتاپ */}
-          {/* <div
-            className="hidden lg:block absolute left-[calc(100%+74px)] w-[100vw] h-[1px] bg-white"
-            aria-hidden="true"
-          /> */}
-
-          {/* خط پایین متن - فقط موبایل */}
-          <div
-            className="h-px w-full max-w-[240px] bg-white/70 md:hidden"
-            aria-hidden="true"
-          />
-        </div>
-
-        <div
-          className="gap-10 md:flex mt-10"
-          style={{ animationDelay: "2.3s" }}
-        >
           <Button
-            onClick={() => router.push(`/${locale}/contact`)}
-            className="px-14"
+            asChild
+            className="mt-2 min-w-48 rounded-full bg-[#c8a24a] px-10 text-white hover:bg-[#b58f38] md:rounded-full"
           >
-            {t.receiveConsulting}
+            <Link href={`/${locale}/contact`}>{t.receiveConsulting}</Link>
           </Button>
-          {/* <Button
-            className="hidden px-14 mt-4 md:mt-0 md:inline-flex"
-            variant="secondary"
-          >
-            {t.seeServices}
-          </Button> */}
         </div>
+      </div>
+
+      {/* The source artwork occupies the left half of a wide video.
+          On mobile, crop its empty right half below the text. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none relative aspect-square w-full overflow-hidden select-none lg:absolute lg:inset-0 lg:aspect-auto"
+      >
+        {/* Native non-looping playback retains the final frame. Keep this
+            element mounted; no ended handler, seek, or source reset is needed. */}
+        <video
+          autoPlay
+          muted
+          playsInline
+          controls={false}
+          loop={false}
+          disablePictureInPicture
+          disableRemotePlayback
+          tabIndex={-1}
+          preload="auto"
+          className="absolute top-0 left-0 h-full w-[200%] max-w-none object-cover lg:w-full"
+        >
+          <source src="/images/herogif.webm" type="video/webm" />
+        </video>
       </div>
     </section>
   );
