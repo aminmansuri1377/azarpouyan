@@ -7,7 +7,6 @@ const en = {
 
   blogs: "Blog",
   articles: "Articles",
-  projects: "Work Examples",
   news: "News",
   home: "Home",
   products: "Products",
