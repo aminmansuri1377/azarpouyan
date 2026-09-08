@@ -12,7 +12,7 @@ import SectionBorderTitle from "@/components/site/SectionBorderTitle";
 import Office from "../../../public/images/office.jpg";
 import DotPattern from "@/components/site/DotPattern";
 
-export default function WorkExamplesPage() {
+export default function ProjectsPage() {
   const params = useParams();
   const locale = (params?.locale as string) || "fa";
 
@@ -77,20 +77,23 @@ export default function WorkExamplesPage() {
       </div>
 
       {/* Projects listing section */}
-      <section className="py-16 px-6 sm:px-10 md:px-20 bg-muted/30 border-t border-border">
-        <div className="max-w-7xl mx-auto ">
-          <div>
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-              <div className="text-center md:text-right">
-                <SectionBorderTitle className="text-foreground">
+      <section className="relative overflow-hidden border-t border-white/10 bg-neutral-900 px-6 py-16 sm:px-10 md:px-20">
+        <DotPattern />
+
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="mb-12 grid grid-cols-1 items-center gap-6 md:grid-cols-[1fr_auto_1fr]">
+            <div className="text-center md:col-start-2">
+              <div className="flex justify-center">
+                <SectionBorderTitle className="text-white">
                   همه پروژه‌ها و نمونه‌کارها
                 </SectionBorderTitle>
-                <p className="text-sm text-muted-foreground mt-2">
-                  مجموع پروژه‌های ثبتی: {data?.total ?? 0}
-                </p>
               </div>
+              <p className="mt-2 text-sm text-gray-400">
+                مجموع پروژه‌های ثبتی: {data?.total ?? 0}
+              </p>
             </div>
-            <div className="w-full md:w-80">
+
+            <div className="w-full md:col-start-3 md:row-start-1 md:w-80 md:justify-self-end">
               <ProductSearch
                 value={search}
                 onChange={(value) => {
@@ -102,18 +105,18 @@ export default function WorkExamplesPage() {
           </div>
 
           {isFetching && (
-            <div className="text-center py-4 text-sm text-muted-foreground">
+            <div className="py-4 text-center text-sm text-gray-400">
               در حال بارگذاری نتایج جستجو...
             </div>
           )}
 
           {isLoading ? (
-            <div className="text-center py-20 text-muted-foreground">
+            <div className="py-20 text-center text-gray-400">
               در حال دریافت پروژه‌ها...
             </div>
           ) : data?.items && data.items.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {data.items.map((project) => {
                   const translation = project.translations?.[0];
                   const projectSlug = translation?.slug || project.slug;
@@ -129,7 +132,7 @@ export default function WorkExamplesPage() {
                       title={title}
                       description={description}
                       imageAlt={title}
-                      href={`/${locale}/workExamples/${projectSlug}`}
+                      href={`/${locale}/projects/${projectSlug}`}
                     />
                   );
                 })}
@@ -138,13 +141,14 @@ export default function WorkExamplesPage() {
               <div className="mt-12">
                 <Pagination
                   page={page}
+                  withBg
                   totalPages={data.totalPages}
                   onPageChange={setPage}
                 />
               </div>
             </>
           ) : (
-            <div className="text-center py-20 text-muted-foreground">
+            <div className="py-20 text-center text-gray-400">
               <p className="text-lg">پروژه‌ای با این مشخصات یافت نشد.</p>
             </div>
           )}

@@ -39,16 +39,26 @@ export default function ProjectSinglePage() {
 
   if (isLoading) {
     return (
-      <main dir="rtl" className="mx-auto max-w-4xl p-20 text-center font-peyda-regular">
-        <p className="text-lg text-muted-foreground">در حال بارگذاری اطلاعات پروژه...</p>
+      <main
+        dir="rtl"
+        className="mx-auto max-w-4xl p-20 text-center font-peyda-regular"
+      >
+        <p className="text-lg text-muted-foreground">
+          در حال بارگذاری اطلاعات پروژه...
+        </p>
       </main>
     );
   }
 
   if (isError) {
     return (
-      <main dir="rtl" className="mx-auto max-w-4xl p-20 text-center font-peyda-regular">
-        <h1 className="text-2xl font-bold text-destructive mb-2">خطا در دریافت پروژه</h1>
+      <main
+        dir="rtl"
+        className="mx-auto max-w-4xl p-20 text-center font-peyda-regular"
+      >
+        <h1 className="text-2xl font-bold text-destructive mb-2">
+          خطا در دریافت پروژه
+        </h1>
         <p className="text-muted-foreground">{error?.message}</p>
       </main>
     );
@@ -56,20 +66,25 @@ export default function ProjectSinglePage() {
 
   if (!data || !data.project) {
     return (
-      <main dir="rtl" className="mx-auto max-w-4xl p-20 text-center font-peyda-regular">
+      <main
+        dir="rtl"
+        className="mx-auto max-w-4xl p-20 text-center font-peyda-regular"
+      >
         <h1 className="mb-3 text-3xl font-peyda-bold">پروژه پیدا نشد</h1>
         <p className="text-sm text-muted-foreground">
           این پروژه وجود ندارد، منتشر نشده است یا برای زبان فعلی ترجمه نشده است.
         </p>
         <p className="mt-3 text-xs text-muted-foreground/60" dir="ltr">
-          /{locale}/workExamples/{slug}
+          /{locale}/projects/{slug}
         </p>
       </main>
     );
   }
 
   const { project, name, summary, specifications, description } = data;
-  const galleryImages = Array.isArray(project.images) ? (project.images as string[]) : [];
+  const galleryImages = Array.isArray(project.images)
+    ? (project.images as string[])
+    : [];
 
   // Parse specifications into bullet items
   const specItems = specifications

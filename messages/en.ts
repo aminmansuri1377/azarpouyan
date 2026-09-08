@@ -7,7 +7,7 @@ const en = {
 
   blogs: "Blog",
   articles: "Articles",
-  workExamples: "Work Examples",
+  projects: "Work Examples",
   news: "News",
   home: "Home",
   products: "Products",

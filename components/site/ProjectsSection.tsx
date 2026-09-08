@@ -142,7 +142,7 @@ export default function ProjectsSection({
                 title={project.title}
                 description={project.description}
                 imageAlt={project.imageAlt}
-                href={`/${locale}/workExamples/${project.slug}`}
+                href={`/${locale}/projects/${project.slug}`}
                 className={index % 2 === 0 ? "md:order-1" : "md:order-2"}
               />
             </Reveal>
@@ -154,7 +154,7 @@ export default function ProjectsSection({
           <Reveal delay={200}>
             <div className="text-right mt-14">
               <Button
-                onClick={() => router.push(`/${locale}/workExamples`)}
+                onClick={() => router.push(`/${locale}/projects`)}
                 className="transition-colors duration-300 cursor-pointer"
                 dir="rtl"
               >

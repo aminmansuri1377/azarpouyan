@@ -644,7 +644,7 @@ export const publicRouter = router({
         "news",
         "articles",
         "price-ticker",
-        "workExamples",
+        "projects",
         "projects",
       ];
 
@@ -782,7 +782,7 @@ export const publicRouter = router({
       //
       // WORK EXAMPLES / PROJECTS
       //
-      if ((pageType === "workExamples" || pageType === "projects") && slug) {
+      if ((pageType === "projects" || pageType === "projects") && slug) {
         const translated = await resolveLocalizedSlug({
           prisma: ctx.prisma,
 

@@ -21,10 +21,29 @@ function OurStory({ locale }: { locale: string }) {
           delay={150}
           className="flex flex-col justify-center h-full md:order-2"
         >
-          <div className="lg:px-10 text-center">
+          <div className="lg:px-10 text-center md:text-right">
             <SectionBorderTitle>درباره ما</SectionBorderTitle>{" "}
+            <h1 className=" text-xl font-peyda-bold mt-8">
+              {" "}
+              توسعه‌ای که با کیفیت تعریف می‌شود
+            </h1>
             <p className="font-peyda-regular text-justify mt-5">
-              {t.hero.ourStoryDescription}
+              آذر پویان در مسیر توسعه پروژه‌های ساختمانی، کیفیت را از نخستین
+              تصمیم‌های طراحی تا آخرین مراحل اجرا دنبال می‌کند. معماری هدفمند،
+              مهندسی دقیق، نظارت تخصصی و توجه به جزئیات، ارکان اصلی پروژه‌هایی
+              هستند که با نام آذر پویان شکل می‌گیرند.{" "}
+            </p>
+            <p className="font-peyda-regular text-justify mt-5">
+              هر پروژه با شناخت نیازهای زندگی امروز، کیفیت فضاهای مسکونی،
+              امکانات مورد نیاز ساکنان و الزامات بلندمدت یک مجموعه طراحی و توسعه
+              می‌یابد؛ تا نتیجه، محیطی منسجم، کارآمد و ارزشمند برای زندگی
+              باشد.{" "}
+            </p>
+            <p className="font-peyda-regular text-justify mt-5">
+              همکاری با تیم‌های تخصصی، کنترل مستمر فرآیند اجرا و انتخاب
+              راهکارهایی که دوام و کیفیت پروژه را تقویت می‌کنند، مسیر آذر پویان
+              را در توسعه پروژه‌هایی شکل داده است که بتوانند در طول زمان، کیفیت
+              و ارزش خود را حفظ کنند.{" "}
             </p>
             <div className="text-left">
               <Button

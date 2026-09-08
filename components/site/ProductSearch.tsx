@@ -13,7 +13,7 @@ export function ProductSearch({ value, onChange }: Props) {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       onClear={() => onChange("")}
-      placeholder="Search product..."
+      placeholder="جستجوی پروژه..."
       size="md"
     />
   );

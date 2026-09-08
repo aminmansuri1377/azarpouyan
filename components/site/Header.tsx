@@ -62,8 +62,8 @@ export function Header({ locale, messages, whiteText }: Props) {
       label: messages.articles,
     },
     {
-      href: `/${locale}/workExamples`,
-      label: messages.workExamples,
+      href: `/${locale}/projects`,
+      label: messages.projects,
     },
   ];
 
