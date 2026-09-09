@@ -235,7 +235,7 @@ export function Header({ locale, messages, whiteText }: Props) {
       </div>
 
       {/* Separator */}
-      <div className="md:mx-20">
+      <div className="md:mx-32">
         <Separator className={cn(isScrolled && "hidden")} />
       </div>
     </header>

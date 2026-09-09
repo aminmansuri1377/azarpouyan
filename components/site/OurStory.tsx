@@ -47,10 +47,10 @@ function OurStory({ locale }: { locale: string }) {
             </p>
             <div className="text-left">
               <Button
-                onClick={() => router.push(`/${locale}/contact`)}
+                onClick={() => router.push(`/${locale}/aboutUs`)}
                 className="px-14 mt-10"
               >
-                {t.contactus}
+                اطلاعات بیشتر
               </Button>
             </div>
           </div>
