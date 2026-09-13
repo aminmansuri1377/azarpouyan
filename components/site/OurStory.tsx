@@ -3,7 +3,7 @@
 import { getMessages } from "@/messages";
 import React from "react";
 import Image from "next/image";
-import OurStoryImage from "../../public/images/manager.png";
+import OurStoryImage from "../../public/images/manager.webp";
 import Outlook from "../../public/images/Outlook.png";
 import { Button } from "../ui";
 import { Reveal } from "../ui/Reveal";
@@ -76,7 +76,7 @@ function OurStory({ locale }: { locale: string }) {
             fill
             className="object-cover "
           />
-          <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
+          {/* <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" /> */}
         </Reveal>
       </div>
     </div>

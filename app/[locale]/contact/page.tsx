@@ -11,14 +11,14 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ">
             <div className="relative md:order-2">
               <Image
-                src="/images/office.jpg"
+                src="/images/contact.webp"
                 alt="تماس با ما"
                 width={600}
                 height={400}
                 className=" shadow-xl"
                 priority
               />
-              <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
+              {/* <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" /> */}
             </div>
             <div className="text-right space-y-6">
               <div>
