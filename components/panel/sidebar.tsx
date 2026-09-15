@@ -24,6 +24,7 @@ const links = [
   { href: "/panel/projects", label: "پروژه‌ها", icon: BuildingIcon },
   { href: "/panel/blogs", label: "بلاگ", icon: FileTextIcon },
   { href: "/panel/news", label: "اخبار", icon: FileTextIcon },
+  { href: "/panel/journals", label: "گاهنامه‌ها", icon: FileTextIcon },
   { href: "/panel/articles", label: "مقالات", icon: FileTextIcon },
   { href: "/panel/price-ticker", label: "لیست قیمت ها", icon: DollarSignIcon },
   { href: "/panel/contact-requests", label: "درخواست مشاوره", icon: InboxIcon },

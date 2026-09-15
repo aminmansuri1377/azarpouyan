@@ -11,7 +11,10 @@ import { priceTickerRouter } from "./priceTicker";
 import { contactRequestRouter } from "./contactRequest";
 import { projectRouter } from "./project";
 
+import { journalRouter } from "./journal";
+
 export const appRouter = router({
+  journal: journalRouter,
   health: healthRouter,
   adminAuth: adminAuthRouter,
   language: languageRouter,

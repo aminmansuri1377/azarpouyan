@@ -1,14 +1,14 @@
 // components/site/about/JournalCard.tsx
 import Image, { StaticImageData } from "next/image";
-import { Button } from "@/components/ui";
+import JournalDownloadButton from "./JournalDownloadButton";
 
 interface JournalCardProps {
-  image: StaticImageData;
+  image: StaticImageData | string;
   heading: string;
   title: string;
   description: string;
   ctaLabel?: string;
-  href?: string;
+  journalId: string;
 }
 
 export default function JournalCard({
@@ -17,7 +17,7 @@ export default function JournalCard({
   title,
   description,
   ctaLabel = "دانلود گاهنامه",
-  href = "#",
+  journalId,
 }: JournalCardProps) {
   return (
     <div
@@ -44,21 +44,15 @@ export default function JournalCard({
           {heading}
         </h3>
 
-        <p className="mt-4 text-justify font-peyda-regular text-xs leading-loose text-white/70 sm:text-sm md:mt-6 md:text-base md:leading-8">
-          نخستین شماره گاهنامه آذرپویان با معرفی پروژه پردیس پویان منتشر شده
-          است؛ پروژه‌ای که آغاز مسیر این مجموعه در روایت حرفه‌ای پروژه‌های خود و
-          نگاه متفاوت به توسعه فضاهای مسکونی است. در این شماره، پردیس پویان از
-          زوایای مختلف معرفی می‌شود؛ از موقعیت و ویژگی‌های پروژه تا معماری،
-          طراحی فضاها، امکانات و خدمات مجموعه.معرفی تیپ‌های مختلف واحدهای
-          مسکونی، پلان‌ها و ویژگی‌های هر تیپ، بخش دیگری از این گاهنامه است تا
-          مخاطب بتواند تصویری روشن‌تر از فضاهای پیش‌بینی‌شده برای زندگی در این
-          مجموعه داشته باشد.همچنین در این شماره، درباره ظرفیت‌های منطقه، شرایط
-          پیرامونی پروژه و فرصت‌های سرمایه‌گذاری آن مطالبی ارائه شده است.{" "}
+        <p className="mt-4 whitespace-pre-line text-justify font-peyda-regular text-xs leading-loose text-white/70 sm:text-sm md:mt-6 md:text-base md:leading-8">
+          {description}
         </p>
 
-        <Button asChild className="mt-6 px-10 font-peyda-bold md:mt-8">
-          <a href={href}>{ctaLabel}</a>
-        </Button>
+        <JournalDownloadButton
+          id={journalId}
+          label={ctaLabel}
+          className="mt-6 px-10 font-peyda-bold md:mt-8"
+        />
       </div>
     </div>
   );

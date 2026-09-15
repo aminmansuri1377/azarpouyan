@@ -16,12 +16,12 @@ export default function AboutHero({
   return (
     <section className="px-4 py-10 md:px-12 md:py-16 lg:px-20" dir="rtl">
       <div className="mx-auto max-w-7xl">
-        <h1 className="mb-6 font-peyda-bold text-lg text-foreground md:mb-10 md:text-xl">
+        {/* <h1 className="mb-6 font-peyda-bold text-lg text-foreground md:mb-10 md:text-xl">
           {label} :
-        </h1>
+        </h1> */}
 
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
-          <div className="relative aspect-[4/3] w-full overflow-hidden  md:aspect-[3/2] md:order-2">
+        <div className="grid grid-cols-1  gap-8 md:grid-cols-2 md:gap-12 md:mt-10">
+          <div className="relative aspect-[4/3] w-full overflow-hidden  md:aspect-[3/2] md:order-2 ">
             <Image
               src={HeroImage}
               alt="جلسه کاری تیم آذر پویان"
@@ -33,7 +33,7 @@ export default function AboutHero({
             <div className="absolute inset-3 sm:inset-4 border-2 border-white/70" />
           </div>
           <div>
-            <h2 className="font-peyda-bold text-xl leading-relaxed text-foreground md:text-2xl lg:text-3xl">
+            <h2 className="font-peyda-bold text-xl leading-relaxed text-foreground md:text-2xl lg:text-3xl ">
               {tagline}
             </h2>
 

@@ -34,7 +34,7 @@ function AboutUs() {
 
       <StatsSection locale={locale} />
 
-      <JournalSection description={t.hero.description} />
+      <JournalSection />
 
       <PartnersSection description={t.hero.description} />
     </main>

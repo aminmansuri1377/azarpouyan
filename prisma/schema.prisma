@@ -207,3 +207,19 @@ enum ContentType {
   NEWS
   ARTICLE
 }
+
+model Journal {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  coverKey    String
+  pdfKey      String?
+  pdfSize     Int?
+  pdfUrl      String?
+  published   Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, sortOrder, createdAt])
+}
