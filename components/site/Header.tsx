@@ -76,98 +76,104 @@ export function Header({ locale, messages, whiteText }: Props) {
   };
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "backdrop-blur-md shadow-sm bg-[rgba(var(--secondary-foreground-rgb),0.25)]"
-          : "",
-      )}
-    >
-      <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-        <div className="hidden gap-4 md:flex">
-          <Button onClick={() => router.push(`/${locale}/contact`)}>
-            {messages.consulting}
-          </Button>
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          isScrolled
+            ? "backdrop-blur-md shadow-sm bg-[rgba(var(--secondary-foreground-rgb),0.25)]"
+            : "",
+        )}
+      >
+        <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+          <div className="hidden gap-4 md:flex">
+            <Button onClick={() => router.push(`/${locale}/contact`)}>
+              {messages.consulting}
+            </Button>
 
-          {/* <div className="ms-2 flex items-center gap-2">
-            <LanguageSwitcher />
-          </div> */}
+            {/* <div className="ms-2 flex items-center gap-2">
+              <LanguageSwitcher />
+            </div> */}
+          </div>
+
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
+            {navLinks.map((link) => {
+              const isActive = isLinkActive(link.href);
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "text-bold transition-colors font-peyda-regular",
+                    isActive
+                      ? "text-primary"
+                      : whiteText
+                        ? "text-white"
+                        : "text-black",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* =========================
+              Mobile Hamburger
+          ========================== */}
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            aria-label="باز کردن منو"
+            className={`flex size-10 items-center justify-center rounded-full border  ${whiteText ? "text-white border-white/20" : "text-black border-black"} md:hidden`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="18" x2="20" y2="18" />
+            </svg>
+          </button>
+
+          {/* =========================
+              Logo
+          ========================== */}
+          <Image
+            src={whiteText ? Logo : BlackLogo}
+            alt="Logo"
+            width={80}
+            onClick={() => router.push(`/${locale}`)}
+            className="cursor-pointer"
+          />
         </div>
 
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
-          {navLinks.map((link) => {
-            const isActive = isLinkActive(link.href);
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-bold transition-colors font-peyda-regular",
-                  isActive
-                    ? "text-primary"
-                    : whiteText
-                      ? "text-white"
-                      : "text-black",
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* =========================
-            Mobile Hamburger
-        ========================== */}
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          aria-label="باز کردن منو"
-          className={`flex size-10 items-center justify-center rounded-full border  ${whiteText ? "text-white border-white/20" : "text-black border-black"} md:hidden`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="4" y1="6" x2="20" y2="6" />
-            <line x1="4" y1="12" x2="20" y2="12" />
-            <line x1="4" y1="18" x2="20" y2="18" />
-          </svg>
-        </button>
-
-        {/* =========================
-            Logo
-        ========================== */}
-        <Image
-          src={whiteText ? Logo : BlackLogo}
-          alt="Logo"
-          width={80}
-          onClick={() => router.push(`/${locale}`)}
-          className="cursor-pointer"
-        />
-      </div>
-
+        {/* Separator */}
+        <div className="md:mx-32">
+          <Separator className={cn(isScrolled && "hidden")} />
+        </div>
+      </header>
       {/* =========================
           Mobile Backdrop
       ========================== */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 md:hidden"
+          className="fixed inset-0 z-[60] bg-black/60 md:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
 
       <div
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-72 max-w-[80%] flex-col gap-2 bg-[rgba(var(--secondary-foreground-rgb),0.97)] p-6 backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden",
+          "fixed inset-y-0 right-0 z-[70] flex h-dvh overflow-y-auto overscroll-contain [&>*]:shrink-0 w-72 max-w-[80%] flex-col gap-2 bg-[rgba(var(--secondary-foreground-rgb),0.97)] p-6 backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden",
           isMenuOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
@@ -233,11 +239,6 @@ export function Header({ locale, messages, whiteText }: Props) {
           {messages.consulting}
         </Button>
       </div>
-
-      {/* Separator */}
-      <div className="md:mx-32">
-        <Separator className={cn(isScrolled && "hidden")} />
-      </div>
-    </header>
+    </>
   );
 }
