@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/icon";
 
 const links = [
+  { href: "/panel/comments", label: "نظرات", icon: FileTextIcon },
   { href: "/panel", label: "داشبورد", icon: HomeIcon },
   { href: "/panel/categories", label: "دسته بندی", icon: FilterIcon },
   { href: "/panel/products", label: "محصولات", icon: PackageIcon },

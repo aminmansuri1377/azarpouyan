@@ -13,7 +13,10 @@ import { projectRouter } from "./project";
 
 import { journalRouter } from "./journal";
 
+import { commentRouter } from "./comment";
+
 export const appRouter = router({
+  comment: commentRouter,
   journal: journalRouter,
   health: healthRouter,
   adminAuth: adminAuthRouter,

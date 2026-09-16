@@ -25,6 +25,7 @@ import WhyKga from "@/components/site/WhyKga";
 import LatestArticles from "@/components/site/LatestArticles";
 import StickySection from "../../components/ui/StickySection";
 import ProjectsSection from "@/components/site/ProjectsSection";
+import CommentsSection from "@/components/site/CommentsSection";
 import WhyUsSection from "@/components/site/WhyUsSection";
 import OurPartners from "@/components/site/OurPartners";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -96,6 +97,7 @@ export default function HomePage() {
       <ProjectsSection withMore />
       <OurPartners />
       <WhyUsSection />
+      <CommentsSection />
       <ContactForm />
       {/* ===== جستجوی محصولات (بدون تیتر چسبان) ===== */}
       {/* <Reveal className="m-20">

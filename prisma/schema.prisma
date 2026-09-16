@@ -223,3 +223,18 @@ model Journal {
 
   @@index([published, sortOrder, createdAt])
 }
+
+model Comment {
+  id          String   @id @default(cuid())
+  fullName    String
+  companyName String?
+  text        String   @db.Text
+  imageUrl    String
+  published   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, sortOrder, createdAt])
+  @@map("comments")
+}
