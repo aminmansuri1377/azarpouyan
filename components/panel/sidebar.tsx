@@ -18,20 +18,20 @@ import {
 } from "@/components/ui/icon";
 
 const links = [
-  { href: "/panel/comments", label: "نظرات", icon: FileTextIcon },
   { href: "/panel", label: "داشبورد", icon: HomeIcon },
-  { href: "/panel/categories", label: "دسته بندی", icon: FilterIcon },
-  { href: "/panel/products", label: "محصولات", icon: PackageIcon },
+  // { href: "/panel/categories", label: "دسته بندی", icon: FilterIcon },
+  // { href: "/panel/products", label: "محصولات", icon: PackageIcon },
   { href: "/panel/projects", label: "پروژه‌ها", icon: BuildingIcon },
   { href: "/panel/blogs", label: "بلاگ", icon: FileTextIcon },
-  { href: "/panel/news", label: "اخبار", icon: FileTextIcon },
   { href: "/panel/journals", label: "گاهنامه‌ها", icon: FileTextIcon },
-  { href: "/panel/articles", label: "مقالات", icon: FileTextIcon },
-  { href: "/panel/price-ticker", label: "لیست قیمت ها", icon: DollarSignIcon },
   { href: "/panel/contact-requests", label: "درخواست مشاوره", icon: InboxIcon },
-  { href: "/panel/settings", label: "تنظیمات", icon: SettingsIcon },
+  { href: "/panel/comments", label: "نظرات", icon: FileTextIcon },
+  // { href: "/panel/news", label: "اخبار", icon: FileTextIcon },
+  // { href: "/panel/articles", label: "مقالات", icon: FileTextIcon },
+  // { href: "/panel/price-ticker", label: "لیست قیمت ها", icon: DollarSignIcon },
+  // { href: "/panel/settings", label: "تنظیمات", icon: SettingsIcon },
   // { href: "/panel/languages", label: "زبان", icon: SettingsIcon },
-  { href: "/panel/ui-preview", label: "UI Preview", icon: SettingsIcon },
+  // { href: "/panel/ui-preview", label: "UI Preview", icon: SettingsIcon },
 ];
 
 export function PanelSidebar() {
